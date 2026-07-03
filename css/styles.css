@@ -1,4 +1,3 @@
-
 *{
     margin:0;
     padding:0;
@@ -42,136 +41,97 @@ body{
 }
 
 .logo{
-
     display:flex;
     align-items:center;
-
     gap:15px;
-
     padding:25px;
 }
 
 .logo-icon{
-
     width:42px;
     height:42px;
-
     border-radius:12px;
-
     background:#18c3c8;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     font-size:20px;
 }
 
 .logo-text h2{
-
     font-size:26px;
     margin-bottom:2px;
 }
 
 .logo-text p{
-
     color:#a6b1cf;
     font-size:15px;
 }
 
 .nav-links{
-
     list-style:none;
-
     margin-top:20px;
 }
 
 .nav-links li{
-
     margin:8px 15px;
 }
 
 .nav-links li a{
-
     text-decoration:none;
-
     color:#c8d2ea;
-
     display:flex;
     align-items:center;
-
     gap:16px;
-
     padding:15px 18px;
-
     border-radius:12px;
-
     font-size:17px;
-
     transition:.3s;
 }
 
 .nav-links li a i{
-
     font-size:20px;
 }
 
 .nav-links li:hover a{
-
     background:#1b2953;
     color:white;
 }
 
 .nav-links .active a{
-
     background:#10b6b4;
-
     color:white;
-
     font-weight:600;
 }
 
 .sidebar-bottom{
-
     border-top:1px solid rgba(255,255,255,.08);
-
     padding:20px;
 }
 
-
 .profile{
-
     display:flex;
     align-items:center;
-
     gap:15px;
-
     margin-bottom:25px;
 }
 
 .avatar{
-
     width:42px;
     height:42px;
-
     border-radius:50%;
-
     background:#16c7b7;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     font-weight:bold;
 }
 
 .profile-info h4{
-
     font-size:16px;
 }
 
 .profile-info p{
-
     color:#a6b1cf;
     font-size:14px;
 }
@@ -375,11 +335,168 @@ body{
     font-size: 0.85rem;
 }
 
+#reviews-welcome {
+    background: linear-gradient(135deg, #0f766e, #14b8a6);
+    color: white;
+    padding: 1.5rem 1.8rem;
+    border-radius: 1rem;
+    box-shadow: 0 8px 20px rgba(15, 118, 110, 0.2);
+    margin-bottom: 20px;
+}
+
+#reviews-welcome h1 {
+    font-size: 1.6rem;
+    margin-bottom: 0.35rem;
+}
+
+#reviews-welcome p {
+    opacity: 0.9;
+}
+
+#reviews-visuals {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+.section-title {
+    margin-bottom: 1rem;
+}
+
+/* Reviews page styles */
+.review-summary {
+    display: flex;
+    gap: 1rem;
+    align-items: stretch;
+    flex-wrap: wrap;
+}
+
+.average-stars, .total-reviews, .reviewed-by {
+    background: white;
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+    flex: 1 1 220px;
+}
+
+.average-stars h3, .total-reviews h3 {
+    margin-bottom: 0.25rem;
+}
+
+.average-stars p,
+.reviewed-by h3 {
+    background: linear-gradient(90deg, #f97316, #ec4899, #8b5cf6, #3b82f6, #16a34a);
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbowShift 4s linear infinite;
+}
+
+@keyframes rainbowShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.stars {
+    font-size: 1.25rem;
+    color: #f59e0b;
+}
+
+.review-card .rating {
+    color: #f59e0b;
+}
+
+.review-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.review-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.15rem;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+}
+
+.rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+.total-reviews {
+    background: linear-gradient(135deg, #eff6ff, #e0f2fe);
+    border: 1px solid #bfdbfe;
+}
+
+.total-reviews h3 {
+    margin-bottom: 0.25rem;
+}
+
+.review-card-header {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:1rem;
+    margin-bottom:0.5rem;
+}
+
+.review-card-title{
+    display:flex;
+    align-items:center;
+    gap:0.75rem;
+}
+
+.initials{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#18c3c8;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    font-weight:700;
+}
+
+.review-badge{
+    background:#eef2ff;
+    color:#3730a3;
+    padding:0.35rem 0.6rem;
+    border-radius:999px;
+    font-weight:600;
+}
+
+.review-meta{
+    display:flex;
+    justify-content:space-between;
+    gap:1rem;
+    align-items:center;
+    margin-bottom:0.5rem;
+}
+
+.feedback{
+    color:#374151;
+    line-height:1.4;
+}
+
 @media (max-width: 900px) {
+    .review-grid {
+        grid-template-columns: 1fr;
+    }
     .visual-grid {
         grid-template-columns: 1fr;
     }
 }
-
-
-
