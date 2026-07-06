@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employees - ModernTech HR</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <aside class="sidebar">
+        <div class="logo">
+          <div class="logo-icon">💼</div>
+          <div class="logo-text">
+            <h2>ModernTech</h2>
+            <p>HR System</p>
+          </div>
+        </div>
+
+        <nav>
+          <ul class="nav-links">
+            <li>
+              <a href="dashboard.html"><i class="bi bi-house"></i>Dashboard</a>
+            </li>
+            <li>
+              <a href="employees.html"><i class="bi bi-people"></i>Employees</a>
+            </li>
+            <li>
+              <a href="payroll.html"><i class="bi bi-cash"></i>Payroll</a>
+            </li>
+            <li>
+              <a href="#time-off.html"
+                ><i class="bi bi-calendar-event"></i>Time Off</a
+              >
+            </li>
+            <li class="active">
+              <a href="attendance.html"
+                ><i class="bi bi-clock"></i>Attendance</a
+              >
+            </li>
+            <li>
+              <a href="reviews.html"><i class="bi bi-star"></i>Reviews</a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <div class="profile">
+            <div class="avatar">HR</div>
+            <div class="profile-info">
+              <h3>HR Department</h3>
+              <p>Manage records</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="main-content">
+        <!-- Header -->
+        <header id="employees-header">
+          <div class="header-row">
+            <div>
+              <h1>Employees</h1>
+              <p>Manage your team members and their information</p>
+            </div>
+            <div class="header-actions">
+              <button type="button" class="btn-secondary">
+                <i class="fa-solid fa-filter"></i>
+                <span>Filter</span>
+              </button>
+              <button type="button" class="btn-primary">
+                <i class="fa-solid fa-plus"></i>
+                <span>Add Employee</span>
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <!-- Content -->
+        <section id="employees-content">
+          <div class="search-wrapper">
+            <div class="search-bar">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input
+                id="employeeSearch"
+                type="text"
+                placeholder="Search employees..."
+                aria-label="Search employees"
+              />
+            </div>
+          </div>
+
+          <div id="employeeGrid" class="employee-grid" aria-live="polite">
+            <!-- Employee 1 -->
+            <div
+              class="employee-card"
+              data-employee-id="1"
+              role="button"
+              tabindex="0"
+            >
+              <div class="employee-card-top">
+                <div class="employee-avatar" style="background: #14b8a6">
+                  SN
+                </div>
+                <span class="status-badge">Active</span>
+              </div>
+              <h4>Sibongile Nkosi</h4>
+              <p class="employee-role">Software Engineer</p>
+              <div class="employee-card-footer">
+                <span class="dept-badge">Development</span>
+                <div class="score-badge">
+                  <i class="fa-solid fa-star"></i>
+                  <span>92%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Employee 2 -->
+            <div
+              class="employee-card"
+              data-employee-id="2"
+              role="button"
+              tabindex="0"
+            >
+              <div class="employee-card-top">
+                <div class="employee-avatar" style="background: #8b5cf6">
+                  LM
+                </div>
+                <span class="status-badge">Active</span>
+              </div>
+              <h4>Lungile Moyo</h4>
+              <p class="employee-role">HR Manager</p>
+              <div class="employee-card-footer">
+                <span class="dept-badge">HR</span>
+                <div class="score-badge">
+                  <i class="fa-solid fa-star"></i>
+                  <span>95%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Employee 3 -->
+            <div
+              class="employee-card"
+              data-employee-id="3"
+              role="button"
+              tabindex="0"
+            >
+              <div class="employee-card-top">
+                <div class="employee-avatar" style="background: #f59e0b">
+                  TM
+                </div>
+                <span class="status-badge">Active</span>
+              </div>
+              <h4>Thabo Molefe</h4>
+              <p class="employee-role">Quality Analyst</p>
+              <div class="employee-card-footer">
+                <span class="dept-badge">QA</span>
+                <div class="score-badge">
+                  <i class="fa-solid fa-star"></i>
+                  <span>88%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Employee 4 -->
+            <div
+              class="employee-card"
+              data-employee-id="4"
+              role="button"
+              tabindex="0"
+            >
+              <div class="employee-card-top">
+                <div class="employee-avatar" style="background: #ec4899">
+                  KN
+                </div>
+                <span class="status-badge">Active</span>
+              </div>
+              <h4>Keshav Naidoo</h4>
+              <p class="employee-role">Sales Representative</p>
+              <div class="employee-card-footer">
+                <span class="dept-badge">Sales</span>
+                <div class="score-badge">
+                  <i class="fa-solid fa-star"></i>
+                  <span>90%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Employee 5 -->
+            <div
+              class="employee-card"
+              data-employee-id="5"
+              role="button"
+              tabindex="0"
+            >
+              <div class="employee-card-top">
+                <div class="employee-avatar" style="background: #6366f1">
+                  ZK
+                </div>
+                <span class="status-badge">Active</span>
+              </div>
+              <h4>Zanele Khumalo</h4>
+              <p class="employee-role">Marketing Specialist</p>
+              <div class="employee-card-footer">
+                <span class="dept-badge">Marketing</span>
+                <div class="score-badge">
+                  <i class="fa-solid fa-star"></i>
+                  <span>87%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Employee 6 -->
+            <div
+              class="employee-card"
+              data-employee-id="6"
+              role="button"
+              tabindex="0"
+            >
+              <div class="employee-card-top">
+                <div class="employee-avatar" style="background: #84cc16">
+                  SZ
+                </div>
+                <span class="status-badge">Active</span>
+              </div>
+              <h4>Sipho Zulu</h4>
+              <p class="employee-role">UI/UX Designer</p>
+              <div class="employee-card-footer">
+                <span class="dept-badge">Design</span>
+                <div class="score-badge">
+                  <i class="fa-solid fa-star"></i>
+                  <span>94%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Employee 7 -->
+            <div
+              class="employee-card"
+              data-employee-id="7"
+              role="button"
+              tabindex="0"
+            >
+              <div class="employee-card-top">
+                <div class="employee-avatar" style="background: #3b82f6">
+                  NM
+                </div>
+                <span class="status-badge">Active</span>
+              </div>
+              <h4>Naledi Moeketsi</h4>
+              <p class="employee-role">DevOps Engineer</p>
+              <div class="employee-card-footer">
+                <span class="dept-badge">IT</span>
+                <div class="score-badge">
+                  <i class="fa-solid fa-star"></i>
+                  <span>96%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Employee 8 -->
+            <div
+              class="employee-card"
+              data-employee-id="8"
+              role="button"
+              tabindex="0"
+            >
+              <div class="employee-card-top">
+                <div class="employee-avatar" style="background: #a855f7">
+                  FG
+                </div>
+                <span class="status-badge">Active</span>
+              </div>
+              <h4>Farai Gumbo</h4>
+              <p class="employee-role">Content Strategist</p>
+              <div class="employee-card-footer">
+                <span class="dept-badge">Marketing</span>
+                <div class="score-badge">
+                  <i class="fa-solid fa-star"></i>
+                  <span>89%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Employee 9 -->
+            <div
+              class="employee-card"
+              data-employee-id="9"
+              role="button"
+              tabindex="0"
+            >
+              <div class="employee-card-top">
+                <div class="employee-avatar" style="background: #ef4444">
+                  KD
+                </div>
+                <span class="status-badge">Active</span>
+              </div>
+              <h4>Karabo Dlamini</h4>
+              <p class="employee-role">Accountant</p>
+              <div class="employee-card-footer">
+                <span class="dept-badge">Finance</span>
+                <div class="score-badge">
+                  <i class="fa-solid fa-star"></i>
+                  <span>91%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Employee 10 -->
+            <div
+              class="employee-card"
+              data-employee-id="10"
+              role="button"
+              tabindex="0"
+            >
+              <div class="employee-card-top">
+                <div class="employee-avatar" style="background: #06b6d4">
+                  FP
+                </div>
+                <span class="status-badge">Active</span>
+              </div>
+              <h4>Fatima Patel</h4>
+              <p class="employee-role">Customer Support Lead</p>
+              <div class="employee-card-footer">
+                <span class="dept-badge">Support</span>
+                <div class="score-badge">
+                  <i class="fa-solid fa-star"></i>
+                  <span>93%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="employeeEmpty" class="empty-state hidden">
+            <i class="fa-solid fa-users"></i>
+            <h4>No employees found</h4>
+            <p>Try adjusting your search</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Employee Profile Modal -->
+    <div
+      id="employeeModal"
+      class="modal-overlay hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+    >
+      <div class="modal">
+        <div class="modal-header">
+          <h3 id="modal-title">Employee Profile</h3>
+          <button
+            type="button"
+            onclick="closeEmployeeModal()"
+            class="modal-close"
+            aria-label="Close modal"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div
+          id="employeeModalContent"
+          class="modal-body custom-scrollbar"
+        ></div>
+      </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div
+      id="toastContainer"
+      class="toast-container"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
+
+    <script src="./main.js"></script>
+  </body>
+</html>
