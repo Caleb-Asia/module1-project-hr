@@ -19,12 +19,12 @@
 
         <nav>
             <ul class="nav-links">
-                <li><a href="dashboard.html"><i class="bi bi-house"></i>Dashboard</a></li>
-                <li><a href="employees.html"><i class="bi bi-people"></i>Employees</a></li>
-                <li><a href="payroll.html"><i class="bi bi-cash"></i>Payroll</a></li>
-                <li><a href="time-off.html"><i class="bi bi-calendar-event"></i>Time Off</a></li>
-                <li><a href="attendance.html"><i class="bi bi-clock"></i>Attendance</a></li>
-                <li class="active"><a href="reviews.html"><i class="bi bi-star"></i>Reviews</a></li>
+                <li><a href="dashboard.html">🏠 Dashboard</a></li>
+                <li><a href="employees.html">👥 Employees</a></li>
+                <li><a href="payroll.html">💰 Payroll</a></li>
+                <li><a href="time-off.html">📅 Time Off</a></li>
+                <li><a href="attendance.html">⏰ Attendance</a></li>
+                <li class="active"><a href="reviews.html">⭐ Reviews</a></li>
             </ul>
         </nav>
 
@@ -40,6 +40,16 @@
     </aside>
 
     <main class="main-content">
+        <div class="topbar">
+            <div class="topbar-title">
+                <h2>Reviews Dashboard</h2>
+                <p>Manage employee performance insights from one place.</p>
+            </div>
+            <div class="topbar-actions">
+                <button class="btn btn-primary">Add Review</button>
+                <button class="btn btn-secondary">Sort</button>
+            </div>
+        </div>
         <section id="reviews-welcome">
             <h1>Welcome to the Employee Reviews Section</h1>
             <p>Here you can manage and monitor employee performance reviews efficiently.</p>
@@ -53,7 +63,7 @@
                 <div class="average-stars">
                     <h3>Average Rating</h3>
                     <p>4.2/5</p>
-                    <span class="stars">⭐⭐⭐⭐☆</span>
+                    <span class="stars">✨✨✨✨☆</span>
                 </div>
                 <div class="total-reviews">
                     <h3>Total Reviews</h3>
@@ -75,6 +85,7 @@
             </div>
             <div class="review-grid" id="reviews-data-list"></div>
         </section>
+    </main>
 </div>
    
 <script src="script/scripts.js"></script>
