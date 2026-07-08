@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Payroll - ModernTech HR</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="./style.css" />
     <link
       rel="stylesheet"
@@ -13,6 +12,7 @@
   </head>
   <body>
     <div class="page-wrapper">
+      <!-- SIDEBAR -->
       <aside class="sidebar">
         <div class="logo">
           <div class="logo-icon">💼</div>
@@ -21,16 +21,40 @@
             <p>HR System</p>
           </div>
         </div>
+
         <nav>
           <ul class="nav-links">
-            <li><a href="dashboard.html"><i class="fa-solid fa-house"></i>Dashboard</a></li>
-            <li><a href="employees.html"><i class="fa-solid fa-people-group"></i>Employees</a></li>
-            <li class="active"><a href="payroll.html"><i class="fa-solid fa-money-bill-wave"></i>Payroll</a></li>
-            <li><a href="time-off.html"><i class="fa-solid fa-calendar-days"></i>Time Off</a></li>
-            <li><a href="attendance.html"><i class="fa-solid fa-clock"></i>Attendance</a></li>
-            <li><a href="reviews.html"><i class="fa-solid fa-star"></i>Reviews</a></li>
+            <li>
+              <a href="dashboard.html"
+                ><i class="fa-solid fa-house"></i>Dashboard</a
+              >
+            </li>
+            <li>
+              <a href="employees.html"
+                ><i class="fa-solid fa-people-group"></i>Employees</a
+              >
+            </li>
+            <li class="active">
+              <a href="payroll.html"
+                ><i class="fa-solid fa-money-bill-wave"></i>Payroll</a
+              >
+            </li>
+            <li>
+              <a href="time-off.html"
+                ><i class="fa-solid fa-calendar-days"></i>Time Off</a
+              >
+            </li>
+            <li>
+              <a href="attendance.html"
+                ><i class="fa-solid fa-clock"></i>Attendance</a
+              >
+            </li>
+            <li>
+              <a href="reviews.html"><i class="fa-solid fa-star"></i>Reviews</a>
+            </li>
           </ul>
         </nav>
+
         <div class="sidebar-bottom">
           <div class="profile">
             <div class="avatar">HR</div>
@@ -42,7 +66,9 @@
         </div>
       </aside>
 
+      <!-- MAIN CONTENT -->
       <main class="main-content">
+        <!-- Header -->
         <header id="payroll-header">
           <div class="header-row">
             <div>
@@ -50,7 +76,11 @@
               <p>Monthly payroll management and payslip generation</p>
             </div>
             <div class="header-actions">
-              <select id="monthSelect" class="select-dropdown" aria-label="Select month">
+              <select
+                id="monthSelect"
+                class="select-dropdown"
+                aria-label="Select month"
+              >
                 <option>June 2026</option>
                 <option>May 2026</option>
                 <option>April 2026</option>
@@ -59,14 +89,16 @@
           </div>
         </header>
 
+        <!-- Content -->
         <section id="payroll-content">
+          <!-- Summary Cards -->
           <div class="visual-grid">
             <div class="visual-card">
               <div class="flex items-center justify-between mb-2">
                 <p class="stat-caption">GROSS PAYROLL</p>
                 <i class="fa-solid fa-arrow-trend-up text-purple-500"></i>
               </div>
-              <h3 id="grossPayroll" class="stat-value stat-purple">R1,153,000</h3>
+              <h3 id="grossPayroll" class="stat-value stat-purple">R0</h3>
               <p class="stat-caption">June 2026</p>
             </div>
             <div class="visual-card">
@@ -74,7 +106,7 @@
                 <p class="stat-caption">TOTAL DEDUCTIONS</p>
                 <i class="fa-solid fa-arrow-trend-down text-red-500"></i>
               </div>
-              <h3 id="totalDeductions" class="stat-value stat-red">R507,500</h3>
+              <h3 id="totalDeductions" class="stat-value stat-red">R0</h3>
               <p class="stat-caption">June 2026</p>
             </div>
             <div class="visual-card">
@@ -82,23 +114,27 @@
                 <p class="stat-caption">NET PAYROLL</p>
                 <i class="fa-solid fa-wallet text-teal-500"></i>
               </div>
-              <h3 id="netPayroll" class="stat-value stat-teal">R645,500</h3>
+              <h3 id="netPayroll" class="stat-value stat-teal">R0</h3>
               <p class="stat-caption">June 2026</p>
             </div>
           </div>
 
+          <!-- Charts Section -->
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             <div class="visual-card">
               <h4 class="font-bold text-slate-700 mb-4 flex items-center gap-2">
-                <i class="fa-solid fa-chart-pie text-purple-500"></i> Payroll Breakdown
+                <i class="fa-solid fa-chart-pie text-purple-500"></i>
+                Payroll Breakdown
               </h4>
               <div style="height: 280px; position: relative">
                 <canvas id="payrollBreakdownChart"></canvas>
               </div>
             </div>
+
             <div class="visual-card">
               <h4 class="font-bold text-slate-700 mb-4 flex items-center gap-2">
-                <i class="fa-solid fa-chart-column text-teal-500"></i> Top 5 Earners - Net Pay
+                <i class="fa-solid fa-chart-column text-teal-500"></i>
+                Top 5 Earners - Net Pay
               </h4>
               <div style="height: 280px; position: relative">
                 <canvas id="topEarnersChart"></canvas>
@@ -106,10 +142,15 @@
             </div>
           </div>
 
+          <!-- Employee Table -->
           <div id="payroll-data">
             <div class="table-header">
               <h4>Employee Payroll — June 2026</h4>
-              <button type="button" class="btn-secondary btn-sm" id="exportAllBtn">
+              <button
+                type="button"
+                class="btn-secondary btn-sm"
+                id="exportAllBtn"
+              >
                 <i class="fa-solid fa-file-export"></i>
                 <span>Export All</span>
               </button>
@@ -120,105 +161,14 @@
                   <tr>
                     <th>EMPLOYEE</th>
                     <th>GROSS</th>
-                    <th>TAX (22%)</th>
-                    <th>NI (13%)</th>
-                    <th>PENSION (5%)</th>
+                    <th>TAX</th>
+                    <th>UIF</th>
+                    <th>PENSION</th>
                     <th>NET PAY</th>
                     <th></th>
                   </tr>
                 </thead>
-                <tbody id="payrollTableBody">
-                  <tr data-employee-id="1">
-                    <td><div class="employee-cell"><div class="employee-avatar-small" style="background: #14b8a6">SN</div><div><p class="employee-name">Sibongile Nkosi</p><p class="employee-dept">Development</p></div></td>
-                    <td class="mono">R99,400</td>
-                    <td class="text-red mono">-R21,868</td>
-                    <td class="text-red mono">-R12,922</td>
-                    <td class="text-amber mono">-R4,970</td>
-                    <td class="text-teal mono font-bold">R69,500</td>
-                    <td><button type="button" class="btn-table" data-payslip-id="1"><i class="fa-regular fa-file-lines"></i><span>Payslip</span></button></td>
-                  </tr>
-                  <tr data-employee-id="2">
-                    <td><div class="employee-cell"><div class="employee-avatar-small" style="background: #8b5cf6">LM</div><div><p class="employee-name">Lungile Moyo</p><p class="employee-dept">HR</p></div></div></td>
-                    <td class="mono">R112,000</td>
-                    <td class="text-red mono">-R24,640</td>
-                    <td class="text-red mono">-R14,560</td>
-                    <td class="text-amber mono">-R5,600</td>
-                    <td class="text-teal mono font-bold">R79,000</td>
-                    <td><button type="button" class="btn-table" data-payslip-id="2"><i class="fa-regular fa-file-lines"></i><span>Payslip</span></button></td>
-                  </tr>
-                  <tr data-employee-id="3">
-                    <td><div class="employee-cell"><div class="employee-avatar-small" style="background: #f59e0b">TM</div><div><p class="employee-name">Thabo Molefe</p><p class="employee-dept">QA</p></div></td>
-                    <td class="mono">R79,750</td>
-                    <td class="text-red mono">-R17,545</td>
-                    <td class="text-red mono">-R10,368</td>
-                    <td class="text-amber mono">-R3,988</td>
-                    <td class="text-teal mono font-bold">R54,800</td>
-                    <td><button type="button" class="btn-table" data-payslip-id="3"><i class="fa-regular fa-file-lines"></i><span>Payslip</span></button></td>
-                  </tr>
-                  <tr data-employee-id="4">
-                    <td><div class="employee-cell"><div class="employee-avatar-small" style="background: #ec4899">KN</div><div><p class="employee-name">Keshav Naidoo</p><p class="employee-dept">Sales</p></div></div></td>
-                    <td class="mono">R85,950</td>
-                    <td class="text-red mono">-R18,909</td>
-                    <td class="text-red mono">-R11,174</td>
-                    <td class="text-amber mono">-R4,298</td>
-                    <td class="text-teal mono font-bold">R59,700</td>
-                    <td><button type="button" class="btn-table" data-payslip-id="4"><i class="fa-regular fa-file-lines"></i><span>Payslip</span></button></td>
-                  </tr>
-                  <tr data-employee-id="5">
-                    <td><div class="employee-cell"><div class="employee-avatar-small" style="background: #6366f1">ZK</div><div><p class="employee-name">Zanele Khumalo</p><p class="employee-dept">Marketing</p></div></td>
-                    <td class="mono">R83,425</td>
-                    <td class="text-red mono">-R18,354</td>
-                    <td class="text-red mono">-R10,845</td>
-                    <td class="text-amber mono">-R4,171</td>
-                    <td class="text-teal mono font-bold">R57,850</td>
-                    <td><button type="button" class="btn-table" data-payslip-id="5"><i class="fa-regular fa-file-lines"></i><span>Payslip</span></button></td>
-                  </tr>
-                  <tr data-employee-id="6">
-                    <td><div class="employee-cell"><div class="employee-avatar-small" style="background: #84cc16">SZ</div><div><p class="employee-name">Sipho Zulu</p><p class="employee-dept">Design</p></div></div></td>
-                    <td class="mono">R95,550</td>
-                    <td class="text-red mono">-R21,021</td>
-                    <td class="text-red mono">-R12,422</td>
-                    <td class="text-amber mono">-R4,778</td>
-                    <td class="text-teal mono font-bold">R64,800</td>
-                    <td><button type="button" class="btn-table" data-payslip-id="6"><i class="fa-regular fa-file-lines"></i><span>Payslip</span></button></td>
-                  </tr>
-                  <tr data-employee-id="7">
-                    <td><div class="employee-cell"><div class="employee-avatar-small" style="background: #3b82f6">NM</div><div><p class="employee-name">Naledi Moeketsi</p><p class="employee-dept">IT</p></div></div></td>
-                    <td class="mono">R105,300</td>
-                    <td class="text-red mono">-R23,166</td>
-                    <td class="text-red mono">-R13,689</td>
-                    <td class="text-amber mono">-R5,265</td>
-                    <td class="text-teal mono font-bold">R71,800</td>
-                    <td><button type="button" class="btn-table" data-payslip-id="7"><i class="fa-regular fa-file-lines"></i><span>Payslip</span></button></td>
-                  </tr>
-                  <tr data-employee-id="8">
-                    <td><div class="employee-cell"><div class="employee-avatar-small" style="background: #a855f7">FG</div><div><p class="employee-name">Farai Gumbo</p><p class="employee-dept">Marketing</p></div></div></td>
-                    <td class="mono">R84,000</td>
-                    <td class="text-red mono">-R18,480</td>
-                    <td class="text-red mono">-R10,920</td>
-                    <td class="text-amber mono">-R4,200</td>
-                    <td class="text-teal mono font-bold">R56,000</td>
-                    <td><button type="button" class="btn-table" data-payslip-id="8"><i class="fa-regular fa-file-lines"></i><span>Payslip</span></button></td>
-                  </tr>
-                  <tr data-employee-id="9">
-                    <td><div class="employee-cell"><div class="employee-avatar-small" style="background: #ef4444">KD</div><div><p class="employee-name">Karabo Dlamini</p><p class="employee-dept">Finance</p></div></td>
-                    <td class="mono">R88,350</td>
-                    <td class="text-red mono">-R19,437</td>
-                    <td class="text-red mono">-R11,486</td>
-                    <td class="text-amber mono">-R4,418</td>
-                    <td class="text-teal mono font-bold">R61,500</td>
-                    <td><button type="button" class="btn-table" data-payslip-id="9"><i class="fa-regular fa-file-lines"></i><span>Payslip</span></button></td>
-                  </tr>
-                  <tr data-employee-id="10">
-                    <td><div class="employee-cell"><div class="employee-avatar-small" style="background: #06b6d4">FP</div><div><p class="employee-name">Fatima Patel</p><p class="employee-dept">Support</p></div></td>
-                    <td class="mono">R83,520</td>
-                    <td class="text-red mono">-R18,374</td>
-                    <td class="text-red mono">-R10,858</td>
-                    <td class="text-amber mono">-R4,176</td>
-                    <td class="text-teal mono font-bold">R57,750</td>
-                    <td><button type="button" class="btn-table" data-payslip-id="10"><i class="fa-regular fa-file-lines"></i><span>Payslip</span></button></td>
-                  </tr>
-                </tbody>
+                <tbody id="payrollTableBody"></tbody>
               </table>
             </div>
           </div>
@@ -226,23 +176,29 @@
       </main>
     </div>
 
-    <div id="payslipModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-      <div class="modal" style="max-width: 700px">
-        <div class="modal-header">
-          <h3 id="modal-title">Digital Payslip</h3>
-          <button type="button" class="modal-close" aria-label="Close modal"><i class="fa-solid fa-xmark"></i></button>
+    <!-- Payslip Modal V2 - No hidden class -->
+    <div id="payslipModalOverlay" class="payslip-overlay">
+      <div class="payslip-modal">
+        <div class="payslip-header">
+          <h3 id="payslipTitle">Payslip</h3>
+          <button type="button" id="closePayslipBtn" class="payslip-close">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
         </div>
-        <div class="modal-body custom-scrollbar">
-          <div id="payslipContent"></div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" id="downloadPayslipBtn" class="btn-primary flex-1"><i class="fa-solid fa-download"></i><span>Download PDF</span></button>
-          <button type="button" id="emailPayslipBtn" class="btn-secondary"><i class="fa-solid fa-envelope"></i><span>Email</span></button>
+        <div id="payslipContent" class="payslip-body"></div>
+        <div class="payslip-footer">
+          <button type="button" id="downloadPayslipBtn" class="btn-primary">
+            <i class="fa-solid fa-download"></i> Download PDF
+          </button>
+          <button type="button" id="emailPayslipBtn" class="btn-secondary">
+            <i class="fa-solid fa-envelope"></i> Email
+          </button>
         </div>
       </div>
     </div>
 
-    <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container" aria-live="polite"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
