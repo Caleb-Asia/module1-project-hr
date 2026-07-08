@@ -2,6 +2,7 @@
 /*          CHAD-DEV          */
 /* ========================== */
 
+// Line Graph Tooltip
 document.addEventListener('DOMContentLoaded', () => {
     const trendSvg = document.querySelector('.trend-svg');
     const hoverGuide = document.querySelector('.hover-guide');
@@ -53,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         trendSvg.addEventListener('mouseleave', hideTooltip);
     }
 
+    // Time Off Reequest Button and Modal
     const btnNewRequest = document.querySelector('.btn-new-request');
     const modalOverlay = document.querySelector('.modal-overlay');
     const btnModalCancel = document.querySelector('.btn-modal-cancel');
@@ -86,6 +88,93 @@ document.addEventListener('DOMContentLoaded', () => {
     const approvedCount = document.getElementById('approvedCount');
     const rejectedCount = document.getElementById('rejectedCount');
 
+    let leaveRequestsData = [];
+
+    const updateLeaveRequestCounts = () => {
+        const approvedLeaves = leaveRequestsData.filter(item => item.status.toLowerCase() === 'approved').length;
+        const pendingLeaves = leaveRequestsData.filter(item => item.status.toLowerCase() === 'pending').length;
+        const rejectedLeaves = leaveRequestsData.filter(item => item.status.toLowerCase() === 'denied').length;
+
+        if (pendingCount) pendingCount.textContent = pendingLeaves;
+        if (approvedCount) approvedCount.textContent = approvedLeaves;
+        if (rejectedCount) rejectedCount.textContent = rejectedLeaves;
+    };
+
+    const renderLeaveRequests = () => {
+        if (!leaveRequestsList) return;
+
+        leaveRequestsList.innerHTML = leaveRequestsData.map((request, index) => {
+            const initials = request.employeeName.split(' ').map(name => name[0]).join('').slice(0, 2).toUpperCase();
+            const statusClass = request.status.toLowerCase() === 'approved'
+                ? 'badge-approved'
+                : request.status.toLowerCase() === 'denied'
+                    ? 'badge-rejected'
+                    : 'badge-pending';
+            const actionMarkup = request.status.toLowerCase() === 'pending'
+                ? `<div class="action-buttons-group" data-request-index="${index}"><button class="btn-action btn-approve" data-action="approve"><i class="bi bi-check-circle-fill"></i> Approve</button><button class="btn-action btn-reject" data-action="reject"><i class="bi bi-x-circle"></i> Reject</button></div>`
+                : '';
+            const bgClass = ['bg-red', 'bg-orange', 'bg-purple'][index % 3];
+
+            return `
+                        <article class="request-card-item" data-request-index="${index}">
+                            <div class="card-main-layout">
+                                <div class="profile-section">
+                                    <div class="avatar ${bgClass}">${initials}</div>
+                                    <div class="request-info-details">
+                                        <h3 class="employee-name">${request.employeeName}</h3>
+                                        <p class="request-meta-data">${request.reason} · ${new Date(request.date).toLocaleDateString('en-ZA', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
+                                    </div>
+                                </div>
+                                <span class="badge ${statusClass}">${request.status}</span>
+                            </div>
+                            <p class="request-reason">"${request.reason}"</p>
+                            ${actionMarkup}
+                        </article>`;
+        }).join('');
+    };
+
+    const setRequestStatus = (index, newStatus) => {
+        if (typeof leaveRequestsData[index] === 'undefined') return;
+        leaveRequestsData[index].status = newStatus;
+        updateLeaveRequestCounts();
+        renderLeaveRequests();
+
+        const activeFilterButton = document.querySelector('.tab-btn.active');
+        if (activeFilterButton) {
+            const filterValue = activeFilterButton.textContent.trim().toLowerCase();
+            const requestCards = document.querySelectorAll('.request-card-item, .request-item');
+            requestCards.forEach(card => {
+                const badge = card.querySelector('.badge');
+                const statusText = badge ? badge.textContent.trim().toLowerCase() : '';
+                const normalizedFilter = filterValue === 'rejected' ? 'denied' : filterValue;
+                card.style.display = normalizedFilter === 'all' || statusText === normalizedFilter ? 'flex' : 'none';
+            });
+        }
+    };
+
+    const handleLeaveRequestAction = (event) => {
+        const button = event.target.closest('.btn-action');
+        if (!button) return;
+
+        const card = button.closest('.request-card-item');
+        if (!card) return;
+
+        const requestIndex = parseInt(card.getAttribute('data-request-index'), 10);
+        const action = button.getAttribute('data-action');
+        if (Number.isNaN(requestIndex) || !action) return;
+
+        if (action === 'approve') {
+            setRequestStatus(requestIndex, 'Approved');
+        } else if (action === 'reject') {
+            setRequestStatus(requestIndex, 'Denied');
+        }
+    };
+
+    if (leaveRequestsList) {
+        leaveRequestsList.addEventListener('click', handleLeaveRequestAction);
+    }
+
+    // Dashboard Data Loading
     const employeeCount = document.getElementById('employeeCount');
     const leaveCount = document.getElementById('leaveCount');
     const payrollValue = document.getElementById('payrollValue');
@@ -155,15 +244,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }))
             );
 
-            const approvedLeaves = leaveRequests.filter(item => item.status.toLowerCase() === 'approved').length;
-            const pendingLeaves = leaveRequests.filter(item => item.status.toLowerCase() === 'pending').length;
-            const rejectedLeaves = leaveRequests.filter(item => item.status.toLowerCase() === 'denied').length;
-
-            if (pendingCount) pendingCount.textContent = pendingLeaves;
-            if (approvedCount) approvedCount.textContent = approvedLeaves;
-            if (rejectedCount) rejectedCount.textContent = rejectedLeaves;
-            if (leaveCount) leaveCount.textContent = approvedLeaves;
-            if (openRequestCount) openRequestCount.textContent = pendingLeaves;
+            leaveRequestsData = leaveRequests;
+            updateLeaveRequestCounts();
+            if (leaveCount) leaveCount.textContent = leaveRequestsData.filter(item => item.status.toLowerCase() === 'approved').length;
+            if (openRequestCount) openRequestCount.textContent = leaveRequestsData.filter(item => item.status.toLowerCase() === 'pending').length;
 
             const totalPayroll = payrollData.reduce((sum, item) => sum + item.finalSalary, 0);
             if (payrollValue) payrollValue.textContent = `R${totalPayroll.toLocaleString()}`;
@@ -177,32 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            if (leaveRequestsList) {
-                leaveRequestsList.innerHTML = leaveRequests.map((request, index) => {
-                    const initials = request.employeeName.split(' ').map(name => name[0]).join('').slice(0, 2).toUpperCase();
-                    const statusClass = request.status.toLowerCase() === 'approved' ? 'badge-approved' : request.status.toLowerCase() === 'denied' ? 'badge-rejected' : 'badge-pending';
-                    const actionMarkup = request.status.toLowerCase() === 'pending'
-                        ? `<div class="action-buttons-group"><button class="btn-action btn-approve"><i class="bi bi-check-circle-fill"></i> Approve</button><button class="btn-action btn-reject"><i class="bi bi-x-circle"></i> Reject</button></div>`
-                        : '';
-                    const bgClass = ['bg-red', 'bg-orange', 'bg-purple'][index % 3];
-
-                    return `
-                        <article class="request-card-item">
-                            <div class="card-main-layout">
-                                <div class="profile-section">
-                                    <div class="avatar ${bgClass}">${initials}</div>
-                                    <div class="request-info-details">
-                                        <h3 class="employee-name">${request.employeeName}</h3>
-                                        <p class="request-meta-data">${request.reason} · ${new Date(request.date).toLocaleDateString('en-ZA', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
-                                    </div>
-                                </div>
-                                <span class="badge ${statusClass}">${request.status}</span>
-                            </div>
-                            <p class="request-reason">"${request.reason}"</p>
-                            ${actionMarkup}
-                        </article>`;
-                }).join('');
-            }
+            renderLeaveRequests();
 
             if (recentActivityList) {
                 recentActivityList.innerHTML = leaveRequests.slice(0, 4).map((request, index) => {
@@ -284,6 +343,37 @@ document.addEventListener('DOMContentLoaded', () => {
                 const filterValue = btn.textContent.trim().toLowerCase();
                 applyRequestFilter(filterValue);
             });
+        });
+    }
+});
+
+// LOGIN PAGE
+const loginForm = document.getElementById('loginForm');
+if (loginForm) {
+    loginForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const user = document.getElementById('username').value.trim();
+        const pass = document.getElementById('password').value.trim();
+
+        if (user === 'admin' && pass === 'password123') {
+            alert('Login successful! Redirecting...');
+            window.location.href = 'dashboard.html';
+        } else {
+            alert('Incorrect password');
+        }
+    });
+}
+
+// Sign out button
+
+document.addEventListener('DOMContentLoaded', () => {
+    const signOutBtn = document.getElementById('signOutBtn');
+    
+    if (signOutBtn) {
+        signOutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = 'login.html';
         });
     }
 });
