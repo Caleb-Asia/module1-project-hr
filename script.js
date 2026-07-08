@@ -62,14 +62,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const timeOffForm = document.getElementById('timeOffForm');
 
     if (btnNewRequest && modalOverlay) {
+        modalOverlay.classList.remove('active');
+        modalOverlay.setAttribute('aria-hidden', 'true');
         btnNewRequest.addEventListener('click', () => {
             modalOverlay.classList.add('active');
+            modalOverlay.setAttribute('aria-hidden', 'false');
         });
     }
 
     const closeModal = () => {
         if (modalOverlay) {
             modalOverlay.classList.remove('active');
+            modalOverlay.setAttribute('aria-hidden', 'true');
             if (timeOffForm) timeOffForm.reset();
         }
     };
@@ -1079,14 +1083,43 @@ function renderPayrollCharts() {
                     {
                         data: [totals.net, totals.tax, totals.ni, totals.pension],
                         backgroundColor: ["#10B981", "#EF4444", "#F59E0B", "#3B82F6"],
+                        borderColor: "#0b0f19",
+                        borderWidth: 2,
+                        hoverOffset: 8,
                     },
                 ],
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
+                cutout: "68%",
+                rotation: -90,
+                animation: { duration: 1400, easing: "easeOutQuart" },
                 plugins: {
-                    legend: { position: "bottom" },
-                    title: { display: true, text: "Company Payroll Breakdown" },
+                    legend: {
+                        position: "bottom",
+                        labels: {
+                            color: "#cbd5e1",
+                            padding: 16,
+                            boxWidth: 12,
+                            font: { size: 12, family: "Inter, sans-serif", weight: "600" },
+                        },
+                    },
+                    title: {
+                        display: true,
+                        text: "Company Payroll Breakdown",
+                        color: "#f8fafc",
+                        font: { size: 18, weight: "700", family: "Inter, sans-serif" },
+                        padding: { bottom: 16 },
+                    },
+                    tooltip: {
+                        backgroundColor: "rgba(15, 23, 42, 0.95)",
+                        titleColor: "#f8fafc",
+                        bodyColor: "#cbd5e1",
+                        borderColor: "rgba(99, 102, 241, 0.3)",
+                        borderWidth: 1,
+                        padding: 12,
+                    },
                 },
             },
         });
@@ -1106,17 +1139,49 @@ function renderPayrollCharts() {
                     {
                         label: "Net Pay",
                         data: top5.map((e) => e.netPay),
-                        backgroundColor: "#3B82F6",
+                        backgroundColor: ["#6366f1", "#8b5cf6", "#06b6d4", "#10b981", "#f59e0b"],
+                        borderRadius: 10,
+                        borderSkipped: false,
                     },
                 ],
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
+                animation: { duration: 1400, easing: "easeOutQuart" },
                 plugins: {
                     legend: { display: false },
-                    title: { display: true, text: "Top 5 Earners by Net Pay" },
+                    title: {
+                        display: true,
+                        text: "Top 5 Earners by Net Pay",
+                        color: "#f8fafc",
+                        font: { size: 18, weight: "700", family: "Inter, sans-serif" },
+                        padding: { bottom: 16 },
+                    },
+                    tooltip: {
+                        backgroundColor: "rgba(15, 23, 42, 0.95)",
+                        titleColor: "#f8fafc",
+                        bodyColor: "#cbd5e1",
+                        borderColor: "rgba(99, 102, 241, 0.3)",
+                        borderWidth: 1,
+                        padding: 12,
+                    },
                 },
-                scales: { y: { ticks: { callback: (v) => toRand(v) } } },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: "#cbd5e1", font: { size: 12, family: "Inter, sans-serif" } },
+                    },
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: "rgba(255, 255, 255, 0.08)" },
+                        ticks: {
+                            color: "#cbd5e1",
+                            font: { size: 12, family: "Inter, sans-serif" },
+                            callback: (v) => toRand(v),
+                        },
+                    },
+                },
             },
         });
     }
@@ -1249,6 +1314,7 @@ function openPayslip(empId) {
   </div>
 `;
 
+    overlay.classList.add("active");
     overlay.style.display = "flex";
     document.body.style.overflow = "hidden";
     setTimeout(() => renderNewPayslipCharts(data), 50);
@@ -1331,6 +1397,7 @@ function renderNewPayslipCharts(data) {
 function closePayslipModal() {
     const overlay = document.getElementById("payslipModalOverlay");
     if (overlay) {
+        overlay.classList.remove("active");
         overlay.style.display = "none";
         document.body.style.overflow = "";
     }
@@ -1425,6 +1492,8 @@ function initPayslipSystem() {
     const overlay = document.getElementById("payslipModalOverlay");
     const downloadBtn = document.getElementById("downloadPayslipBtn");
     const emailBtn = document.getElementById("emailPayslipBtn");
+
+    closePayslipModal();
 
     if (closeBtn) closeBtn.addEventListener("click", closePayslipModal);
     if (overlay) {
