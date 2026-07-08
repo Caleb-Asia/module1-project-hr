@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModernTech HR Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+
+    <div class="page-wrapper">
+
+        <aside class="sidebar">
+            <div class="top-section">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="bi bi-briefcase-fill" style="color: white;"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h2>ModernTech</h2>
+                        <p>HR System</p>
+                    </div>
+                </div>
+
+                <nav>
+                    <ul class="nav-links">
+                        <li class="active"><a href="dashboard.html">
+                                <i class="bi bi-house"></i>
+                                <span>Dashboard</span></a></li>
+
+                        <li><a href="employees.html">
+                                <i class="bi bi-people"></i><span>Employees</span></a></li>
+                        <li><a href="payroll.html">
+                                <i class="bi bi-cash"></i><span>Payroll</span></a></li>
+                        <li><a href="time-off.html">
+                                <i class="bi bi-calendar-event"></i><span>Time Off</span></a></li>
+                        <li><a href="attendance.html">
+                                <i class="bi bi-clock"></i><span>Attendance</span></a></li>
+                        <li><a href="reviews.html">
+                                <i class="bi bi-star"></i><span>Reviews</span></a></li>
+                        <li><a href="#" id="signOutBtn">
+                                <i class="bi bi-box-arrow-right"></i><span>Sign Out</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="sidebar-bottom">
+                <div class="profile">
+                    <div class="avatar">HR</div>
+                    <div class="profile-info">
+                        <h3>HR Department</h3>
+                        <p>Manage records</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="dashboard-container">
+
+            <div class="dashboard-header">
+                <h1>Welcome Back</h1>
+                <p>Here's what's happening with your workforce today.</p>
+            </div>
+
+            <section class="summary-cards">
+                <div class="card">
+                    <div class="icon-wrapper icon-emp"><i class="bi bi-people-fill"></i></div>
+                    <div class="card-content">
+                        <span class="card-value" id="employeeCount">0</span>
+                        <span class="card-title">Total Employees</span>
+                        <span class="card-subtext">From employee records</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="icon-wrapper icon-leave"><i class="bi bi-calendar-check-fill"></i></div>
+                    <div class="card-content">
+                        <span class="card-value" id="leaveCount">0</span>
+                        <span class="card-title">Approved Leave</span>
+                        <span class="card-subtext">Current leave requests</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="icon-wrapper icon-payroll"><i class="bi bi-wallet2"></i></div>
+                    <div class="card-content">
+                        <span class="card-value" id="payrollValue">R0</span>
+                        <span class="card-title">Payroll Cycle</span>
+                        <span class="card-subtext">Updated from payroll data</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="icon-wrapper icon-req"><i class="bi bi-file-earmark-text-fill"></i></div>
+                    <div class="card-content">
+                        <span class="card-value" id="openRequestCount">0</span>
+                        <span class="card-title">Open Requests</span>
+                        <span class="card-subtext">Requires review</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="analytics-section">
+
+                <div class="analytics-card">
+                    <div class="chart-header">Headcount Growth Trend</div>
+                    <div class="trend-chart-container">
+                        <svg class="trend-svg" viewBox="0 0 500 200">
+                            <line class="grid-line" x1="40" y1="20" x2="480" y2="20" />
+                            <line class="grid-line" x1="40" y1="60" x2="480" y2="60" />
+                            <line class="grid-line" x1="40" y1="100" x2="480" y2="100" />
+                            <line class="grid-line" x1="40" y1="140" x2="480" y2="140" />
+                            <line class="grid-line" x1="40" y1="180" x2="480" y2="180" />
+
+                            <text class="axis-text" x="15" y="24">160</text>
+                            <text class="axis-text" x="15" y="64">140</text>
+                            <text class="axis-text" x="15" y="104">120</text>
+                            <text class="axis-text" x="15" y="144">100</text>
+                            <text class="axis-text" x="15" y="184">80</text>
+
+                            <text class="axis-text text-center" x="60" y="196">Jan</text>
+                            <text class="axis-text text-center" x="144" y="196">Feb</text>
+                            <text class="axis-text text-center" x="228" y="196">Mar</text>
+                            <text class="axis-text text-center" x="312" y="196">Apr</text>
+                            <text class="axis-text text-center" x="396" y="196">May</text>
+                            <text class="axis-text text-center" x="460" y="196">Jun</text>
+                            <line class="hover-guide" x1="0" y1="20" x2="0" y2="180" />
+
+                            <path class="trend-line" d="M 60 160 L 144 135 L 228 110 L 312 115 L 396 70 L 460 45" />
+
+                            <circle class="trend-dot" cx="60" cy="160" r="5" data-month="January" data-value="90" />
+                            <circle class="trend-dot" cx="144" cy="135" r="5" data-month="February" data-value="105" />
+                            <circle class="trend-dot" cx="228" cy="110" r="5" data-month="March" data-value="118" />
+                            <circle class="trend-dot" cx="312" cy="115" r="5" data-month="April" data-value="115" />
+                            <circle class="trend-dot" cx="396" cy="70" r="5" data-month="May" data-value="138" />
+                            <circle class="trend-dot" cx="460" cy="45" r="5" data-month="June" data-value="148" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="analytics-card">
+                    <div class="chart-header">Department Allocation</div>
+                    <div class="donut-wrapper">
+                        <div class="donut-visual">
+                            <svg class="donut-svg" width="160" height="160" viewBox="0 0 42 42">
+                                <circle class="donut-ring" cx="21" cy="21" r="15.915" fill="transparent"
+                                    stroke-width="4"></circle>
+                                <circle class="donut-segment" data-dept="Engineering" data-percent="40%"
+                                    data-role="Core product and platform teams" cx="21" cy="21" r="15.915"
+                                    fill="transparent" stroke="#6366f1" stroke-width="4" stroke-dasharray="40 60"
+                                    stroke-dashoffset="0"></circle>
+                                <circle class="donut-segment" data-dept="Marketing" data-percent="25%"
+                                    data-role="Growth and brand campaigns" cx="21" cy="21" r="15.915" fill="transparent"
+                                    stroke="#10b981" stroke-width="4" stroke-dasharray="25 75" stroke-dashoffset="-40">
+                                </circle>
+                                <circle class="donut-segment" data-dept="Sales" data-percent="20%"
+                                    data-role="Revenue and client engagement" cx="21" cy="21" r="15.915"
+                                    fill="transparent" stroke="#f59e0b" stroke-width="4" stroke-dasharray="20 80"
+                                    stroke-dashoffset="-65"></circle>
+                                <circle class="donut-segment" data-dept="HR / Ops" data-percent="15%"
+                                    data-role="People operations and support" cx="21" cy="21" r="15.915"
+                                    fill="transparent" stroke="#f43f5e" stroke-width="4" stroke-dasharray="15 85"
+                                    stroke-dashoffset="-85"></circle>
+                            </svg>
+                            <div class="donut-info-card" id="donutInfoCard">
+                                <strong id="donutDeptName">Engineering</strong>
+                                <span id="donutDeptPercent">40%</span>
+                                <p id="donutDeptRole">Core product and platform teams</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dept-list">
+                        <div class="dept-item" data-dept="Engineering" data-percent="40%"
+                            data-role="Core product and platform teams">
+                            <div class="dept-name-wrapper"><span class="dept-color-dot"
+                                    style="background-color: #6366f1;"></span>Engineering</div>
+                            <span class="dept-count">40%</span>
+                        </div>
+                        <div class="dept-item" data-dept="Marketing" data-percent="25%"
+                            data-role="Growth and brand campaigns">
+                            <div class="dept-name-wrapper"><span class="dept-color-dot"
+                                    style="background-color: #10b981;"></span>Marketing</div>
+                            <span class="dept-count">25%</span>
+                        </div>
+                        <div class="dept-item" data-dept="Sales" data-percent="20%"
+                            data-role="Revenue and client engagement">
+                            <div class="dept-name-wrapper"><span class="dept-color-dot"
+                                    style="background-color: #f59e0b;"></span>Sales</div>
+                            <span class="dept-count">20%</span>
+                        </div>
+                        <div class="dept-item" data-dept="HR / Ops" data-percent="15%"
+                            data-role="People operations and support">
+                            <div class="dept-name-wrapper"><span class="dept-color-dot"
+                                    style="background-color: #f43f5e;"></span>HR / Ops</div>
+                            <span class="dept-count">15%</span>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <section class="requests-card">
+                <div class="requests-header">Recent Action History</div>
+                <div class="requests-list" id="recentActivityList"></div>
+            </section>
+
+        </main>
+
+    </div>
+
+    <div class="chart-tooltip"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
