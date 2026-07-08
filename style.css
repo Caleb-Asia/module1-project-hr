@@ -1205,9 +1205,9 @@ body {
 }
 
 /* ===============================
-   PAYROLL + EMPLOYEES PAGES ONLY
-   Scoped to avoid conflicts
+   Butsha-dev
    =============================== */
+
 
 /* Shared Header Row */
 .main-content .header-row {
@@ -1217,6 +1217,7 @@ body {
   gap: 20px;
   flex-wrap: wrap;
 }
+
 
 .main-content .header-row h1 {
   font-size: 32px;
@@ -1229,17 +1230,20 @@ body {
   margin-bottom: 4px;
 }
 
+
 .main-content .header-row p {
   color: var(--text-muted);
   font-size: 15px;
   font-weight: 500;
 }
 
+
 .main-content .header-actions {
   display: flex;
   gap: 12px;
   align-items: center;
 }
+
 
 /* Buttons */
 .main-content .btn-primary,
@@ -1256,6 +1260,7 @@ body {
   font-family: inherit;
 }
 
+
 .main-content .btn-primary {
   background: linear-gradient(135deg, #6366f1, #8b5cf6);
   color: #fff;
@@ -1264,10 +1269,12 @@ body {
   box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
 }
 
+
 .main-content .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
 }
+
 
 .main-content .btn-secondary {
   background: rgba(255, 255, 255, 0.04);
@@ -1277,15 +1284,18 @@ body {
   font-size: 14px;
 }
 
+
 .main-content .btn-secondary:hover {
   background: rgba(255, 255, 255, 0.06);
   color: var(--text-main);
 }
 
+
 .main-content .btn-secondary.btn-sm {
   padding: 8px 14px;
   font-size: 13px;
 }
+
 
 .main-content .btn-table {
   background: rgba(99, 102, 241, 0.1);
@@ -1295,10 +1305,12 @@ body {
   font-size: 13px;
 }
 
+
 .main-content .btn-table:hover {
   background: rgba(99, 102, 241, 0.18);
   color: #c7d2fe;
 }
+
 
 .main-content .select-dropdown {
   background: var(--card-bg);
@@ -1311,12 +1323,14 @@ body {
   cursor: pointer;
 }
 
+
 /* Employee Grid */
 #employees-content .employee-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 20px;
 }
+
 
 #employees-content .employee-card {
   background: var(--card-bg);
@@ -1327,6 +1341,7 @@ body {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+
 #employees-content .employee-card:hover,
 #employees-content .employee-card:focus-visible {
   transform: translateY(-4px);
@@ -1334,12 +1349,14 @@ body {
   outline: none;
 }
 
+
 #employees-content .employee-card-top {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 16px;
 }
+
 
 #employees-content .employee-avatar {
   width: 48px;
@@ -1353,6 +1370,7 @@ body {
   color: #fff;
 }
 
+
 #employees-content .status-badge {
   background: rgba(16, 185, 129, 0.12);
   color: #34d399;
@@ -1364,6 +1382,7 @@ body {
   letter-spacing: 0.5px;
 }
 
+
 #employees-content .employee-card h4 {
   font-size: 17px;
   font-weight: 700;
@@ -1371,17 +1390,20 @@ body {
   margin-bottom: 4px;
 }
 
+
 #employees-content .employee-role {
   font-size: 13px;
   color: var(--text-muted);
   margin-bottom: 16px;
 }
 
+
 #employees-content .employee-card-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 
 #employees-content .dept-badge {
   background: rgba(255, 255, 255, 0.04);
@@ -1392,6 +1414,7 @@ body {
   font-weight: 600;
 }
 
+
 #employees-content .score-badge {
   display: flex;
   align-items: center;
@@ -1401,15 +1424,18 @@ body {
   font-weight: 700;
 }
 
+
 /* Search Bar */
 #employees-content .search-wrapper {
   margin-bottom: 24px;
 }
 
+
 #employees-content .search-bar {
   position: relative;
   max-width: 400px;
 }
+
 
 #employees-content .search-bar i {
   position: absolute;
@@ -1419,6 +1445,7 @@ body {
   color: var(--text-muted);
   font-size: 15px;
 }
+
 
 #employees-content .search-bar input {
   width: 100%;
@@ -1430,10 +1457,12 @@ body {
   font-size: 14px;
 }
 
+
 #employees-content .search-bar input:focus {
   outline: none;
   border-color: #6366f1;
 }
+
 
 #employees-content .empty-state {
   text-align: center;
@@ -1441,17 +1470,20 @@ body {
   color: var(--text-muted);
 }
 
+
 #employees-content .empty-state i {
   font-size: 48px;
   margin-bottom: 16px;
   opacity: 0.3;
 }
 
+
 #employees-content .empty-state h4 {
   font-size: 18px;
   color: var(--text-main);
   margin-bottom: 8px;
 }
+
 
 /* Payroll Visual Grid */
 #payroll-content .visual-grid {
@@ -1461,12 +1493,14 @@ body {
   margin-bottom: 24px;
 }
 
+
 #payroll-content .visual-card {
   background: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: 24px;
   padding: 24px;
 }
+
 
 #payroll-content .stat-caption {
   font-size: 12px;
@@ -1477,12 +1511,14 @@ body {
   margin: 0;
 }
 
+
 #payroll-content .stat-value {
   font-size: 28px;
   font-weight: 800;
   line-height: 1.2;
   margin: 8px 0 4px;
 }
+
 
 #payroll-content .stat-purple {
   color: #a78bfa;
@@ -1494,6 +1530,7 @@ body {
   color: #2dd4bf;
 }
 
+
 /* Payroll Table */
 #payroll-content .table-header {
   display: flex;
@@ -1502,11 +1539,13 @@ body {
   margin-bottom: 16px;
 }
 
+
 #payroll-content .table-header h4 {
   font-size: 18px;
   font-weight: 700;
   color: var(--text-main);
 }
+
 
 #payroll-content .table-wrapper {
   background: var(--card-bg);
@@ -1515,14 +1554,17 @@ body {
   overflow: hidden;
 }
 
+
 #payroll-content .data-table {
   width: 100%;
   border-collapse: collapse;
 }
 
+
 #payroll-content .data-table thead {
   background: rgba(255, 255, 255, 0.02);
 }
+
 
 #payroll-content .data-table th {
   text-align: left;
@@ -1535,25 +1577,30 @@ body {
   border-bottom: 1px solid var(--border-color);
 }
 
+
 #payroll-content .data-table td {
   padding: 16px 20px;
   border-bottom: 1px solid rgba(30, 41, 59, 0.5);
   font-size: 14px;
 }
 
+
 #payroll-content .data-table tbody tr:last-child td {
   border-bottom: none;
 }
 
+
 #payroll-content .data-table tbody tr:hover {
   background: rgba(255, 255, 0.02);
 }
+
 
 #payroll-content .employee-cell {
   display: flex;
   align-items: center;
   gap: 12px;
 }
+
 
 #payroll-content .employee-avatar-small {
   width: 40px;
@@ -1568,21 +1615,25 @@ body {
   flex-shrink: 0;
 }
 
+
 #payroll-content .employee-name {
   font-weight: 600;
   color: var(--text-main);
   margin-bottom: 2px;
 }
 
+
 #payroll-content .employee-dept {
   font-size: 12px;
   color: var(--text-muted);
 }
 
+
 #payroll-content .mono {
   font-family: "Roboto Mono", monospace;
   font-weight: 600;
 }
+
 
 #payroll-content .text-red {
   color: #f87171;
@@ -1593,6 +1644,7 @@ body {
 #payroll-content .text-teal {
   color: #2dd4bf;
 }
+
 
 /* Modal */
 .modal-overlay {
@@ -1607,9 +1659,11 @@ body {
   padding: 20px;
 }
 
+
 .modal-overlay.hidden {
   display: none;
 }
+
 
 .modal {
   background: var(--card-bg);
@@ -1622,6 +1676,7 @@ body {
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
 }
 
+
 .modal-header {
   display: flex;
   justify-content: space-between;
@@ -1630,11 +1685,13 @@ body {
   border-bottom: 1px solid var(--border-color);
 }
 
+
 .modal-header h3 {
   font-size: 20px;
   font-weight: 700;
   color: var(--text-main);
 }
+
 
 .modal-close {
   background: rgba(255, 255, 255, 0.05);
@@ -1650,29 +1707,35 @@ body {
   transition: all 0.2s;
 }
 
+
 .modal-close:hover {
   background: rgba(255, 255, 255, 0.08);
   color: var(--text-main);
 }
+
 
 .modal-body {
   padding: 28px;
   overflow-y: auto;
 }
 
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 8px;
 }
+
 
 .custom-scrollbar::-webkit-scrollbar-track {
   background: rgba(255, 255, 0.02);
   border-radius: 10px;
 }
 
+
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background: var(--border-color);
   border-radius: 10px;
 }
+
 
 .modal-footer {
   display: flex;
@@ -1681,9 +1744,11 @@ body {
   border-top: 1px solid var(--border-color);
 }
 
+
 .modal-footer .flex-1 {
   flex: 1;
 }
+
 
 /* Toast */
 .toast-container {
@@ -1695,6 +1760,7 @@ body {
   flex-direction: column;
   gap: 12px;
 }
+
 
 .toast {
   background: var(--card-bg);
@@ -1710,6 +1776,7 @@ body {
   animation: slideIn 0.3s ease;
 }
 
+
 @keyframes slideIn {
   from {
     transform: translateX(400px);
@@ -1720,6 +1787,7 @@ body {
     opacity: 1;
   }
 }
+
 
 .toast-icon {
   width: 36px;
@@ -1733,12 +1801,14 @@ body {
   flex-shrink: 0;
 }
 
+
 .toast p {
   flex: 1;
   font-size: 14px;
   font-weight: 500;
   color: var(--text-main);
 }
+
 
 .toast button {
   background: transparent;
@@ -1748,6 +1818,7 @@ body {
   padding: 4px;
 }
 
+
 /* Responsive */
 @media (max-width: 768px) {
   .main-content .header-row {
@@ -1755,9 +1826,11 @@ body {
     align-items: flex-start;
   }
 
+
   .main-content .header-actions {
     width: 100%;
   }
+
 
   .main-content .btn-primary,
   .main-content .btn-secondary {
@@ -1765,14 +1838,17 @@ body {
     justify-content: center;
   }
 
+
   #payroll-content .visual-grid,
   #payroll-content .grid {
     grid-template-columns: 1fr !important;
   }
 
+
   #payroll-content .table-wrapper {
     overflow-x: auto;
   }
+
 
   #payroll-content .data-table {
     min-width: 800px;
@@ -1819,6 +1895,7 @@ body {
   padding: 1rem;
 }
 
+
 .modal {
   background: #fff;
   border-radius: 1.5rem;
@@ -1830,6 +1907,7 @@ body {
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
+
 .modal-header {
   display: flex;
   justify-content: space-between;
@@ -1838,11 +1916,13 @@ body {
   border-bottom: 1px solid #e2e8f0;
 }
 
+
 .modal-header h3 {
   font-size: 1.25rem;
   font-weight: 700;
   color: #1e293b;
 }
+
 
 .modal-close {
   width: 36px;
@@ -1857,14 +1937,17 @@ body {
   justify-content: center;
 }
 
+
 .modal-close:hover {
   background: #e2e8f0;
 }
+
 
 .modal-body {
   padding: 1.5rem;
   overflow-y: auto;
 }
+
 
 .modal-footer {
   padding: 1.5rem;
@@ -1873,13 +1956,16 @@ body {
   gap: 0.75rem;
 }
 
+
 .hidden {
   display: none !important;
 }
 
+
 .flex {
   display: flex !important;
 }
+
 
 /* Toast */
 .toast-container {
@@ -1891,6 +1977,7 @@ body {
   flex-direction: column;
   gap: 0.75rem;
 }
+
 
 .toast {
   background: #fff;
@@ -1904,6 +1991,7 @@ body {
   animation: slideIn 0.3s ease-out;
 }
 
+
 @keyframes slideIn {
   from {
     transform: translateX(400px);
@@ -1914,6 +2002,7 @@ body {
     opacity: 1;
   }
 }
+
 
 .toast-icon {
   width: 24px;
@@ -1927,12 +2016,14 @@ body {
   flex-shrink: 0;
 }
 
+
 .toast p {
   flex: 1;
   font-size: 0.875rem;
   color: #334155;
   margin: 0;
 }
+
 
 .toast button {
   background: none;
@@ -1941,6 +2032,7 @@ body {
   cursor: pointer;
   padding: 0;
 }
+
 
 /* Utility classes used in JS */
 .mono {
@@ -2038,7 +2130,728 @@ body {
   padding: 0 !important;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
 }
+/* Payslip Modal V2 */
+.payslip-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  overflow-y: auto;
+  display: none;
+}
 
+
+.payslip-modal {
+  background: white;
+  border-radius: 12px;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  animation: slideUp 0.3s ease;
+}
+
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.payslip-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+
+.payslip-header h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+
+.payslip-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #6b7280;
+  padding: 0.5rem;
+  line-height: 1;
+}
+
+
+.payslip-close:hover {
+  color: #111827;
+}
+
+
+.payslip-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+
+.payslip-footer {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+
+.payslip-footer button {
+  flex: 1;
+}
+
+
+/* Toast Styles */
+.toast-container {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 10000;
+}
+
+
+.toast {
+  background: white;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 0.3s ease;
+}
+
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
+.toast.success {
+  border-left: 4px solid #10b981;
+}
+
+
+.toast.error {
+  border-left: 4px solid #ef4444;
+}
+
+
+/* Utility Classes */
+.space-y-6 > * + * {
+  margin-top: 1.5rem;
+}
+.space-y-4 > * + * {
+  margin-top: 1rem;
+}
+.space-y-2 > * + * {
+  margin-top: 0.5rem;
+}
+.flex {
+  display: flex;
+}
+.items-center {
+  align-items: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.gap-4 {
+  gap: 1rem;
+}
+.gap-6 {
+  gap: 1.5rem;
+}
+.pb-4 {
+  padding-bottom: 1rem;
+}
+.border-b {
+  border-bottom: 1px solid #e5e7eb;
+}
+.border-t {
+  border-top: 1px solid #e5e7eb;
+}
+/* New Payslip Modal System - High Contrast */
+.payslip-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+
+.payslip-modal {
+  background: #ffffff;
+  border-radius: 8px;
+  max-width: 420px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.3s ease;
+  font-family: "Courier New", monospace;
+}
+
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.payslip-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 2px dashed #d1d5db;
+  background: #f9fafb;
+}
+
+
+.payslip-header h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin: 0;
+  color: #111827;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+
+.payslip-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #374151;
+  padding: 0.25rem;
+}
+
+
+.payslip-close:hover {
+  color: #111827;
+}
+
+
+.payslip-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+  color: #111827;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+
+.payslip-body * {
+  color: #111827 !important;
+}
+
+
+.payslip-footer {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  border-top: 2px dashed #d1d5db;
+  background: #f9fafb;
+}
+
+
+.payslip-footer button {
+  flex: 1;
+  font-weight: 600;
+}
+
+
+/* Toast - Fix contrast */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: #1f2937;
+  color: #ffffff !important;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 10000;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+.toast.error {
+  background: #dc2626;
+}
+.toast.success {
+  background: #059669;
+}
+
+
+.toast span {
+  color: #ffffff !important;
+}
+.toast i {
+color: #ffffff !important;
+}
+
+
+/* ATM Slip Styles for digital view */
+.atm-slip {
+  font-family: "Courier New", monospace;
+  background: #ffffff;
+  color: #000000;
+  border: 1px dashed #9ca3af;
+  padding: 1rem;
+}
+
+
+.atm-slip .slip-line {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.25rem 0;
+  font-size: 0.8rem;
+}
+
+
+.atm-slip .slip-divider {
+  border-top: 1px dashed #6b7280;
+  margin: 0.75rem 0;
+}
+
+
+.atm-slip .slip-center {
+  text-align: center;
+  font-weight: 700;
+}
+
+
+.atm-slip .slip-bold {
+  font-weight: 700;
+}
+/* === Employee Profile Modal V2 - No Hidden Class === */
+.emp-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(4px);
+  z-index: 9998;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+
+.emp-modal {
+  background: #ffffff;
+  border-radius: 16px;
+  max-width: 650px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  animation: modalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+@keyframes modalPop {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+
+.emp-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.75rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+
+.emp-modal-header h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+
+.emp-modal-close {
+  background: #f1f5f9;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #64748b;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+
+.emp-modal-close:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+
+.emp-modal-body {
+  padding: 1.75rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+
+/* Employee Cards - Ensure they're clickable */
+.employee-card {
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+
+.employee-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+
+.employee-card:active {
+  transform: translateY(0);
+}
+
+
+/* Toast System */
+.toast-container {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+
+.toast {
+  background: white;
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 300px;
+  opacity: 0;
+  transform: translateX(100px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
+.toast.success {
+  border-left: 4px solid #10b981;
+}
+
+
+.toast.error {
+  border-left: 4px solid #ef4444;
+}
+
+
+.toast i {
+  font-size: 1.25rem;
+}
+
+
+.toast.success i {
+  color: #10b981;
+}
+
+
+.toast.error i {
+  color: #ef4444;
+}
+/* Fix invisible text in all modals/popups */
+.modal-body,
+.payslip-body,
+#employeeModalContent,
+#payslipContent {
+  color: #1f2937 !important; /* slate-800 */
+}
+
+
+.modal-body label,
+.payslip-body label,
+#employeeModalContent label,
+#payslipContent label {
+  color: #111827 !important; /* gray-900 */
+  font-weight: 600;
+}
+
+
+.modal-body input,
+.modal-body select,
+.modal-body textarea,
+.payslip-body input,
+.payslip-body select,
+.payslip-body textarea,
+#employeeModalContent input,
+#employeeModalContent select,
+#employeeModalContent textarea {
+  color: #111827 !important; /* gray-900 */
+  background-color: #ffffff !important;
+  border: 1px solid #d1d5db !important; /* gray-300 */
+}
+
+
+.modal-body input::placeholder,
+.modal-body textarea::placeholder,
+#employeeModalContent input::placeholder,
+#employeeModalContent textarea::placeholder {
+  color: #6b7280 !important; /* gray-500 */
+  opacity: 1;
+}
+
+
+.modal-body .text-gray-600,
+.modal-body .text-gray-700,
+.modal-body .text-gray-500,
+.payslip-body .text-gray-600,
+.payslip-body .text-gray-700,
+.payslip-body .text-gray-500 {
+  color: #374151 !important; /* gray-700 */
+}
+
+
+.modal-body .bg-gray-50,
+.payslip-body .bg-gray-50 {
+  background-color: #f9fafb !important;
+  color: #1f2937 !important;
+}
+
+
+.modal-body h3,
+.modal-body h4,
+.modal-body h5,
+.payslip-body h3,
+.payslip-body h4,
+.payslip-body h5,
+.payslip-body h6 {
+  color: #111827 !important; /* gray-900 */
+}
+
+
+/* Employee cards in grid */
+.employee-card h4 {
+  color: #111827 !important;
+}
+
+
+.employee-card .employee-role {
+  color: #4b5563 !important; /* gray-600 but darker */
+}
+
+
+/* Toast contrast fix */
+.toast {
+  color: #111827 !important;
+  background: white !important;
+  border: 1px solid #e5e7eb;
+}
+
+
+.toast.error {
+  background: #fef2f2 !important;
+  color: #991b1b !important;
+  border-color: #fecaca;
+}
+
+
+.toast.success {
+  background: #f0fdf4 !important;
+  color: #166534 !important;
+  border-color: #bbf7d0;
+}
+/* Fix 1: Employee card names - force readable color on dark cards */
+#employees-content .employee-card h4 {
+  color: var(--text-main) !important;
+}
+
+
+/* Fix 2: Toast notifications - fix contrast */
+.toast {
+  background: #ffffff !important;
+  color: #0f172a !important;
+}
+
+
+.toast p {
+  color: #0f172a !important;
+}
+
+
+.toast.error {
+  background: #fef2f2 !important;
+  color: #991b1b !important;
+}
+
+
+.toast.success {
+  background: #f0fdf4 !important;
+  color: #166534 !important;
+}
+
+
+.toast-icon {
+  color: inherit !important;
+}
+
+
+.toast button {
+  color: #64748b !important;
+}
+/* === Toast Notification Fix - Add this to the END of your CSS === */
+.toast-container {
+  position: fixed !important;
+  bottom: 24px !important;
+  right: 24px !important;
+  z-index: 2000 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+
+
+.toast {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #e2e8f0 !important;
+  border-left: 4px solid #10b981 !important;
+  border-radius: 14px !important;
+  padding: 16px 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  min-width: 320px !important;
+  box-shadow: 0 10px 30px rgba(0, 0.4) !important;
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+
+.toast.error {
+  background: #fef2f2 !important;
+  color: #991b1b !important;
+  border-color: #fecaca !important;
+  border-left-color: #f43f5e !important;
+}
+
+
+.toast.success {
+  background: #f0fdf4 !important;
+  color: #166534 !important;
+  border-color: #bbf7d0 !important;
+  border-left-color: #10b981 !important;
+}
+
+
+.toast p,
+.toast span {
+  color: inherit !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  margin: 0 !important;
+}
+
+
+.toast i,
+.toast-icon {
+  color: inherit !important;
+  font-size: 18px !important;
+}
+
+
+.toast button {
+  background: transparent !important;
+  border: none !important;
+  color: #64748b !important;
+  cursor: pointer !important;
+  padding: 4px !important;
+}
+
+
+.toast button:hover {
+  color: #0f172a !important;
+}
 
 
 /* ===============================

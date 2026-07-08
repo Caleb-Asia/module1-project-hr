@@ -350,7 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // LOGIN PAGE
 const loginForm = document.getElementById('loginForm');
 if (loginForm) {
-    loginForm.addEventListener('submit', function(event) {
+    loginForm.addEventListener('submit', function (event) {
         event.preventDefault();
 
         const user = document.getElementById('username').value.trim();
@@ -369,7 +369,7 @@ if (loginForm) {
 
 document.addEventListener('DOMContentLoaded', () => {
     const signOutBtn = document.getElementById('signOutBtn');
-    
+
     if (signOutBtn) {
         signOutBtn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -382,1028 +382,1106 @@ document.addEventListener('DOMContentLoaded', () => {
 // BUTSHA-DEV
 // ===============================
 
-// ===============================
-// 0. GLOBAL DEBUG + ERROR HANDLING
-// ===============================
-console.log(
-  "%c[script.js] Script loaded",
-  "color: green; font-weight: bold; font-size: 14px;",
-);
-console.log("[script.js] Timestamp:", new Date().toISOString());
+// 1. Global Setup + Debug
+console.log("[script.js] Script loaded", new Date().toISOString());
 
-window.addEventListener("error", (e) => {
-  console.error(
-    "[Global Error]",
-    e.message,
-    "\nFile:",
-    e.filename,
-    "\nLine:",
-    e.lineno,
-    "\nColumn:",
-    e.colno,
-  );
+
+window.addEventListener("error", (event) => {
+    console.error("[Global Error]", {
+        message: event.message,
+        file: event.filename,
+        line: event.lineno,
+        column: event.colno,
+        error: event.error,
+    });
 });
 
-window.addEventListener("unhandledrejection", (e) => {
-  console.error("[Unhandled Promise Rejection]", e.reason);
+
+window.addEventListener("unhandledrejection", (event) => {
+    console.error("[Unhandled Promise Rejection]", event.reason);
 });
 
-// ===============================
-// 1. DATA - South African Values
-// ===============================
+
+// 2. Shared Data Layer
 const employeeInformation = [
-  {
-    employeeId: 1,
-    name: "Sibongile Nkosi",
-    position: "Software Engineer",
-    department: "Development",
-    salary: 1260000,
-    employmentHistory: "Joined in 2015, promoted to Senior in 2018",
-    contact: "sibongile.nkosi@moderntech.com",
-  },
-  {
-    employeeId: 2,
-    name: "Lungile Moyo",
-    position: "HR Manager",
-    department: "HR",
-    salary: 1440000,
-    employmentHistory: "Joined in 2013, promoted to Manager in 2017",
-    contact: "lungile.moyo@moderntech.com",
-  },
-  {
-    employeeId: 3,
-    name: "Thabo Molefe",
-    position: "Quality Analyst",
-    department: "QA",
-    salary: 990000,
-    employmentHistory: "Joined in 2018",
-    contact: "thabo.molefe@moderntech.com",
-  },
-  {
-    employeeId: 4,
-    name: "Keshav Naidoo",
-    position: "Sales Representative",
-    department: "Sales",
-    salary: 1080000,
-    employmentHistory: "Joined in 2020",
-    contact: "keshav.naidoo@moderntech.com",
-  },
-  {
-    employeeId: 5,
-    name: "Zanele Khumalo",
-    position: "Marketing Specialist",
-    department: "Marketing",
-    salary: 1044000,
-    employmentHistory: "Joined in 2019",
-    contact: "zanele.khumalo@moderntech.com",
-  },
-  {
-    employeeId: 6,
-    name: "Sipho Zulu",
-    position: "UI/UX Designer",
-    department: "Design",
-    salary: 1170000,
-    employmentHistory: "Joined in 2016",
-    contact: "sipho.zulu@moderntech.com",
-  },
-  {
-    employeeId: 7,
-    name: "Naledi Moeketsi",
-    position: "DevOps Engineer",
-    department: "IT",
-    salary: 1296000,
-    employmentHistory: "Joined in 2017",
-    contact: "naledi.moeketsi@moderntech.com",
-  },
-  {
-    employeeId: 8,
-    name: "Farai Gumbo",
-    position: "Content Strategist",
-    department: "Marketing",
-    salary: 1008000,
-    employmentHistory: "Joined in 2021",
-    contact: "farai.gumbo@moderntech.com",
-  },
-  {
-    employeeId: 9,
-    name: "Karabo Dlamini",
-    position: "Accountant",
-    department: "Finance",
-    salary: 1116000,
-    employmentHistory: "Joined in 2018",
-    contact: "karabo.dlamini@moderntech.com",
-  },
-  {
-    employeeId: 10,
-    name: "Fatima Patel",
-    position: "Customer Support Lead",
-    department: "Support",
-    salary: 1044000,
-    employmentHistory: "Joined in 2016",
-    contact: "fatima.patel@moderntech.com",
-  },
+    {
+        id: 1,
+        name: "Sibongile Nkosi",
+        position: "Software Engineer",
+        dept: "Engineering",
+        salary: 99400,
+        contact: "sibongile@company.co.za",
+        history: "Joined 2021, Led migration to microservices",
+        status: "Active",
+    },
+    {
+        id: 2,
+        name: "Thabo Molefe",
+        position: "Product Manager",
+        dept: "Product",
+        salary: 105000,
+        contact: "thabo@company.co.za",
+        history: "Joined 2019, Launched 3 major features",
+        status: "Active",
+    },
+    {
+        id: 3,
+        name: "Naledi Dube",
+        position: "UX Designer",
+        dept: "Design",
+        salary: 78200,
+        contact: "naledi@company.co.za",
+        history: "Joined 2022, Redesigned mobile app",
+        status: "Active",
+    },
+    {
+        id: 4,
+        name: "Kagiso Mthembu",
+        position: "Data Analyst",
+        dept: "Data",
+        salary: 85300,
+        contact: "kagiso@company.co.za",
+        history: "Joined 2020, Built KPI dashboards",
+        status: "Active",
+    },
+    {
+        id: 5,
+        name: "Zanele Khumalo",
+        position: "HR Manager",
+        dept: "Human Resources",
+        salary: 92000,
+        contact: "zanele@company.co.za",
+        history: "Joined 2018, Reduced turnover 18%",
+        status: "Active",
+    },
+    {
+        id: 6,
+        name: "Bongani Sithole",
+        position: "DevOps Engineer",
+        dept: "Engineering",
+        salary: 101500,
+        contact: "bongani@company.co.za",
+        history: "Joined 2021, Cut deploy time 70%",
+        status: "Active",
+    },
+    {
+        id: 7,
+        name: "Lerato Phiri",
+        position: "Marketing Lead",
+        dept: "Marketing",
+        salary: 88400,
+        contact: "lerato@company.co.za",
+        history: "Joined 2020, Grew MQLs 240%",
+        status: "Active",
+    },
+    {
+        id: 8,
+        name: "Sipho Ndlovu",
+        position: "Sales Executive",
+        dept: "Sales",
+        salary: 75600,
+        contact: "sipho@company.co.za",
+        history: "Joined 2023, Top closer Q1 2026",
+        status: "Active",
+    },
+    {
+        id: 9,
+        name: "Ayanda Cele",
+        position: "Finance Officer",
+        dept: "Finance",
+        salary: 81900,
+        contact: "ayanda@company.co.za",
+        history: "Joined 2019, Automated invoicing",
+        status: "Active",
+    },
+    {
+        id: 10,
+        name: "Mandla Zulu",
+        position: "IT Support",
+        dept: "IT",
+        salary: 65800,
+        contact: "mandla@company.co.za",
+        history: "Joined 2022, 99.2% ticket CSAT",
+        status: "Active",
+    },
 ];
+
 
 const payrollTimesheet = [
-  {
-    employeeId: 1,
-    hoursWorked: 160,
-    leaveDeductions: 8,
-    finalSalary: 69500,
-    gross: 99400,
-  },
-  {
-    employeeId: 2,
-    hoursWorked: 150,
-    leaveDeductions: 10,
-    finalSalary: 79000,
-    gross: 112000,
-  },
-  {
-    employeeId: 3,
-    hoursWorked: 170,
-    leaveDeductions: 4,
-    finalSalary: 54800,
-    gross: 79750,
-  },
-  {
-    employeeId: 4,
-    hoursWorked: 165,
-    leaveDeductions: 6,
-    finalSalary: 59700,
-    gross: 85950,
-  },
-  {
-    employeeId: 5,
-    hoursWorked: 158,
-    leaveDeductions: 5,
-    finalSalary: 57850,
-    gross: 83425,
-  },
-  {
-    employeeId: 6,
-    hoursWorked: 168,
-    leaveDeductions: 2,
-    finalSalary: 64800,
-    gross: 95550,
-  },
-  {
-    employeeId: 7,
-    hoursWorked: 175,
-    leaveDeductions: 3,
-    finalSalary: 71800,
-    gross: 105300,
-  },
-  {
-    employeeId: 8,
-    hoursWorked: 160,
-    leaveDeductions: 0,
-    finalSalary: 56000,
-    gross: 84000,
-  },
-  {
-    employeeId: 9,
-    hoursWorked: 155,
-    leaveDeductions: 5,
-    finalSalary: 61500,
-    gross: 88350,
-  },
-  {
-    employeeId: 10,
-    hoursWorked: 162,
-    leaveDeductions: 4,
-    finalSalary: 57750,
-    gross: 83520,
-  },
+    {
+        employeeId: 1,
+        hoursWorked: 176,
+        leaveDeductions: 0,
+        finalSalary: 99400,
+        gross: 99400,
+    },
+    {
+        employeeId: 2,
+        hoursWorked: 168,
+        leaveDeductions: 2000,
+        finalSalary: 103000,
+        gross: 105000,
+    },
+    {
+        employeeId: 3,
+        hoursWorked: 176,
+        leaveDeductions: 0,
+        finalSalary: 78200,
+        gross: 78200,
+    },
+    {
+        employeeId: 4,
+        hoursWorked: 160,
+        leaveDeductions: 3200,
+        finalSalary: 82100,
+        gross: 85300,
+    },
+    {
+        employeeId: 5,
+        hoursWorked: 176,
+        leaveDeductions: 0,
+        finalSalary: 92000,
+        gross: 92000,
+    },
+    {
+        employeeId: 6,
+        hoursWorked: 184,
+        leaveDeductions: 0,
+        finalSalary: 101500,
+        gross: 101500,
+    },
+    {
+        employeeId: 7,
+        hoursWorked: 172,
+        leaveDeductions: 800,
+        finalSalary: 87600,
+        gross: 88400,
+    },
+    {
+        employeeId: 8,
+        hoursWorked: 180,
+        leaveDeductions: 0,
+        finalSalary: 75600,
+        gross: 75600,
+    },
+    {
+        employeeId: 9,
+        hoursWorked: 176,
+        leaveDeductions: 0,
+        finalSalary: 81900,
+        gross: 81900,
+    },
+    {
+        employeeId: 10,
+        hoursWorked: 168,
+        leaveDeductions: 1200,
+        finalSalary: 64600,
+        gross: 65800,
+    },
 ];
+
 
 const avatarColors = [
-  "#14b8a6",
-  "#8b5cf6",
-  "#f59e0b",
-  "#ec4899",
-  "#6366f1",
-  "#84cc16",
-  "#3b82f6",
-  "#a855f7",
-  "#ef4444",
-  "#06b6d4",
+    "#3B82F6",
+    "#EF4444",
+    "#10B981",
+    "#F59E0B",
+    "#8B5CF6",
+    "#EC4899",
+    "#06B6D4",
+    "#F97316",
+    "#84CC16",
+    "#6366F1",
 ];
 
+
 function getScoreById(id) {
-  const scores = {
-    1: 92,
-    2: 95,
-    3: 88,
-    4: 90,
-    5: 87,
-    6: 94,
-    7: 96,
-    8: 89,
-    9: 91,
-    10: 93,
-  };
-  return scores[id] || 85;
+    const scores = {
+        1: 92,
+        2: 88,
+        3: 95,
+        4: 85,
+        5: 90,
+        6: 94,
+        7: 87,
+        8: 89,
+        9: 91,
+        10: 86,
+    };
+    return scores[id] || 85;
 }
 
-const employees = employeeInformation.map((emp, idx) => ({
-  id: emp.employeeId,
-  name: emp.name,
-  role: emp.position,
-  dept: emp.department,
-  department: emp.department,
-  salary: emp.salary,
-  color: avatarColors[idx % avatarColors.length],
-  status: "active",
-  score: getScoreById(emp.employeeId),
-  contact: emp.contact,
-  employmentHistory: emp.employmentHistory,
-  initials: emp.name
-    .split(" ")
-    .map((n) => n[0])
-    .join(""),
+
+let employees = employeeInformation.map((emp, idx) => ({
+    ...emp,
+    color: avatarColors[idx],
+    initials: emp.name
+        .split(" ")
+        .map((n) => n[0])
+        .join(""),
+    score: getScoreById(emp.id),
 }));
 
+
 const payrollData = employees.map((emp) => {
-  const timesheet = payrollTimesheet.find((p) => p.employeeId === emp.id);
-  if (!timesheet) {
-    console.error(
-      `[Data] No timesheet found for employeeId ${emp.id} - ${emp.name}`,
-    );
+    const timesheet = payrollTimesheet.find((t) => t.employeeId === emp.id) || {};
+    const gross = timesheet.gross || emp.salary;
+    const leaveDeductions = timesheet.leaveDeductions || 0;
+    const hoursWorked = timesheet.hoursWorked || 176;
+    const tax = gross * 0.26;
+    const ni = gross * 0.01;
+    const pension = gross * 0.075;
+    const totalDeductions = tax + ni + pension + leaveDeductions;
+    const netPay = gross - totalDeductions;
+    const hourlyRate = gross / hoursWorked;
     return {
-      ...emp,
-      hoursWorked: 0,
-      leaveDeductions: 0,
-      hourlyRate: 0,
-      grossPay: 0,
-      tax: 0,
-      ni: 0,
-      pension: 0,
-      deductions: 0,
-      netPay: 0,
-      paid: false,
+        ...emp,
+        ...timesheet,
+        grossPay: gross,
+        tax,
+        ni,
+        pension,
+        deductions: totalDeductions,
+        netPay,
+        hourlyRate,
     };
-  }
-
-  const gross = timesheet.gross || 0;
-  const tax = Math.round(gross * 0.22);
-  const ni = Math.round(gross * 0.13);
-  const pension = Math.round(gross * 0.05);
-
-  return {
-    ...emp,
-    hoursWorked: timesheet.hoursWorked,
-    leaveDeductions: timesheet.leaveDeductions,
-    hourlyRate: Math.round(emp.salary / 12 / 160),
-    grossPay: gross,
-    tax: tax,
-    ni: ni,
-    pension: pension,
-    deductions: tax + ni + pension,
-    netPay: timesheet.finalSalary,
-    paid: false,
-  };
 });
 
-console.log("[Data] Employees loaded:", employees.length);
-console.log("[Data] PayrollData loaded:", payrollData.length);
 
-let currentPayslip = null;
-let payslipChartInstance = null;
-let payslipTrendChartInstance = null;
-let payrollBreakdownChart = null;
-let topEarnersChart = null;
-
-// ===============================
-// 2. ZAR CURRENCY
-// ===============================
-const currency = new Intl.NumberFormat("en-ZA", {
-  style: "currency",
-  currency: "ZAR",
-  minimumFractionDigits: 0,
-  maximumFractionDigits: 0,
-});
-
+// 3. Shared Utilities
 function toRand(amount) {
-  if (typeof amount !== "number" || isNaN(amount)) {
-    console.warn("[toRand] Invalid amount:", amount);
-    return "R0";
-  }
-  return currency.format(amount).replace("ZAR", "R");
+    if (typeof amount !== "number" || isNaN(amount)) return "R0";
+    return "R" + amount.toLocaleString("en-ZA", { maximumFractionDigits: 0 });
 }
 
-// ===============================
-// 3. TOAST
-// ===============================
+
 function showToast(message, type = "success") {
-  console.log(`[Toast] ${type}: ${message}`);
-  const container = document.getElementById("toastContainer");
-  if (!container) {
-    console.warn("[Toast] #toastContainer not found");
-    return;
-  }
-  const icon = type === "error" ? "fa-circle-xmark" : "fa-check";
-  const toast = document.createElement("div");
-  toast.className = "toast";
-  toast.innerHTML = `
-    <div class="toast-icon">
-      <i class="fa-solid ${icon}"></i>
-    </div>
-    <p>${message}</p>
-    <button type="button" onclick="this.parentElement.remove()" aria-label="Close notification">
-      <i class="fa-solid fa-xmark"></i>
-    </button>
-  `;
-  container.appendChild(toast);
-  setTimeout(() => toast.remove(), 4000);
-}
-
-// ===============================
-// 4. EMPLOYEE DIRECTORY PAGE
-// ===============================
-function initEmployeePage() {
-  console.log("[EmployeePage] Init started...");
-
-  const grid = document.getElementById("employeeGrid");
-  if (!grid) {
-    console.error(
-      "[EmployeePage] CRITICAL: #employeeGrid not found. Wrong page?",
-    );
-    return;
-  }
-
-  const cards = document.querySelectorAll(".employee-card[data-employee-id]");
-  console.log(`[EmployeePage] Found ${cards.length} employee cards`);
-
-  if (cards.length === 0) {
-    console.warn(
-      "[EmployeePage] No employee cards found. Check HTML structure.",
-    );
-    return;
-  }
-
-  cards.forEach((card, index) => {
-    const empId = parseInt(card.dataset.employeeId);
-    if (isNaN(empId)) {
-      console.error(
-        `[EmployeePage] Card #${index} has invalid data-employee-id`,
-      );
-      return;
-    }
-
-    const emp = employees.find((e) => e.id === empId);
-    if (!emp) {
-      console.error(`[EmployeePage] No employee data for ID ${empId}`);
-      return;
-    }
-
-    card.addEventListener("click", () => {
-      console.log(`[EmployeePage] Card clicked: ${emp.name}`);
-      viewEmployeeProfile(empId);
-    });
-
-    card.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        viewEmployeeProfile(empId);
-      }
-    });
-  });
-
-  initEmployeeSearch();
-  console.log("[EmployeePage] Init complete");
-}
-
-function viewEmployeeProfile(empId) {
-  console.log(`[EmployeeProfile] Opening ID: ${empId}`);
-  const emp = employees.find((e) => e.id === empId);
-  if (!emp) {
-    showToast("Employee not found", "error");
-    return;
-  }
-
-  const modal = document.getElementById("employeeModal");
-  const content = document.getElementById("employeeModalContent");
-  if (!modal || !content) {
-    showToast("Modal elements missing", "error");
-    return;
-  }
-
-  content.innerHTML = `
-    <div class="space-y-6">
-      <div class="text-center pb-6 border-b border-slate-200">
-        <div class="employee-avatar mx-auto mb-3" style="background: ${emp.color}; width: 80px; height: 80px; font-size: 24px;">
-          ${emp.initials}
-        </div>
-        <h4 class="text-2xl font-bold">${emp.name}</h4>
-        <p class="text-sm text-slate-500">${emp.role}</p>
-        <span class="status-badge mt-2 inline-block">Active</span>
-      </div>
-      <div class="grid grid-cols-2 gap-4 text-sm">
-        <div><p class="text-slate-500 mb-1">Department</p><p class="font-bold">${emp.dept}</p></div>
-        <div><p class="text-slate-500 mb-1">Annual Salary</p><p class="font-bold">${toRand(emp.salary)}</p></div>
-        <div class="col-span-2"><p class="text-slate-500 mb-1">Contact</p><p class="font-bold text-xs">${emp.contact}</p></div>
-      </div>
-      <div class="bg-purple-50 rounded-2xl p-5">
-        <h5 class="font-bold mb-2 flex items-center gap-2">
-          <i class="fa-solid fa-clock-rotate-left text-purple-500"></i>
-          Employment History
-        </h5>
-        <p class="text-sm text-slate-600">${emp.employmentHistory}</p>
-      </div>
-    </div>
-  `;
-
-  modal.classList.remove("hidden");
-  modal.classList.add("flex");
-}
-
-function closeEmployeeModal() {
-  const modal = document.getElementById("employeeModal");
-  if (modal) {
-    modal.classList.add("hidden");
-    modal.classList.remove("flex");
-  }
-}
-
-function initEmployeeSearch() {
-  const searchInput = document.getElementById("employeeSearch");
-  if (!searchInput) return;
-
-  searchInput.addEventListener("input", (e) => {
-    const search = e.target.value.toLowerCase();
-    const cards = document.querySelectorAll(".employee-card[data-employee-id]");
-    const empty = document.getElementById("employeeEmpty");
-    let visibleCount = 0;
-
-    cards.forEach((card) => {
-      const empId = parseInt(card.dataset.employeeId);
-      const emp = employees.find((e) => e.id === empId);
-      if (!emp) return;
-
-      const matches =
-        emp.name.toLowerCase().includes(search) ||
-        emp.role.toLowerCase().includes(search) ||
-        emp.dept.toLowerCase().includes(search);
-      card.style.display = matches ? "" : "none";
-      if (matches) visibleCount++;
-    });
-
-    if (empty) empty.classList.toggle("hidden", visibleCount > 0);
-  });
-}
-
-// ===============================
-// 5. PAYROLL PAGE
-// ===============================
-function initPayrollPage() {
-  console.log("[Payroll] Init started...");
-
-  const tableBody = document.getElementById("payrollTableBody");
-  if (!tableBody) {
-    console.error("[Payroll] CRITICAL: #payrollTableBody not found");
-    return;
-  }
-
-  const payslipBtns = document.querySelectorAll(".btn-table[data-payslip-id]");
-  console.log(`[Payroll] Found ${payslipBtns.length} payslip buttons`);
-
-  payslipBtns.forEach((btn) => {
-    const empId = parseInt(btn.dataset.payslipId);
-    if (isNaN(empId)) return;
-
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      console.log(`[Payroll] Payslip clicked for ID: ${empId}`);
-      viewPayslip(empId);
-    });
-  });
-
-  try {
-    updatePayrollSummary();
-  } catch (err) {
-    console.error("[Payroll] Summary failed:", err);
-  }
-  try {
-    renderPayrollCharts();
-  } catch (err) {
-    console.error("[Payroll] Charts failed:", err);
-  }
-  try {
-    initPayslipModal();
-  } catch (err) {
-    console.error("[Payroll] Modal init failed:", err);
-  }
-
-  const exportBtn = document.getElementById("exportAllBtn");
-  if (exportBtn)
-    exportBtn.addEventListener("click", () =>
-      showToast("Exporting all payslips to ZIP..."),
-    );
-
-  console.log("[Payroll] Init complete");
-}
-
-function updatePayrollSummary() {
-  const grossTotal = payrollData.reduce((sum, p) => sum + (p.grossPay || 0), 0);
-  const deductionsTotal = payrollData.reduce(
-    (sum, p) => sum + (p.deductions || 0),
-    0,
-  );
-  const netTotal = payrollData.reduce((sum, p) => sum + (p.netPay || 0), 0);
-
-  const grossEl = document.getElementById("grossPayroll");
-  const deductEl = document.getElementById("totalDeductions");
-  const netEl = document.getElementById("netPayroll");
-
-  if (grossEl) grossEl.textContent = toRand(grossTotal);
-  if (deductEl) deductEl.textContent = toRand(deductionsTotal);
-  if (netEl) netEl.textContent = toRand(netTotal);
-}
-
-function renderPayrollCharts() {
-  if (typeof Chart === "undefined") {
-    console.warn("[Charts] Chart.js not loaded. Skipping.");
-    return;
-  }
-  renderBreakdownChart();
-  renderTopEarnersChart();
-}
-
-function renderBreakdownChart() {
-  const ctx = document.getElementById("payrollBreakdownChart");
-  if (!ctx) return;
-
-  const grossTotal = payrollData.reduce((sum, p) => sum + (p.grossPay || 0), 0);
-  const taxTotal = payrollData.reduce((sum, p) => sum + (p.tax || 0), 0);
-  const niTotal = payrollData.reduce((sum, p) => sum + (p.ni || 0), 0);
-  const pensionTotal = payrollData.reduce(
-    (sum, p) => sum + (p.pension || 0),
-    0,
-  );
-  const netTotal = payrollData.reduce((sum, p) => sum + (p.netPay || 0), 0);
-
-  if (payrollBreakdownChart) payrollBreakdownChart.destroy();
-
-  payrollBreakdownChart = new Chart(ctx, {
-    type: "doughnut",
-    data: {
-      labels: ["Net Pay", "PAYE Tax", "UIF/NI", "Pension"],
-      datasets: [
-        {
-          data: [netTotal, taxTotal, niTotal, pensionTotal],
-          backgroundColor: ["#14b8a6", "#ef4444", "#f59e0b", "#8b5cf6"],
-          borderWidth: 2,
-          borderColor: "#fff",
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          position: "bottom",
-          labels: { padding: 12, font: { size: 11 }, usePointStyle: true },
-        },
-        tooltip: {
-          callbacks: {
-            label: function (context) {
-              const percent =
-                grossTotal > 0
-                  ? ((context.parsed / grossTotal) * 100).toFixed(1)
-                  : 0;
-              return `${context.label}: ${toRand(context.parsed)} (${percent}%)`;
-            },
-          },
-        },
-      },
-    },
-  });
-}
-
-function renderTopEarnersChart() {
-  const ctx = document.getElementById("topEarnersChart");
-  if (!ctx) return;
-
-  const topFive = [...payrollData]
-    .filter((p) => p.netPay && p.name)
-    .sort((a, b) => b.netPay - a.netPay)
-    .slice(0, 5);
-  if (topFive.length === 0) return;
-
-  if (topEarnersChart) topEarnersChart.destroy();
-
-  topEarnersChart = new Chart(ctx, {
-    type: "bar",
-    data: {
-      labels: topFive.map((p) => p.name.split(" ")[0]),
-      datasets: [
-        {
-          label: "Net Pay",
-          data: topFive.map((p) => p.netPay),
-          backgroundColor: topFive.map((p) => p.color || "#14b8a6"),
-          borderRadius: 6,
-          borderSkipped: false,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: (context) => toRand(context.parsed.y),
-            title: (context) => topFive[context[0].dataIndex].name,
-          },
-        },
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: {
-            callback: (v) => "R" + Math.round(v / 1000) + "k",
-            font: { size: 10 },
-          },
-          grid: { color: "#f1f5f9" },
-        },
-        x: { ticks: { font: { size: 10 } }, grid: { display: false } },
-      },
-    },
-  });
+    const container = document.getElementById("toastContainer");
+    if (!container) return;
+    const toast = document.createElement("div");
+    toast.className = `toast ${type}`;
+    const icon =
+        type === "error"
+            ? '<i class="fa-solid fa-circle-xmark"></i>'
+            : '<i class="fa-solid fa-circle-check"></i>';
+    toast.innerHTML = `${icon}<span>${message}</span>`;
+    container.appendChild(toast);
+    setTimeout(() => toast.classList.add("show"), 10);
+    setTimeout(() => {
+        toast.classList.remove("show");
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
 }
 
 function getQuirkyFact(data) {
-  if (!data?.id) return "Keep up the great work!";
-  const facts = [
-    `With ${data.hoursWorked} hours, that's ${Math.round(data.hoursWorked / 8)} full work days!`,
-    `Your net pay could buy ${Math.floor(data.netPay / 35)} cappuccinos ☕`,
-    `You contributed ${toRand(data.pension || 0)} to retirement this month.`,
-    `If you saved 10%, you'd have ${toRand(data.netPay * 0.1)} more`,
-    `${data.leaveDeductions}h leave = ${Math.round((data.leaveDeductions / 8) * 10) / 10} days off`,
-    `Your hourly rate: ${toRand(data.hourlyRate || 0)}/hr`,
-    `Net is ${data.salary ? ((data.netPay / (data.salary / 12)) * 100).toFixed(0) : 0}% of monthly salary`,
-  ];
-  return facts[data.id % facts.length];
+    const firstName = data.name.split(" ")[0];
+    const facts = [
+        `Did you know? ${firstName} could buy ${Math.floor(data.netPay / 25)} cappuccinos this month.`,
+        `Fun fact: ${firstName}'s hourly rate is enough for ${Math.floor(data.hourlyRate / 60)} minutes of helicopter time.`,
+        `${firstName} worked ${data.hoursWorked} hours. That's ${data.hoursWorked * 60} minutes of brilliance.`,
+        `If ${firstName} saved 10% of net pay, they'd have ${toRand(data.netPay * 0.1 * 12)} after a year.`,
+        `${firstName}'s tax could fund ${Math.floor(data.tax / 15000)} school textbooks.`,
+        `At this rate, ${firstName} earns ${toRand(data.hourlyRate / 60)} per minute.`,
+        `${firstName} is in the top ${100 - data.score}% of performers. Iconic.`,
+    ];
+    return facts[data.id % facts.length];
 }
 
 function getMonthData(data, monthOffset) {
-  const variance = Math.max(0.5, 1 - monthOffset * 0.05);
-  const gross = Math.round((data.grossPay || 0) * variance);
-  const tax = Math.round(gross * 0.22);
-  const ni = Math.round(gross * 0.13);
-  const pension = Math.round(gross * 0.05);
-  return { gross, tax, ni, pension, net: gross - tax - ni - pension };
+    const multiplier = Math.pow(0.95, monthOffset);
+    return {
+        gross: data.grossPay * multiplier,
+        net: data.netPay * multiplier,
+        tax: data.tax * multiplier,
+    };
 }
 
-function viewPayslip(empId) {
-  console.log(`[Payslip] Opening for ID: ${empId}`);
-  const data = payrollData.find((p) => p.id === empId);
-  if (!data) {
-    showToast("Employee payroll data not found", "error");
-    return;
-  }
+// 4. EMPLOYEES PAGE FUNCTIONS
+function renderEmployeeGrid(empList = employees) {
+    const grid = document.getElementById("employeeGrid");
+    const empty = document.getElementById("employeeEmpty");
+    if (!grid) return;
 
-  currentPayslip = data;
-  const modal = document.getElementById("payslipModal");
-  const content = document.getElementById("payslipContent");
-  if (!modal || !content) {
-    showToast("Payslip modal missing", "error");
-    return;
-  }
 
-  const deductionPercent =
-    data.grossPay > 0
-      ? ((data.deductions / data.grossPay) * 100).toFixed(1)
-      : 0;
-  const payDate = new Date().toLocaleDateString("en-ZA", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+    if (empList.length === 0) {
+        grid.innerHTML = "";
+        if (empty) empty.style.display = "block";
+        return;
+    }
 
-  content.innerHTML = `
-    <div id="payslipToExport" class="space-y-6">
-      <div class="flex justify-between items-start pb-6 border-b-2 border-slate-200">
-        <div>
-          <div class="flex items-center gap-3 mb-2">
-            <div class="text-3xl">💼</div>
-            <div><h4 class="text-xl font-bold text-slate-800">ModernTech HR</h4><p class="text-xs text-slate-500">Payroll Department</p></div>
+
+    if (empty) empty.style.display = "none";
+
+
+    grid.innerHTML = empList
+        .map(
+            (emp) => `
+    <div class="employee-card" data-employee-id="${emp.id}" role="button" tabindex="0">
+      <div class="employee-card-top">
+        <div class="employee-avatar" style="background: ${emp.color}">
+          ${emp.initials}
+        </div>
+        <span class="status-badge">${emp.status}</span>
+      </div>
+      <h4>${emp.name}</h4>
+      <p class="employee-role">${emp.position}</p>
+      <div class="employee-card-footer">
+        <span class="dept-badge">${emp.dept}</span>
+        <div class="score-badge">
+          <i class="fa-solid fa-star"></i>
+          <span>${emp.score}%</span>
+        </div>
+      </div>
+    </div>
+  `,
+        )
+        .join("");
+
+    document.querySelectorAll(".employee-card").forEach((card) => {
+        const id = parseInt(card.dataset.employeeId);
+        card.onclick = () => openEmployeeProfile(id);
+        card.onkeydown = (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                openEmployeeProfile(id);
+            }
+        };
+    });
+}
+
+function openEmployeeProfile(empId) {
+    const emp = employees.find((e) => e.id === empId);
+    if (!emp) return showToast("Employee not found", "error");
+
+    const overlay = document.getElementById("employeeProfileOverlay");
+    const body = document.getElementById("empModalBody");
+    const title = document.getElementById("empModalTitle");
+    if (!overlay || !body) return;
+
+    title.textContent = emp.name;
+    body.innerHTML = `
+    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+      <div style="display: flex; align-items: center; gap: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid #e2e8f0;">
+        <div style="width: 5rem; height: 5rem; border-radius: 9999px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: 700; background-color: ${emp.color}">
+          ${emp.initials}
+        </div>
+        <div style="flex: 1;">
+          <h4 style="font-size: 1.5rem; font-weight: 700; color: #0f172a; margin: 0;">${emp.name}</h4>
+          <p style="color: #4b5563; font-size: 1.125rem; margin: 0.25rem 0;">${emp.position}</p>
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;">
+            <span style="padding: 0.25rem 0.75rem; background: #dcfce7; color: #166534; border-radius: 9999px; font-size: 0.875rem; font-weight: 500;">${emp.status}</span>
+            <span style="padding: 0.25rem 0.75rem; background: #dbeafe; color: #1e40af; border-radius: 9999px; font-size: 0.875rem; font-weight: 500;">${emp.dept}</span>
           </div>
-          <p class="text-xs text-slate-400 mt-2">Pay Period: June 2026</p>
-          <p class="text-xs text-slate-400">Pay Date: ${payDate}</p>
-        </div>
-        <div class="text-right">
-          <div class="employee-avatar mx-auto mb-2" style="background: ${data.color}; width: 64px; height: 64px;">${data.initials}</div>
-          <p class="font-bold text-slate-800">${data.name}</p>
-          <p class="text-sm text-slate-500">${data.role}</p>
-          <p class="text-xs text-slate-400">${data.dept}</p>
-        </div>
-      <div class="bg-gradient-to-r from-purple-50 to-teal-50 rounded-lg p-3 border border-purple-100">
-        <p class="text-sm text-slate-600 flex items-center gap-2"><i class="fa-solid fa-lightbulb text-amber-500"></i><span>${getQuirkyFact(data)}</span></p>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <h5 class="font-bold text-slate-700 mb-3 flex items-center gap-2"><i class="fa-solid fa-circle-plus text-green-500"></i>Earnings</h5>
-          <div class="space-y-2 bg-slate-50 rounded-lg p-4">
-            <div class="flex justify-between text-sm"><span class="text-slate-600">Basic Salary</span><span class="font-semibold mono">${toRand(data.grossPay)}</span></div>
-            <div class="flex justify-between text-sm"><span class="text-slate-600">Hours Worked</span><span class="font-semibold">${data.hoursWorked}h @ ${toRand(data.hourlyRate)}/hr</span></div>
-            <div class="flex justify-between text-sm pt-2 border-t border-slate-200"><span class="font-bold text-slate-700">Gross Total</span><span class="font-bold text-green-600 mono">${toRand(data.grossPay)}</span></div>
-          </div>
-        </div>
-        <div>
-          <h5 class="font-bold text-slate-700 mb-3 flex items-center gap-2"><i class="fa-solid fa-circle-minus text-red-500"></i>Deductions</h5>
-          <div class="space-y-2 bg-slate-50 rounded-lg p-4">
-            <div class="flex justify-between text-sm"><span class="text-slate-600">PAYE Tax (22%)</span><span class="font-semibold text-red-600 mono">-${toRand(data.tax)}</span></div>
-            <div class="flex justify-between text-sm"><span class="text-slate-600">UIF/NI (13%)</span><span class="font-semibold text-red-600 mono">-${toRand(data.ni)}</span></div>
-            <div class="flex justify-between text-sm"><span class="text-slate-600">Pension (5%)</span><span class="font-semibold text-amber-600 mono">-${toRand(data.pension)}</span></div>
-            <div class="flex justify-between text-sm pt-2 border-t border-slate-200"><span class="font-bold text-slate-700">Total Deductions</span><span class="font-bold text-red-600 mono">-${toRand(data.deductions)}</span></div>
-          </div>
         </div>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="bg-white rounded-lg p-4 border border-slate-200">
-          <h5 class="font-bold text-slate-700 mb-3 text-sm">This Month Split</h5>
-          <div style="height: 200px; position: relative;"><canvas id="payslipChart"></canvas></div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div style="background: #f9fafb; padding: 1rem; border-radius: 0.5rem;">
+          <p style="font-size: 0.875rem; color: #6b7280; margin: 0 0 0.25rem 0;">Performance Score</p>
+          <p style="font-size: 1.5rem; font-weight: 700; color: #111827; margin: 0;">${emp.score}/100</p>
         </div>
-        <div class="bg-white rounded-lg p-4 border border-slate-200">
-          <h5 class="font-bold text-slate-700 mb-3 text-sm">3-Month Trend</h5>
-          <div style="height: 200px; position: relative;"><canvas id="payslipTrendChart"></canvas></div>
-        </div>
-      </div>
-      <div class="bg-gradient-to-r from-teal-500 to-teal-600 rounded-xl p-6 text-white">
-        <div class="flex justify-between items-center">
-          <div><p class="text-teal-100 text-sm mb-1">Net Pay - Take Home</p><p class="text-3xl font-bold mono">${toRand(data.netPay)}</p></div>
-          <div class="text-right"><p class="text-teal-100 text-xs mb-1">Deduction Rate</p><p class="text-2xl font-bold">${deductionPercent}%</p></div>
+        <div style="background: #f9fafb; padding: 1rem; border-radius: 0.5rem;">
+          <p style="font-size: 0.875rem; color: #6b7280; margin: 0 0 0.25rem 0;">Base Salary</p>
+          <p style="font-size: 1.5rem; font-weight: 700; color: #111827; margin: 0;">${toRand(emp.salary)}</p>
         </div>
       </div>
-      <div class="grid grid-cols-2 gap-4 text-sm pt-4 border-t border-slate-200">
-        <div class="bg-blue-50 rounded-lg p-3"><p class="text-slate-500 mb-1 text-xs">Leave Taken</p><p class="font-bold text-slate-700">${data.leaveDeductions} hours</p></div>
-        <div class="bg-purple-50 rounded-lg p-3"><p class="text-slate-500 mb-1 text-xs">Employee ID</p><p class="font-bold text-slate-700">#${data.id.toString().padStart(4, "0")}</p></div>
+      <div style="background: #f9fafb; padding: 1rem; border-radius: 0.5rem;">
+        <p style="font-size: 0.875rem; font-weight: 600; color: #374151; margin: 0 0 0.5rem 0;">Contact Information</p>
+        <div style="display: flex; align-items: center; gap: 0.5rem; color: #4b5563;">
+          <i class="fa-solid fa-envelope"></i>
+          <a href="mailto:${emp.contact}" style="color: #2563eb; text-decoration: none;">${emp.contact}</a>
+        </div>
+      </div>
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; padding: 1rem; border-radius: 0.5rem;">
+        <p style="font-size: 0.875rem; font-weight: 600; color: #1e3a8a; margin: 0 0 0.5rem 0;">Career History</p>
+        <p style="font-size: 0.875rem; color: #1e40af; margin: 0;">${emp.history}</p>
       </div>
     </div>
   `;
 
-  modal.classList.remove("hidden");
-  modal.classList.add("flex");
-
-  requestAnimationFrame(() => setTimeout(() => renderPayslipCharts(data), 100));
+    overlay.style.display = "flex";
+    document.body.style.overflow = "hidden";
 }
 
-function renderPayslipCharts(data) {
-  if (typeof Chart === "undefined") {
-    console.warn("[PayslipCharts] Chart.js not available");
-    return;
-  }
-
-  const doughnutCtx = document.getElementById("payslipChart");
-  const barCtx = document.getElementById("payslipTrendChart");
-  if (!doughnutCtx || !barCtx) return;
-
-  if (payslipChartInstance) payslipChartInstance.destroy();
-  if (payslipTrendChartInstance) payslipTrendChartInstance.destroy();
-
-  payslipChartInstance = new Chart(doughnutCtx, {
-    type: "doughnut",
-    data: {
-      labels: ["Net Pay", "Tax", "NI/UIF", "Pension"],
-      datasets: [
-        {
-          data: [data.netPay, data.tax, data.ni, data.pension],
-          backgroundColor: ["#14b8a6", "#ef4444", "#f59e0b", "#8b5cf6"],
-          borderWidth: 0,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          position: "bottom",
-          labels: { padding: 10, font: { size: 10 }, usePointStyle: true },
-        },
-        tooltip: {
-          callbacks: { label: (c) => `${c.label}: ${toRand(c.parsed)}` },
-        },
-      },
-    },
-  });
-
-  const april = getMonthData(data, 2);
-  const may = getMonthData(data, 1);
-  const june = { gross: data.grossPay, net: data.netPay };
-
-  payslipTrendChartInstance = new Chart(barCtx, {
-    type: "bar",
-    data: {
-      labels: ["April", "May", "June"],
-      datasets: [
-        {
-          label: "Gross Pay",
-          data: [april.gross, may.gross, june.gross],
-          backgroundColor: "#8b5cf6",
-          borderRadius: 6,
-        },
-        {
-          label: "Net Pay",
-          data: [april.net, may.net, june.net],
-          backgroundColor: "#14b8a6",
-          borderRadius: 6,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          position: "bottom",
-          labels: { padding: 10, font: { size: 10 }, usePointStyle: true },
-        },
-        tooltip: {
-          callbacks: {
-            label: (c) => `${c.dataset.label}: ${toRand(c.parsed.y)}`,
-          },
-        },
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: {
-            callback: (v) => "R" + Math.round(v / 1000) + "k",
-            font: { size: 10 },
-          },
-        },
-        x: { ticks: { font: { size: 10 } } },
-      },
-    },
-  });
+function closeEmployeeProfile() {
+    const overlay = document.getElementById("employeeProfileOverlay");
+    if (overlay) {
+        overlay.style.display = "none";
+        document.body.style.overflow = "";
+    }
 }
 
-function downloadPayslipPDF() {
-  if (!currentPayslip) {
-    showToast("No payslip data available", "error");
-    return;
-  }
-  if (typeof window.jspdf === "undefined") {
-    showToast("PDF library not loaded", "error");
-    return;
-  }
+function initEmployeeSearch() {
+    const search = document.getElementById("employeeSearch");
+    if (!search) return;
+    search.addEventListener("input", (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        if (!query) return renderEmployeeGrid(employees);
+        const filtered = employees.filter(
+            (emp) =>
+                emp.name.toLowerCase().includes(query) ||
+                emp.position.toLowerCase().includes(query) ||
+                emp.dept.toLowerCase().includes(query) ||
+                emp.contact.toLowerCase().includes(query),
+        );
+        renderEmployeeGrid(filtered);
+    });
+}
 
-  try {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    const data = currentPayslip;
+function initFilterButton() {
+    const filterBtn = document.getElementById("filterBtn");
+    if (!filterBtn) return;
+    filterBtn.addEventListener("click", showFilterModal);
+}
 
-    doc
-      .setFontSize(20)
-      .setTextColor(20, 184, 166)
-      .text("💼 ModernTech HR", 20, 20);
-    doc.setFontSize(10).setTextColor(100).text("Payslip - June 2026", 20, 27);
-    doc.setFontSize(14).setTextColor(0).text(data.name, 20, 40);
-    doc
-      .setFontSize(10)
-      .setTextColor(100)
-      .text(`${data.role} - ${data.dept}`, 20, 46);
-    doc.text(`Employee ID: #${data.id.toString().padStart(4, "0")}`, 20, 52);
+function showFilterModal() {
+    const depts = [...new Set(employees.map((e) => e.dept))].sort();
+    const overlay = document.getElementById("employeeProfileOverlay");
+    const body = document.getElementById("empModalBody");
+    const title = document.getElementById("empModalTitle");
+    if (!overlay || !body) return;
 
-    let y = 65;
-    doc.setFontSize(12).setTextColor(0).text("Earnings", 20, y);
-    y += 7;
-    doc.setFontSize(10).text(`Gross Pay: ${toRand(data.grossPay)}`, 25, y);
-    y += 6;
-    doc.text(
-      `Hours: ${data.hoursWorked}h @ ${toRand(data.hourlyRate)}/hr`,
-      25,
-      y,
-    );
+    title.textContent = "Filter Employees";
+    body.innerHTML = `
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+      <div>
+        <label style="display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem; color: #374151;">Department</label>
+        <select id="filterDept" style="width: 100%; padding: 0.625rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 0.875rem; color: #111827;">
+          <option value="">All Departments</option>
+          ${depts.map((d) => `<option value="${d}">${d}</option>`).join("")}
+        </select>
+      </div>
+      <div>
+        <label style="display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem; color: #374151;">Min Performance Score</label>
+        <input id="filterScore" type="number" min="0" max="100" placeholder="0-100" style="width: 100%; padding: 0.625rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 0.875rem; color: #111827;">
+      </div>
+      <div style="display: flex; gap: 0.75rem; padding-top: 0.5rem;">
+        <button id="applyFilterBtn" class="btn-primary" style="flex: 1; padding: 0.75rem; font-size: 0.875rem; font-weight: 600;">Apply Filter</button>
+        <button id="clearFilterBtn" class="btn-secondary" style="flex: 1; padding: 0.75rem; font-size: 0.875rem; font-weight: 600;">Clear</button>
+      </div>
+    </div>
+  `;
+    overlay.style.display = "flex";
+    document.body.style.overflow = "hidden";
 
-    y += 12;
-    doc.setFontSize(12).text("Deductions", 20, y);
-    y += 7;
-    doc.setFontSize(10).text(`PAYE Tax (22%): -${toRand(data.tax)}`, 25, y);
-    y += 6;
-    doc.text(`UIF/NI (13%): -${toRand(data.ni)}`, 25, y);
-    y += 6;
-    doc.text(`Pension (5%): -${toRand(data.pension)}`, 25, y);
-    y += 6;
-    doc
-      .setFont(undefined, "bold")
-      .text(`Total: -${toRand(data.deductions)}`, 25, y);
+    document.getElementById("applyFilterBtn").onclick = applyEmployeeFilter;
+    document.getElementById("clearFilterBtn").onclick = () => {
+        clearEmployeeFilter();
+        closeEmployeeProfile();
+    };
+}
 
-    y += 15;
-    doc
-      .setFontSize(16)
-      .setTextColor(20, 184, 166)
-      .text(`Net Pay: ${toRand(data.netPay)}`, 20, y);
-    doc.setFontSize(8).setTextColor(150).text(getQuirkyFact(data), 20, 280);
+function applyEmployeeFilter() {
+    const dept = document.getElementById("filterDept").value;
+    const minScore = parseInt(document.getElementById("filterScore").value) || 0;
+    const filtered = employees.filter((emp) => {
+        const deptMatch = !dept || emp.dept === dept;
+        const scoreMatch = emp.score >= minScore;
+        return deptMatch && scoreMatch;
+    });
+    renderEmployeeGrid(filtered);
+    closeEmployeeProfile();
+    showToast(`Showing ${filtered.length} employees`);
+}
 
-    doc.save(`Payslip_${data.name.replace(/\s+/g, "_")}_June2026.pdf`);
-    showToast("PDF downloaded successfully");
-  } catch (err) {
-    console.error("[PDF] Generation failed:", err);
-    showToast("Error generating PDF", "error");
-  }
+function clearEmployeeFilter() {
+    renderEmployeeGrid(employees);
+    const search = document.getElementById("employeeSearch");
+    if (search) search.value = "";
+}
+
+function initAddEmployeeButton() {
+    const addBtn = document.getElementById("addEmployeeBtn");
+    if (!addBtn) return;
+    addBtn.addEventListener("click", showAddEmployeeModal);
+}
+
+function showAddEmployeeModal() {
+    const overlay = document.getElementById("employeeProfileOverlay");
+    const body = document.getElementById("empModalBody");
+    const title = document.getElementById("empModalTitle");
+    if (!overlay || !body) return;
+
+    title.textContent = "Add New Employee";
+    body.innerHTML = `
+    <form id="addEmployeeForm" style="display: flex; flex-direction: column; gap: 1rem; font-family: system-ui, -apple-system, sans-serif;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div>
+          <label style="display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.375rem; color: #374151;">Full Name *</label>
+          <input name="name" type="text" required placeholder="e.g. John Doe" style="width: 100%; padding: 0.625rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 0.875rem; color: #111827; box-sizing: border-box;">
+        </div>
+        <div>
+          <label style="display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.375rem; color: #374151;">Position *</label>
+          <input name="position" type="text" required placeholder="e.g. Software Engineer" style="width: 100%; padding: 0.625rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 0.875rem; color: #111827; box-sizing: border-box;">
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div>
+          <label style="display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.375rem; color: #374151;">Department *</label>
+          <input name="dept" type="text" required placeholder="e.g. Engineering" style="width: 100%; padding: 0.625rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 0.875rem; color: #111827; box-sizing: border-box;">
+        </div>
+        <div>
+          <label style="display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.375rem; color: #374151;">Base Salary *</label>
+          <input name="salary" type="number" required min="0" placeholder="e.g. 85000" style="width: 100%; padding: 0.625rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 0.875rem; color: #111827; box-sizing: border-box;">
+        </div>
+      </div>
+      <div>
+        <label style="display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.375rem; color: #374151;">Email *</label>
+        <input name="contact" type="email" required placeholder="name@company.co.za" style="width: 100%; padding: 0.625rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 0.875rem; color: #111827; box-sizing: border-box;">
+      </div>
+      <div>
+        <label style="display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.375rem; color: #374151;">History/Notes</label>
+        <textarea name="history" rows="3" placeholder="Brief background" style="width: 100%; padding: 0.625rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 0.875rem; color: #111827; box-sizing: border-box; resize: vertical; font-family: inherit;"></textarea>
+      </div>
+      <div style="display: flex; gap: 0.75rem; padding-top: 0.5rem;">
+        <button type="submit" class="btn-primary" style="flex: 1; padding: 0.75rem; font-size: 0.875rem; font-weight: 600; border: none; border-radius: 0.5rem; cursor: pointer;">Add Employee</button>
+        <button type="button" onclick="closeEmployeeProfile()" class="btn-secondary" style="flex: 1; padding: 0.75rem; font-size: 0.875rem; font-weight: 600; border: none; border-radius: 0.5rem; cursor: pointer;">Cancel</button>
+      </div>
+    </form>
+  `;
+
+    overlay.style.display = "flex";
+    document.body.style.overflow = "hidden";
+    document.getElementById("addEmployeeForm").onsubmit = handleAddEmployee;
+}
+
+function handleAddEmployee(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const newId = Math.max(...employees.map((emp) => emp.id), 0) + 1;
+    const colorIdx = employees.length % avatarColors.length;
+
+    const newEmp = {
+        id: newId,
+        name: formData.get("name"),
+        position: formData.get("position"),
+        dept: formData.get("dept"),
+        salary: parseInt(formData.get("salary")),
+        contact: formData.get("contact"),
+        history: formData.get("history") || "New employee",
+        status: "Active",
+        color: avatarColors[colorIdx],
+        initials: formData
+            .get("name")
+            .split(" ")
+            .map((n) => n[0])
+            .join(""),
+        score: 85,
+    };
+
+    employees.push(newEmp);
+    renderEmployeeGrid(employees);
+    closeEmployeeProfile();
+    showToast(`${newEmp.name} added successfully`);
+}
+
+// 5. PAYROLL PAGE FUNCTIONS
+let activePayslipData = null;
+let activePayslipCharts = [];
+let payrollBreakdownChart = null;
+let topEarnersChart = null;
+
+function initPayrollPage() {
+    renderPayrollTable();
+    updatePayrollSummary();
+    renderPayrollCharts();
+    initPayslipSystem();
+
+    const exportBtn = document.getElementById("exportAllBtn");
+    if (exportBtn) {
+        exportBtn.addEventListener("click", () =>
+            showToast("Export started. You'll receive an email when ready."),
+        );
+    }
+
+    const monthSelect = document.getElementById("monthSelect");
+    if (monthSelect) {
+        monthSelect.addEventListener("change", (e) => {
+            const selectedMonth = e.target.value;
+            showToast(`Switched to ${selectedMonth}`);
+            const tableHeader = document.querySelector(
+                "#payroll-data.table-header h4",
+            );
+            if (tableHeader)
+                tableHeader.textContent = `Employee Payroll — ${selectedMonth}`;
+        });
+    }
+}
+
+function renderPayrollTable() {
+    const tbody = document.getElementById("payrollTableBody");
+    if (!tbody) return;
+    tbody.innerHTML = payrollData
+        .map(
+            (emp) => `
+    <tr data-employee-id="${emp.id}">
+      <td>
+        <div class="employee-cell">
+          <div class="employee-avatar-small" style="background: ${emp.color}">${emp.initials}</div>
+          <div>
+            <p class="employee-name">${emp.name}</p>
+            <p class="employee-dept">${emp.dept}</p>
+          </div>
+        </div>
+      </td>
+      <td class="mono">${toRand(emp.grossPay)}</td>
+      <td class="text-red mono">-${toRand(emp.tax)}</td>
+      <td class="text-red mono">-${toRand(emp.ni)}</td>
+      <td class="text-amber mono">-${toRand(emp.pension)}</td>
+      <td class="text-teal mono font-bold">${toRand(emp.netPay)}</td>
+      <td>
+        <button type="button" class="btn-table" data-payslip-id="${emp.id}">
+          <i class="fa-regular fa-file-lines"></i>
+          <span>Payslip</span>
+        </button>
+      </td>
+    </tr>
+  `,
+        )
+        .join("");
+
+    tbody.querySelectorAll(".btn-table[data-payslip-id]").forEach((btn) => {
+        btn.addEventListener("click", () =>
+            openPayslip(parseInt(btn.dataset.payslipId)),
+        );
+    });
+}
+
+function updatePayrollSummary() {
+    const grossTotal = payrollData.reduce((sum, e) => sum + e.grossPay, 0);
+    const deductTotal = payrollData.reduce((sum, e) => sum + e.deductions, 0);
+    const netTotal = payrollData.reduce((sum, e) => sum + e.netPay, 0);
+    document.getElementById("grossPayroll").textContent = toRand(grossTotal);
+    document.getElementById("totalDeductions").textContent = toRand(deductTotal);
+    document.getElementById("netPayroll").textContent = toRand(netTotal);
+}
+
+function renderPayrollCharts() {
+    if (typeof Chart === "undefined") return;
+
+    const ctx1 = document.getElementById("payrollBreakdownChart");
+    if (ctx1) {
+        if (payrollBreakdownChart) payrollBreakdownChart.destroy();
+        const totals = payrollData.reduce(
+            (acc, e) => {
+                acc.net += e.netPay;
+                acc.tax += e.tax;
+                acc.ni += e.ni;
+                acc.pension += e.pension;
+                return acc;
+            },
+            { net: 0, tax: 0, ni: 0, pension: 0 },
+        );
+        payrollBreakdownChart = new Chart(ctx1, {
+            type: "doughnut",
+            data: {
+                labels: ["Net Pay", "PAYE Tax", "UIF", "Pension"],
+                datasets: [
+                    {
+                        data: [totals.net, totals.tax, totals.ni, totals.pension],
+                        backgroundColor: ["#10B981", "#EF4444", "#F59E0B", "#3B82F6"],
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: "bottom" },
+                    title: { display: true, text: "Company Payroll Breakdown" },
+                },
+            },
+        });
+    }
+
+    const ctx2 = document.getElementById("topEarnersChart");
+    if (ctx2) {
+        if (topEarnersChart) topEarnersChart.destroy();
+        const top5 = [...payrollData]
+            .sort((a, b) => b.netPay - a.netPay)
+            .slice(0, 5);
+        topEarnersChart = new Chart(ctx2, {
+            type: "bar",
+            data: {
+                labels: top5.map((e) => e.name.split(" ")[0]),
+                datasets: [
+                    {
+                        label: "Net Pay",
+                        data: top5.map((e) => e.netPay),
+                        backgroundColor: "#3B82F6",
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    title: { display: true, text: "Top 5 Earners by Net Pay" },
+                },
+                scales: { y: { ticks: { callback: (v) => toRand(v) } } },
+            },
+        });
+    }
+}
+
+// 6. Payslip System V2 - Works for Payroll Page
+function initPayslipSystem() {
+    const overlay = document.getElementById("payslipModalOverlay");
+    const closeBtn = document.getElementById("closePayslipBtn");
+    const downloadBtn = document.getElementById("downloadPayslipBtn");
+    const emailBtn = document.getElementById("emailPayslipBtn");
+
+    if (closeBtn) closeBtn.addEventListener("click", closePayslip);
+    if (overlay)
+        overlay.addEventListener("click", (e) => {
+            if (e.target === overlay) closePayslip();
+        });
+    if (downloadBtn) downloadBtn.addEventListener("click", downloadPayslipPDF);
+    if (emailBtn)
+        emailBtn.addEventListener("click", () =>
+            showToast("Payslip emailed to employee"),
+        );
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closePayslip();
+    });
+}
+
+function openPayslip(empId) {
+    console.log("[Payslip] Opening ID:", empId);
+    const data = payrollData.find((e) => e.id === empId);
+    if (!data) return showToast("Employee not found", "error");
+
+    activePayslipData = data;
+    const overlay = document.getElementById("payslipModalOverlay");
+    const content = document.getElementById("payslipContent");
+    const title = document.getElementById("payslipTitle");
+
+    if (!overlay || !content) {
+        console.error("[Payslip] Modal elements missing");
+        showToast("Payslip modal error", "error");
+        return;
+    }
+
+    title.textContent = `${data.name} - June 2026 Payslip`;
+    content.innerHTML = `
+  <div class="space-y-6">
+    <div class="flex items-center justify-between pb-4 border-b">
+      <div>
+        <h4 class="text-xl font-bold">${data.name}</h4>
+        <p class="text-gray-600">${data.position} | ${data.dept}</p>
+        <p class="text-sm text-gray-500">Employee ID: ${data.id}</p>
+      </div>
+      <div class="w-16 h-16 rounded-full flex items-center justify-center text-white text-xl font-bold" style="background-color: ${data.color}">
+        ${data.initials}
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-gray-50 p-4 rounded-lg">
+        <h5 class="font-semibold mb-3 text-gray-700">Earnings</h5>
+        <div class="space-y-2 text-sm">
+          <div class="flex justify-between">
+            <span>Basic Salary</span>
+            <span class="font-medium">${toRand(data.grossPay)}</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Hours Worked</span>
+            <span class="font-medium">${data.hoursWorked} hrs</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Hourly Rate</span>
+            <span class="font-medium">${toRand(data.hourlyRate)}</span>
+          </div>
+          <div class="flex justify-between font-semibold border-t pt-2 mt-2">
+            <span>Gross Pay</span>
+            <span>${toRand(data.grossPay)}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-gray-50 p-4 rounded-lg">
+        <h5 class="font-semibold mb-3 text-gray-700">Deductions</h5>
+        <div class="space-y-2 text-sm">
+          <div class="flex justify-between">
+            <span>PAYE Tax</span>
+            <span class="font-medium">${toRand(data.tax)}</span>
+          </div>
+          <div class="flex justify-between">
+            <span>UIF</span>
+            <span class="font-medium">${toRand(data.ni)}</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Pension</span>
+            <span class="font-medium">${toRand(data.pension)}</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Leave Deductions</span>
+            <span class="font-medium">${toRand(data.leaveDeductions)}</span>
+          </div>
+          <div class="flex justify-between font-semibold border-t pt-2 mt-2">
+            <span>Total Deductions</span>
+            <span>${toRand(data.deductions)}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-green-50 border-2 border-green-200 p-5 rounded-lg">
+      <div class="flex justify-between items-center">
+        <span class="text-lg font-semibold text-green-900">Net Pay</span>
+        <span class="text-3xl font-bold text-green-600">${toRand(data.netPay)}</span>
+      </div>
+    </div>
+
+    <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg">
+      <p class="text-sm text-blue-900 italic">${getQuirkyFact(data)}</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <h6 class="font-semibold mb-2 text-sm text-gray-700">Pay Breakdown</h6>
+        <canvas id="payslipPieChart"></canvas>
+      </div>
+      <div>
+        <h6 class="font-semibold mb-2 text-sm text-gray-700">3 Month Trend</h6>
+        <canvas id="payslipTrendChart"></canvas>
+      </div>
+    </div>
+  </div>
+`;
+
+    overlay.style.display = "flex";
+    document.body.style.overflow = "hidden";
+    setTimeout(() => renderNewPayslipCharts(data), 50);
+}
+
+function renderNewPayslipCharts(data) {
+    activePayslipCharts.forEach((chart) => chart.destroy());
+    activePayslipCharts = [];
+
+    const pieCtx = document.getElementById("payslipPieChart");
+    const trendCtx = document.getElementById("payslipTrendChart");
+
+    if (pieCtx && typeof Chart !== "undefined") {
+        const pieChart = new Chart(pieCtx, {
+            type: "doughnut",
+            data: {
+                labels: ["Net Pay", "PAYE", "UIF", "Pension", "Leave"],
+                datasets: [
+                    {
+                        data: [
+                            data.netPay,
+                            data.tax,
+                            data.ni,
+                            data.pension,
+                            data.leaveDeductions,
+                        ],
+                        backgroundColor: [
+                            "#10B981",
+                            "#EF4444",
+                            "#F59E0B",
+                            "#3B82F6",
+                            "#8B5CF6",
+                        ],
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: "bottom",
+                        labels: { boxWidth: 12, font: { size: 11 } },
+                    },
+                },
+            },
+        });
+        activePayslipCharts.push(pieChart);
+    }
+
+    if (trendCtx && typeof Chart !== "undefined") {
+        const may = getMonthData(data, 1);
+        const apr = getMonthData(data, 2);
+        const trendChart = new Chart(trendCtx, {
+            type: "line",
+            data: {
+                labels: ["Apr", "May", "Jun"],
+                datasets: [
+                    {
+                        label: "Net Pay",
+                        data: [apr.net, may.net, data.netPay],
+                        borderColor: "#10B981",
+                        backgroundColor: "rgba(16, 185, 129, 0.1)",
+                        tension: 0.4,
+                        fill: true,
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { ticks: { callback: (v) => toRand(v), font: { size: 10 } } },
+                },
+            },
+        });
+        activePayslipCharts.push(trendChart);
+    }
 }
 
 function closePayslipModal() {
-  const modal = document.getElementById("payslipModal");
-  if (modal) {
-    modal.classList.add("hidden");
-    modal.classList.remove("flex");
-  }
-  if (payslipChartInstance) {
-    payslipChartInstance.destroy();
-    payslipChartInstance = null;
-  }
-  if (payslipTrendChartInstance) {
-    payslipTrendChartInstance.destroy();
-    payslipTrendChartInstance = null;
-  }
+    const overlay = document.getElementById("payslipModalOverlay");
+    if (overlay) {
+        overlay.style.display = "none";
+        document.body.style.overflow = "";
+    }
+    activePayslipCharts.forEach((chart) => chart.destroy());
+    activePayslipCharts = [];
+    activePayslipData = null;
 }
 
-function initPayslipModal() {
-  const modal = document.getElementById("payslipModal");
-  if (!modal) return;
+function downloadPayslipPDF() {
+    if (!activePayslipData) {
+        showToast("No payslip data loaded", "error");
+        return;
+    }
 
-  const closeBtn = modal.querySelector(".modal-close");
-  if (closeBtn) closeBtn.addEventListener("click", closePayslipModal);
+    if (typeof window.jspdf === "undefined") {
+        showToast("PDF library not loaded. Refresh the page.", "error");
+        return;
+    }
 
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) closePayslipModal();
-  });
+    try {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        const d = activePayslipData;
 
-  const downloadBtn = document.getElementById("downloadPayslipBtn");
-  if (downloadBtn) downloadBtn.addEventListener("click", downloadPayslipPDF);
+        doc.setFontSize(20);
+        doc.setFont("helvetica", "bold");
+        doc.text("ModernTech HR", 105, 20, { align: "center" });
+        doc.setFontSize(16);
+        doc.text("Payslip - June 2026", 105, 30, { align: "center" });
 
-  const emailBtn = document.getElementById("emailPayslipBtn");
-  if (emailBtn)
-    emailBtn.addEventListener("click", () => {
-      const email = currentPayslip?.contact || "employee";
-      showToast(`Payslip emailed to ${email}`);
-    });
+        doc.setFontSize(11);
+        doc.setFont("helvetica", "normal");
+        doc.text(`Employee: ${d.name}`, 20, 45);
+        doc.text(`Position: ${d.position}`, 20, 52);
+        doc.text(`Department: ${d.dept}`, 20, 59);
+        doc.text(`Employee ID: ${d.id}`, 20, 66);
+
+        doc.setLineWidth(0.5);
+        doc.line(20, 72, 190, 72);
+
+        doc.setFont("helvetica", "bold");
+        doc.text("Earnings", 20, 82);
+        doc.setFont("helvetica", "normal");
+        doc.text(`Basic Salary:`, 30, 90);
+        doc.text(toRand(d.grossPay), 190, 90, { align: "right" });
+        doc.text(`Hours Worked:`, 30, 97);
+        doc.text(`${d.hoursWorked} hrs @ ${toRand(d.hourlyRate)}/hr`, 190, 97, {
+            align: "right",
+        });
+        doc.setFont("helvetica", "bold");
+        doc.text(`Gross Pay:`, 30, 104);
+        doc.text(toRand(d.grossPay), 190, 104, { align: "right" });
+
+        doc.setFont("helvetica", "bold");
+        doc.text("Deductions", 20, 116);
+        doc.setFont("helvetica", "normal");
+        doc.text(`PAYE Tax:`, 30, 124);
+        doc.text(toRand(d.tax), 190, 124, { align: "right" });
+        doc.text(`UIF:`, 30, 131);
+        doc.text(toRand(d.ni), 190, 131, { align: "right" });
+        doc.text(`Pension:`, 30, 138);
+        doc.text(toRand(d.pension), 190, 138, { align: "right" });
+        doc.text(`Leave Deductions:`, 30, 145);
+        doc.text(toRand(d.leaveDeductions), 190, 145, { align: "right" });
+        doc.setFont("helvetica", "bold");
+        doc.text(`Total Deductions:`, 30, 152);
+        doc.text(toRand(d.deductions), 190, 152, { align: "right" });
+
+        doc.setLineWidth(1);
+        doc.line(20, 158, 190, 158);
+        doc.setFontSize(14);
+        doc.setFont("helvetica", "bold");
+        doc.text(`Net Pay:`, 30, 168);
+        doc.text(toRand(d.netPay), 190, 168, { align: "right" });
+
+        doc.setFontSize(9);
+        doc.setFont("helvetica", "italic");
+        doc.text(getQuirkyFact(d), 20, 185, { maxWidth: 170 });
+        doc.text(`Generated: ${new Date().toLocaleDateString("en-ZA")}`, 20, 280);
+
+        const filename = `Payslip_${d.name.replace(/\s+/g, "_")}_June2026.pdf`;
+        doc.save(filename);
+        showToast("Payslip downloaded successfully");
+    } catch (err) {
+        console.error("[PDF] Generation error:", err);
+        showToast("Failed to generate PDF", "error");
+    }
 }
 
-// ===============================
-// 6. GLOBAL HANDLERS
-// ===============================
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") {
-    console.log("[Global] Escape pressed");
-    closeEmployeeModal();
-    closePayslipModal();
-  }
-});
+function initPayslipSystem() {
+    const closeBtn = document.getElementById("closePayslipBtn");
+    const overlay = document.getElementById("payslipModalOverlay");
+    const downloadBtn = document.getElementById("downloadPayslipBtn");
+    const emailBtn = document.getElementById("emailPayslipBtn");
 
+    if (closeBtn) closeBtn.addEventListener("click", closePayslipModal);
+    if (overlay) {
+        overlay.addEventListener("click", (e) => {
+            if (e.target === overlay) closePayslipModal();
+        });
+    }
+    if (downloadBtn) downloadBtn.addEventListener("click", downloadPayslipPDF);
+    if (emailBtn) {
+        emailBtn.addEventListener("click", () => {
+            showToast("Payslip emailed to employee");
+        });
+    }
+}
+
+// 7. Global Init - Router
 document.addEventListener("DOMContentLoaded", () => {
-  console.log(
-    "%c[DOM] DOMContentLoaded fired",
-    "color: blue; font-weight: bold;",
-  );
-  console.log("[DOM] Current page:", window.location.pathname);
+    console.log("[Init] Starting page");
 
-  if (document.getElementById("employeeGrid")) {
-    console.log("[DOM] Detected Employee page");
-    initEmployeePage();
-  } else {
-    console.log("[DOM] Not on Employee page - skipping initEmployeePage");
-  }
+    // Initialize employees page if present
+    if (document.getElementById("employeeGrid")) {
+        renderEmployeeGrid();
+        initEmployeeSearch();
+        initFilterButton();
+        initAddEmployeeButton();
+    }
 
-  if (document.getElementById("payrollTableBody")) {
-    console.log("[DOM] Detected Payroll page");
-    initPayrollPage();
-  } else {
-    console.log("[DOM] Not on Payroll page - skipping initPayrollPage");
-  }
+    // Initialize payroll page if present
+    if (document.getElementById("payrollTableBody")) {
+        initPayrollPage();
+    }
 
-  const empModal = document.getElementById("employeeModal");
-  if (empModal) {
-    empModal.addEventListener("click", (e) => {
-      if (e.target === empModal) {
-        console.log("[Modal] Clicked outside employee modal, closing");
-        closeEmployeeModal();
-      }
+    // Global modal close handlers
+    const closeBtn = document.getElementById("closeEmployeeModalBtn");
+    const overlay = document.getElementById("employeeProfileOverlay");
+
+    if (closeBtn) closeBtn.onclick = closeEmployeeProfile;
+    if (overlay) {
+        overlay.onclick = (e) => {
+            if (e.target === overlay) closeEmployeeProfile();
+        };
+    }
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            closeEmployeeProfile();
+            closePayslipModal();
+        }
     });
-  }
-
-  // Attach modal close button for employee modal
-  const empModalClose = document.querySelector("#employeeModal.modal-close");
-  if (empModalClose) {
-    empModalClose.addEventListener("click", closeEmployeeModal);
-  }
-
-  console.log("[DOM] DOMContentLoaded setup complete");
 });
 
-window.viewEmployeeProfile = viewEmployeeProfile;
-window.closeEmployeeModal = closeEmployeeModal;
-window.viewPayslip = viewPayslip;
+// Expose for debugging
+window.openEmployeeProfile = openEmployeeProfile;
+window.closeEmployeeProfile = closeEmployeeProfile;
+window.openPayslip = openPayslip;
 window.closePayslipModal = closePayslipModal;
 
-console.log("[script.js] All functions exposed to window");
 
 // ============================================
 // CALEB_DEV
@@ -1581,8 +1659,8 @@ function highlightActiveNav() {
     const currentPath = window.location.pathname.toLowerCase();
     document.querySelectorAll('.nav-links a').forEach((link) => {
         const href = link.getAttribute('href')?.toLowerCase() || '';
-        const isActive = currentPath.includes(href.replace('.html', '')) || 
-                         (href === '' && currentPath.endsWith('/'));
+        const isActive = currentPath.includes(href.replace('.html', '')) ||
+            (href === '' && currentPath.endsWith('/'));
         link.closest('li')?.classList.toggle('active', isActive);
     });
 }
@@ -1594,24 +1672,24 @@ function highlightActiveNav() {
 function showNotification(message, type = 'success') {
     const existing = document.querySelector('.notification');
     if (existing) existing.remove();
-    
+
     const notification = document.createElement('div');
     notification.className = 'notification';
-    
+
     const colors = {
         success: '#10b981',
         error: '#ef4444',
         warning: '#f59e0b',
         info: '#6366f1'
     };
-    
+
     const icons = {
         success: '✅',
         error: '❌',
         warning: '⚠️',
         info: 'ℹ️'
     };
-    
+
     notification.style.cssText = `
         position: fixed;
         top: 20px;
@@ -1629,10 +1707,10 @@ function showNotification(message, type = 'success') {
         border: 1px solid rgba(255,255,255,0.08);
         font-family: 'Inter', system-ui, sans-serif;
     `;
-    
+
     notification.innerHTML = `${icons[type] || '📢'} ${message}`;
     document.body.appendChild(notification);
-    
+
     setTimeout(() => {
         notification.style.animation = 'slideOutRight 0.3s ease';
         setTimeout(() => notification.remove(), 300);
@@ -1654,7 +1732,7 @@ function createAttendanceTable(records) {
         border-radius: 12px;
         overflow: hidden;
     `;
-    
+
     table.innerHTML = `
         <thead>
             <tr style="
@@ -1710,9 +1788,9 @@ function createAttendanceTable(records) {
         </thead>
         <tbody></tbody>
     `;
-    
+
     const tbody = table.querySelector('tbody');
-    
+
     if (!records?.length) {
         tbody.innerHTML = `
             <tr>
@@ -1728,31 +1806,31 @@ function createAttendanceTable(records) {
         `;
         return table;
     }
-    
+
     records.forEach((record, index) => {
         const attendanceSummary = getAttendanceMarkup(record.attendance);
         const { checkInTime, checkOutTime } = getScheduleTimes(record);
         const bgColor = index % 2 === 0 ? '#0f172a' : '#1a2332';
-        
+
         const row = document.createElement('tr');
         row.style.cssText = `
             background: ${bgColor};
             transition: all 0.2s ease;
             border-bottom: 1px solid #1e293b;
         `;
-        
+
         // Hover effect
-        row.addEventListener('mouseenter', function() {
+        row.addEventListener('mouseenter', function () {
             this.style.background = '#2d3748';
             this.style.transform = 'scale(1.002)';
             this.style.boxShadow = '0 2px 8px rgba(0,0,0,0.3)';
         });
-        row.addEventListener('mouseleave', function() {
+        row.addEventListener('mouseleave', function () {
             this.style.background = bgColor;
             this.style.transform = 'scale(1)';
             this.style.boxShadow = 'none';
         });
-        
+
         row.innerHTML = `
             <td style="
                 padding: 12px 16px;
@@ -1810,7 +1888,7 @@ function createAttendanceTable(records) {
         `;
         tbody.appendChild(row);
     });
-    
+
     return table;
 }
 
@@ -1820,27 +1898,27 @@ function createAttendanceTable(records) {
 
 function renderVisuals(records = []) {
     if (!visualsSection) return;
-    
+
     const allAttendance = records.flatMap((record) => record.attendance || []);
     const presentCount = allAttendance.filter((item) => (item.status || '').toLowerCase() === 'present').length;
     const absentCount = allAttendance.filter((item) => (item.status || '').toLowerCase() === 'absent').length;
     const totalCount = allAttendance.length || 1;
-    
+
     const presentPercent = Math.round((presentCount / totalCount) * 100);
     const absentPercent = Math.round((absentCount / totalCount) * 100);
-    
+
     const dates = [...new Set(allAttendance.map(item => item.date))].sort();
-    
+
     const dailySummary = dates.map((date) => {
         const dayRecords = allAttendance.filter((item) => item.date === date);
         const present = dayRecords.filter((item) => (item.status || '').toLowerCase() === 'present').length;
         const absent = dayRecords.filter((item) => (item.status || '').toLowerCase() === 'absent').length;
         return { date, present, absent };
     });
-    
+
     const maxValue = Math.max(...dailySummary.map(d => Math.max(d.present, d.absent)), 1);
     const maxHeight = 120;
-    
+
     visualsSection.innerHTML = `
         <div class="visuals-header" style="
             background: rgba(255, 255, 255, 0.04);
@@ -1892,9 +1970,9 @@ function renderVisuals(records = []) {
                 <h3 style="color: #94a3b8; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.8rem;">📈 Daily Trends</h3>
                 <div class="bar-chart" style="display: flex; align-items: flex-end; gap: 0.8rem; height: 170px; overflow-x: auto; padding-top: 0.5rem;">
                     ${dailySummary.map((day) => {
-                        const presentHeight = Math.max((day.present / maxValue) * maxHeight, 6);
-                        const absentHeight = Math.max((day.absent / maxValue) * maxHeight, 6);
-                        return `
+        const presentHeight = Math.max((day.present / maxValue) * maxHeight, 6);
+        const absentHeight = Math.max((day.absent / maxValue) * maxHeight, 6);
+        return `
                             <div class="bar-group" style="display: flex; flex-direction: column; align-items: center; gap: 0.7rem; min-width: 56px;">
                                 <div class="bar-pair" style="display: flex; align-items: flex-end; gap: 0.4rem; width: 100%;">
                                     <div class="bar-fill present" style="height: ${presentHeight}px; width: 14px; border-radius: 0.7rem 0.7rem 0 0; min-height: 12px; background: linear-gradient(180deg, #22c55e, #10b981); transition: height 0.35s ease;" title="${day.present} present"></div>
@@ -1903,7 +1981,7 @@ function renderVisuals(records = []) {
                                 <div class="bar-label" style="color: #94a3b8; font-size: 0.82rem;">${day.date.slice(5)}</div>
                             </div>
                         `;
-                    }).join('')}
+    }).join('')}
                 </div>
             </div>
         </div>
@@ -1926,12 +2004,12 @@ function renderReviewCards(employees) {
             </div>
         `;
     }
-    
+
     return employees.map((employee) => {
         const rating = Number((4.0 + ((employee.employeeId % 5) * 0.2)).toFixed(1));
         const initials = getInitials(employee.name);
         const avatarColor = getColorForEmployee(employee.employeeId);
-        
+
         return `
             <article class="review-card" style="
                 background: #0f172a;
@@ -1975,7 +2053,7 @@ function applyFilters(status, dateFrom, dateTo) {
     const rows = document.querySelectorAll('#attendance-data tbody tr');
     rows.forEach(row => {
         let show = true;
-        
+
         if (status && status !== 'all') {
             const statusElements = row.querySelectorAll('.attendance-badge');
             let hasStatus = false;
@@ -1984,7 +2062,7 @@ function applyFilters(status, dateFrom, dateTo) {
             });
             if (!hasStatus) show = false;
         }
-        
+
         if (dateFrom || dateTo) {
             const dateElements = row.querySelectorAll('.attendance-badge');
             let hasDate = false;
@@ -2000,10 +2078,10 @@ function applyFilters(status, dateFrom, dateTo) {
             });
             if (!hasDate) show = false;
         }
-        
+
         row.style.display = show ? '' : 'none';
     });
-    
+
     const filterBtn = document.getElementById('filterBtn');
     if (filterBtn) {
         filterBtn.textContent = status !== 'all' || dateFrom || dateTo ? '🔍 Filtered' : '🔍 Filter';
@@ -2020,9 +2098,9 @@ function clearFilters() {
 function applySort(sortType) {
     const container = document.getElementById('reviews-data-list');
     if (!container) return;
-    
+
     const cards = Array.from(container.children);
-    
+
     cards.sort((a, b) => {
         const nameA = a.querySelector('h3')?.textContent || '';
         const nameB = b.querySelector('h3')?.textContent || '';
@@ -2030,8 +2108,8 @@ function applySort(sortType) {
         const ratingB = parseFloat(b.querySelector('.rating')?.textContent?.match(/\d\.\d/)?.[0] || 0);
         const dateA = a.querySelector('.review-footer')?.textContent?.replace('📅 Reviewed: ', '').trim() || '';
         const dateB = b.querySelector('.review-footer')?.textContent?.replace('📅 Reviewed: ', '').trim() || '';
-        
-        switch(sortType) {
+
+        switch (sortType) {
             case 'rating-desc': return ratingB - ratingA;
             case 'rating-asc': return ratingA - ratingB;
             case 'name-asc': return nameA.localeCompare(nameB);
@@ -2041,7 +2119,7 @@ function applySort(sortType) {
             default: return 0;
         }
     });
-    
+
     cards.forEach(card => container.appendChild(card));
 }
 
@@ -2055,16 +2133,16 @@ async function loadAttendanceData() {
         console.warn('Attendance section not found');
         return;
     }
-    
+
     try {
         attendanceSection.innerHTML = `<div style="padding: 2rem; text-align: center; color: #94a3b8;">⏳ Loading attendance data...</div>`;
-        
+
         const records = await fetchWithFallback(
             ATTENDANCE_SOURCES,
             (data) => data?.attendanceAndLeave || null,
             () => fallbackAttendanceData.attendanceAndLeave
         );
-        
+
         renderVisuals(records);
         const table = createAttendanceTable(records);
         attendanceSection.innerHTML = '';
@@ -2086,16 +2164,16 @@ async function loadReviews() {
         console.warn('Reviews container not found');
         return;
     }
-    
+
     try {
         reviewsContainer.innerHTML = `<div style="padding: 2rem; text-align: center; color: #94a3b8;">⏳ Loading employee reviews...</div>`;
-        
+
         const employees = await fetchWithFallback(
             REVIEW_SOURCES,
             (data) => data?.employeeInformation || null,
             () => []
         );
-        
+
         if (!employees.length) {
             reviewsContainer.innerHTML = `
                 <div style="padding: 2rem; text-align: center; background: #0f172a; border-radius: 1.5rem; border: 1px solid #1e293b; color: #94a3b8;">
@@ -2105,7 +2183,7 @@ async function loadReviews() {
             `;
             return;
         }
-        
+
         reviewsContainer.innerHTML = renderReviewCards(employees);
         console.log(`✅ Reviews loaded: ${employees.length} employees`);
     } catch (error) {
@@ -2130,7 +2208,7 @@ function createAttendanceForm() {
         form.remove();
         return;
     }
-    
+
     // Create modal overlay
     form = document.createElement('div');
     form.id = 'attendanceFormModal';
@@ -2148,7 +2226,7 @@ function createAttendanceForm() {
         z-index: 9999;
         animation: fadeIn 0.3s ease;
     `;
-    
+
     form.innerHTML = `
         <div class="modal-content" style="
             background: linear-gradient(145deg, #1a2332, #0f172a);
@@ -2313,11 +2391,11 @@ function createAttendanceForm() {
             </div>
         </div>
     `;
-    
+
     // Auto-fill date and time
     const dateInput = form.querySelector('#attendanceDate');
     const timeInput = form.querySelector('#attendanceTime');
-    
+
     if (dateInput) {
         const today = new Date().toISOString().split('T')[0];
         dateInput.value = today;
@@ -2328,89 +2406,89 @@ function createAttendanceForm() {
         const minutes = String(now.getMinutes()).padStart(2, '0');
         timeInput.value = `${hours}:${minutes}`;
     }
-    
+
     // Add focus styles
     form.querySelectorAll('input, select').forEach(input => {
-        input.addEventListener('focus', function() {
+        input.addEventListener('focus', function () {
             this.style.borderColor = '#6366f1';
             this.style.background = '#1a2332';
             this.style.boxShadow = '0 0 0 4px rgba(99, 102, 241, 0.15)';
         });
-        input.addEventListener('blur', function() {
+        input.addEventListener('blur', function () {
             this.style.borderColor = '#1e293b';
             this.style.background = '#0f172a';
             this.style.boxShadow = 'none';
         });
     });
-    
+
     // Hover effects for buttons
     form.querySelectorAll('.btn').forEach(btn => {
-        btn.addEventListener('mouseenter', function() {
+        btn.addEventListener('mouseenter', function () {
             this.style.transform = 'translateY(-2px)';
         });
-        btn.addEventListener('mouseleave', function() {
+        btn.addEventListener('mouseleave', function () {
             this.style.transform = 'translateY(0)';
         });
     });
-    
+
     document.body.appendChild(form);
-    
+
     // Submit button
-    document.getElementById('submitAttendanceBtn').addEventListener('click', function() {
+    document.getElementById('submitAttendanceBtn').addEventListener('click', function () {
         const employeeName = document.getElementById('employeeName')?.value.trim();
         const attendanceDate = document.getElementById('attendanceDate')?.value;
         const attendanceTime = document.getElementById('attendanceTime')?.value;
         const attendanceStatus = document.getElementById('attendanceStatus')?.value;
-        
+
         if (!employeeName) {
             showNotification('Please enter employee name', 'error');
             document.getElementById('employeeName').focus();
             return;
         }
-        
+
         if (!attendanceDate) {
             showNotification('Please select a date', 'error');
             document.getElementById('attendanceDate').focus();
             return;
         }
-        
+
         if (!attendanceTime) {
             showNotification('Please select a time', 'error');
             document.getElementById('attendanceTime').focus();
             return;
         }
-        
+
         const newRecord = {
             employeeId: Date.now(),
             name: employeeName,
             attendance: [{ date: attendanceDate, status: attendanceStatus, time: attendanceTime }]
         };
-        
+
         console.log('New attendance record:', newRecord);
         showNotification(`✅ Record added for ${employeeName} - ${attendanceStatus}`, 'success');
-        
+
         form.remove();
-        
+
         // Update the new record button text
         const newRecordBtn = document.getElementById('newRecordBtn');
         if (newRecordBtn) {
             newRecordBtn.textContent = '📝 New Record';
         }
-        
+
         if (typeof loadAttendanceData === 'function') loadAttendanceData();
     });
-    
+
     // Cancel button
-    document.getElementById('cancelAttendanceBtn').addEventListener('click', function() {
+    document.getElementById('cancelAttendanceBtn').addEventListener('click', function () {
         form.remove();
         const newRecordBtn = document.getElementById('newRecordBtn');
         if (newRecordBtn) {
             newRecordBtn.textContent = '📝 New Record';
         }
     });
-    
+
     // Close on background click
-    form.addEventListener('click', function(e) {
+    form.addEventListener('click', function (e) {
         if (e.target === form) {
             form.remove();
             const newRecordBtn = document.getElementById('newRecordBtn');
@@ -2419,7 +2497,7 @@ function createAttendanceForm() {
             }
         }
     });
-    
+
     return form;
 }
 
@@ -2433,29 +2511,29 @@ function initializeButtons() {
     // ============================================
     if (isAttendancePage) {
         console.log('📋 Initializing Attendance page buttons...');
-        
+
         const newRecordBtn = document.getElementById('newRecordBtn');
         const filterBtn = document.getElementById('filterBtn');
-        
+
         // New Record Button - Opens styled modal form
         if (newRecordBtn) {
-            newRecordBtn.addEventListener('click', function(e) {
+            newRecordBtn.addEventListener('click', function (e) {
                 e.preventDefault();
                 createAttendanceForm();
                 this.textContent = '✖ Close Form';
             });
         }
-        
+
         // Filter Button
         if (filterBtn) {
-            filterBtn.addEventListener('click', function(e) {
+            filterBtn.addEventListener('click', function (e) {
                 e.preventDefault();
                 let filterDropdown = document.getElementById('filterDropdown');
-                
+
                 if (!filterDropdown) {
                     filterDropdown = document.createElement('div');
                     filterDropdown.id = 'filterDropdown';
-                    
+
                     const rect = filterBtn.getBoundingClientRect();
                     filterDropdown.style.cssText = `
                         position: fixed;
@@ -2470,7 +2548,7 @@ function initializeButtons() {
                         z-index: 1000;
                         animation: slideDown 0.3s ease;
                     `;
-                    
+
                     filterDropdown.innerHTML = `
                         <div style="margin-bottom: 12px;">
                             <label style="display: block; font-size: 0.8rem; font-weight: 600; color: #94a3b8; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em;">Filter by Status</label>
@@ -2490,10 +2568,10 @@ function initializeButtons() {
                             <button id="clearFilterBtn" style="flex: 1; padding: 0.6rem; background: rgba(255,255,255,0.08); color: #cbd5e1; border: 1px solid #1e293b; border-radius: 999px; cursor: pointer; font-weight: 700; transition: transform 0.2s ease;">Clear</button>
                         </div>
                     `;
-                    
+
                     document.body.appendChild(filterDropdown);
-                    
-                    document.getElementById('applyFilterBtn').addEventListener('click', function() {
+
+                    document.getElementById('applyFilterBtn').addEventListener('click', function () {
                         const status = document.getElementById('filterStatus').value;
                         const dateFrom = document.getElementById('filterDateFrom').value;
                         const dateTo = document.getElementById('filterDateTo').value;
@@ -2501,13 +2579,13 @@ function initializeButtons() {
                         filterDropdown.remove();
                         filterBtn.textContent = '🔍 Filter';
                     });
-                    
-                    document.getElementById('clearFilterBtn').addEventListener('click', function() {
+
+                    document.getElementById('clearFilterBtn').addEventListener('click', function () {
                         clearFilters();
                         filterDropdown.remove();
                         filterBtn.textContent = '🔍 Filter';
                     });
-                    
+
                     filterBtn.textContent = '✖ Close';
                 } else {
                     filterDropdown.remove();
@@ -2516,25 +2594,25 @@ function initializeButtons() {
             });
         }
     }
-    
+
     // ============================================
     // REVIEWS PAGE BUTTONS
     // ============================================
     if (isReviewsPage) {
         console.log('⭐ Initializing Reviews page buttons...');
-        
+
         const addReviewBtn = document.querySelector('.topbar-actions .btn-primary');
         const sortBtn = document.querySelector('.topbar-actions .btn-secondary');
-        
+
         // Add Review Button - Creates modal with form
         if (addReviewBtn) {
-            addReviewBtn.addEventListener('click', function(e) {
+            addReviewBtn.addEventListener('click', function (e) {
                 e.preventDefault();
-                
+
                 // Create modal overlay
                 const modal = document.createElement('div');
                 modal.id = 'reviewModal';
-                
+
                 modal.innerHTML = `
                     <div class="modal-content">
                         <h2>⭐ Add New Review</h2>
@@ -2577,23 +2655,23 @@ function initializeButtons() {
                         </div>
                     </div>
                 `;
-                
+
                 document.body.appendChild(modal);
-                
+
                 // Submit Review
-                document.getElementById('submitReviewBtn').addEventListener('click', function() {
+                document.getElementById('submitReviewBtn').addEventListener('click', function () {
                     const name = document.getElementById('reviewEmployeeName').value.trim();
                     const department = document.getElementById('reviewDepartment').value.trim();
                     const position = document.getElementById('reviewPosition').value.trim();
                     const rating = document.getElementById('reviewRating').value;
                     const feedback = document.getElementById('reviewFeedback').value.trim();
-                    
+
                     if (!name) {
                         showNotification('Please enter employee name', 'error');
                         document.getElementById('reviewEmployeeName').focus();
                         return;
                     }
-                    
+
                     const newReview = {
                         employeeId: Date.now(),
                         name: name,
@@ -2602,35 +2680,35 @@ function initializeButtons() {
                         rating: parseFloat(rating),
                         feedback: feedback || 'No additional feedback provided.'
                     };
-                    
+
                     console.log('New review added:', newReview);
                     showNotification(`✅ Review added for ${name}`, 'success');
                     modal.remove();
                     if (typeof loadReviews === 'function') loadReviews();
                 });
-                
+
                 // Cancel Review
-                document.getElementById('cancelReviewBtn').addEventListener('click', function() {
+                document.getElementById('cancelReviewBtn').addEventListener('click', function () {
                     modal.remove();
                 });
-                
+
                 // Close on background click
-                modal.addEventListener('click', function(e) {
+                modal.addEventListener('click', function (e) {
                     if (e.target === modal) modal.remove();
                 });
             });
         }
-        
+
         // Sort Button
         if (sortBtn) {
-            sortBtn.addEventListener('click', function(e) {
+            sortBtn.addEventListener('click', function (e) {
                 e.preventDefault();
                 let sortDropdown = document.getElementById('sortDropdown');
-                
+
                 if (!sortDropdown) {
                     sortDropdown = document.createElement('div');
                     sortDropdown.id = 'sortDropdown';
-                    
+
                     const rect = sortBtn.getBoundingClientRect();
                     sortDropdown.style.cssText = `
                         position: fixed;
@@ -2645,7 +2723,7 @@ function initializeButtons() {
                         z-index: 1000;
                         animation: slideDown 0.3s ease;
                     `;
-                    
+
                     const sortOptions = [
                         { value: 'rating-desc', label: '⭐ Rating (High to Low)' },
                         { value: 'rating-asc', label: '⭐ Rating (Low to High)' },
@@ -2654,7 +2732,7 @@ function initializeButtons() {
                         { value: 'date-desc', label: '📅 Newest First' },
                         { value: 'date-asc', label: '📅 Oldest First' }
                     ];
-                    
+
                     sortDropdown.innerHTML = `
                         <div style="margin-bottom: 8px; font-weight: 600; color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; padding: 0 0.5rem;">Sort Reviews By:</div>
                         ${sortOptions.map(opt => `
@@ -2663,29 +2741,29 @@ function initializeButtons() {
                             </button>
                         `).join('')}
                     `;
-                    
+
                     document.body.appendChild(sortDropdown);
-                    
+
                     sortDropdown.querySelectorAll('.sort-option').forEach(btn => {
-                        btn.addEventListener('mouseenter', function() {
+                        btn.addEventListener('mouseenter', function () {
                             this.style.background = 'rgba(99, 102, 241, 0.15)';
                             this.style.color = '#fff';
                         });
-                        btn.addEventListener('mouseleave', function() {
+                        btn.addEventListener('mouseleave', function () {
                             this.style.background = 'none';
                             this.style.color = '#cbd5e1';
                         });
-                        
-                        btn.addEventListener('click', function() {
+
+                        btn.addEventListener('click', function () {
                             const sortType = this.dataset.sort;
                             applySort(sortType);
                             sortDropdown.remove();
                             const label = this.textContent.trim();
-                            sortBtn.textContent = `📊 ${label.split(' ').slice(0,2).join(' ')}`;
+                            sortBtn.textContent = `📊 ${label.split(' ').slice(0, 2).join(' ')}`;
                             showNotification(`Sorted by: ${label}`, 'success');
                         });
                     });
-                    
+
                     sortBtn.textContent = '✖ Close';
                 } else {
                     sortDropdown.remove();
@@ -2702,7 +2780,7 @@ function initializeButtons() {
 
 (function injectStyles() {
     if (document.getElementById('dynamic-styles')) return;
-    
+
     const style = document.createElement('style');
     style.id = 'dynamic-styles';
     style.textContent = `
@@ -2902,18 +2980,18 @@ function initializeButtons() {
 // INITIALIZATION
 // ============================================
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     console.log('🚀 Initializing ModernTech HR System...');
     console.log(`📄 Current page: ${isAttendancePage ? 'Attendance' : isReviewsPage ? 'Reviews' : 'Other'}`);
-    
+
     try {
         highlightActiveNav();
         initializeButtons();
         loadAttendanceData();
         loadReviews();
-        
+
         // Close dropdowns on outside click
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
             ['filterDropdown', 'sortDropdown'].forEach(id => {
                 const dropdown = document.getElementById(id);
                 const btn = id === 'filterDropdown' ? document.getElementById('filterBtn') : document.querySelector('.topbar-actions .btn-secondary');
@@ -2924,7 +3002,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         });
-        
+
         console.log('✅ Dashboard initialized successfully');
     } catch (error) {
         console.error('❌ Failed to initialize dashboard:', error);
