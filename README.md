@@ -132,6 +132,9 @@ cd module1-project-hr
 
 ##  Live Demo
 
+View the figma(planning) :
+**https://www.figma.com/design/JzYts1PFmtYdwDX9KAb2ZR/Module-1-HR-project?node-id=0-1&p=f&t=ke47otwDBkjO3c5s-0**
+
 View the live project here:
 
 **https://caleb-asia.github.io/module1-project-hr/**
