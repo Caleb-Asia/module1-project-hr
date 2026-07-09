@@ -13,49 +13,49 @@
 
     <div class="page-wrapper">
 
-       <aside class="sidebar">
-          <div class="navbar-rail">
-            <ul class="nav-links nav-links-left">
-                <li><a href="dashboard.html">
-                        <i class="bi bi-house"></i>
-                        <span>Dashboard</span></a></li>
-                <li><a href="employees.html">
-                        <i class="bi bi-people"></i><span>Employees</span></a></li>
-                <li><a href="payroll.html">
-                        <i class="bi bi-cash"></i><span>Payroll</span></a></li>
-            </ul>
+        <aside class="sidebar">
+            <div class="navbar-rail">
+                <ul class="nav-links nav-links-left">
+                    <li><a href="dashboard.html">
+                            <i class="bi bi-house"></i>
+                            <span>Dashboard</span></a></li>
+                    <li><a href="employees.html">
+                            <i class="bi bi-people"></i><span>Employees</span></a></li>
+                    <li><a href="payroll.html">
+                            <i class="bi bi-cash"></i><span>Payroll</span></a></li>
+                </ul>
 
-            <div class="logo">
-                <div class="logo-icon">💼</div>
-                <div class="logo-text">
-                    <h2>ModernTech</h2>
-                    <p>HR System</p>
+                <div class="logo">
+                    <div class="logo-icon">💼</div>
+                    <div class="logo-text">
+                        <h2>ModernTech</h2>
+                        <p>HR System</p>
+                    </div>
                 </div>
+
+                <ul class="nav-links nav-links-right">
+                    <li><a href="time-off.html">
+                            <i class="bi bi-calendar-event"></i><span>Time Off</span></a></li>
+                    <li class="active"><a href="attendance.html">
+                            <i class="bi bi-clock"></i><span>Attendance</span></a></li>
+                    <li><a href="reviews.html">
+                            <i class="bi bi-star"></i><span>Reviews</span></a></li>
+                </ul>
             </div>
 
-            <ul class="nav-links nav-links-right">
-                <li><a href="time-off.html">
-                        <i class="bi bi-calendar-event"></i><span>Time Off</span></a></li>
-                <li class="active"><a href="attendance.html">
-                        <i class="bi bi-clock"></i><span>Attendance</span></a></li>
-                <li><a href="reviews.html">
-                        <i class="bi bi-star"></i><span>Reviews</span></a></li>
-            </ul>
-          </div>
-
-        <div class="sidebar-bottom">
-            <button class="signout-btn" id="signOutBtn" type="button">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-            </button>
-            <div class="profile">
-                <div class="avatar">HR</div>
-                <div class="profile-info">
-                    <h3>HR Department</h3>
-                    <p>Manage records</p>
+            <div class="sidebar-bottom">
+                <button class="signout-btn" id="signOutBtn" type="button">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Sign Out</span>
+                </button>
+                <div class="profile">
+                    <div class="avatar">HR</div>
+                    <div class="profile-info">
+                        <h3>HR Department</h3>
+                        <p>Manage records</p>
+                    </div>
                 </div>
             </div>
-        </div>
         </aside>
 
         <main class="dashboard-container">
@@ -128,6 +128,15 @@
 
                             <path class="trend-line" d="M 60 160 L 144 135 L 228 110 L 312 115 L 396 70 L 460 45" />
 
+                            <!-- Headcount labels -->
+                            <text class="point-value" x="60" y="148">90</text>
+                            <text class="point-value" x="144" y="123">105</text>
+                            <text class="point-value" x="228" y="98">118</text>
+                            <text class="point-value" x="312" y="103">115</text>
+                            <text class="point-value" x="396" y="58">138</text>
+                            <text class="point-value" x="460" y="33">148</text>
+
+                            <!-- Data points -->
                             <circle class="trend-dot" cx="60" cy="160" r="5" data-month="January" data-value="90" />
                             <circle class="trend-dot" cx="144" cy="135" r="5" data-month="February" data-value="105" />
                             <circle class="trend-dot" cx="228" cy="110" r="5" data-month="March" data-value="118" />

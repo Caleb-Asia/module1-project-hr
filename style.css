@@ -388,6 +388,14 @@ body {
     stroke: #fff;
 }
 
+.point-value {
+    fill: #a5b4fc;
+    font-size: 9px;
+    font-weight: 700;
+    text-anchor: middle;
+   
+}
+
 @keyframes drawTrendLine {
     to {
         stroke-dashoffset: 0;
