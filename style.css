@@ -919,7 +919,7 @@ body {
 }
 
 .chart-tooltip {
-    position: fixed;
+    position: absolute;
     padding: 10px 14px;
     background: #1e293b;
     border: 1px solid #334155;

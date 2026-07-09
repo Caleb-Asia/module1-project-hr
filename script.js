@@ -25,9 +25,15 @@ document.addEventListener('DOMContentLoaded', () => {
         chartTooltip.innerHTML = `<strong>${month}</strong><br>Headcount: ${headcount}`;
         chartTooltip.classList.add('visible');
 
-        const dotBounding = dot.getBoundingClientRect();
-        chartTooltip.style.left = `${dotBounding.left + window.scrollX + 15}px`;
-        chartTooltip.style.top = `${dotBounding.top + window.scrollY - 40}px`;
+        const graphContainer = trendSvg.parentElement;
+        const graphRect = graphContainer.getBoundingClientRect();
+        const dotRect = dot.getBoundingClientRect();
+
+        chartTooltip.style.left =
+            `${dotRect.left - graphRect.left + 15}px`;
+
+        chartTooltip.style.top =
+            `${dotRect.top - graphRect.top - 45}px`;
     }
 
     function hideTooltip() {
@@ -227,12 +233,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const loadData = async () => {
+        // NOTE: these paths must match your repo's folder/file names EXACTLY,
+        // including case — GitHub Pages is case-sensitive, unlike some local
+        // dev servers. If these 404 on the live site, check the exact folder
+        // name in your repo (spaces and casing both matter).
+        const DATA_PATHS = {
+            employees: 'M1 Project Module - Employee Dummy JSON Data/employee_info.json',
+            attendance: 'M1 Project Module - Employee Dummy JSON Data/attendance.json',
+            payroll: 'M1 Project Module - Employee Dummy JSON Data/payroll_data.json'
+        };
+
         try {
             const [employeeResponse, attendanceResponse, payrollResponse] = await Promise.all([
-                fetch('M1 Project Module - Employee Dummy JSON Data/employee_info.json'),
-                fetch('M1 Project Module - Employee Dummy JSON Data/attendance.json'),
-                fetch('M1 Project Module - Employee Dummy JSON Data/payroll_data.json')
+                fetch(DATA_PATHS.employees),
+                fetch(DATA_PATHS.attendance),
+                fetch(DATA_PATHS.payroll)
             ]);
+
+            if (!employeeResponse.ok || !attendanceResponse.ok || !payrollResponse.ok) {
+                throw new Error(
+                    `One or more data files failed to load (status codes: ` +
+                    `${employeeResponse.status}, ${attendanceResponse.status}, ${payrollResponse.status}). ` +
+                    `Check that the folder/file names above exactly match your repo.`
+                );
+            }
 
             const employees = (await employeeResponse.json()).employeeInformation || [];
             const attendanceData = (await attendanceResponse.json()).attendanceAndLeave || [];
