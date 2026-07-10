@@ -1,5 +1,7 @@
 # module1-project-hr
 # HR Dashboard Management System
+**Documentation**
+https://docs.google.com/document/d/1RGmx1XCwx0Q4H5yu2HbfBTcYQpx1QZOIx3jB2LR3Sdc/edit?tab=t.0
 
 ##  Project Overview
 
