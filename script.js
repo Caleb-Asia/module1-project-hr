@@ -413,337 +413,324 @@ document.addEventListener('DOMContentLoaded', () => {
 // 1. Global Setup + Debug
 console.log("[script.js] Script loaded", new Date().toISOString());
 
-
 window.addEventListener("error", (event) => {
-    console.error("[Global Error]", {
-        message: event.message,
-        file: event.filename,
-        line: event.lineno,
-        column: event.colno,
-        error: event.error,
-    });
+  console.error("[Global Error]", {
+    message: event.message,
+    file: event.filename,
+    line: event.lineno,
+    column: event.colno,
+    error: event.error,
+  });
 });
-
 
 window.addEventListener("unhandledrejection", (event) => {
-    console.error("[Unhandled Promise Rejection]", event.reason);
+  console.error("[Unhandled Promise Rejection]", event.reason);
 });
-
 
 // 2. Shared Data Layer
 const employeeInformation = [
-    {
-        id: 1,
-        name: "Sibongile Nkosi",
-        position: "Software Engineer",
-        dept: "Engineering",
-        salary: 99400,
-        contact: "sibongile@company.co.za",
-        history: "Joined 2021, Led migration to microservices",
-        status: "Active",
-    },
-    {
-        id: 2,
-        name: "Thabo Molefe",
-        position: "Product Manager",
-        dept: "Product",
-        salary: 105000,
-        contact: "thabo@company.co.za",
-        history: "Joined 2019, Launched 3 major features",
-        status: "Active",
-    },
-    {
-        id: 3,
-        name: "Naledi Dube",
-        position: "UX Designer",
-        dept: "Design",
-        salary: 78200,
-        contact: "naledi@company.co.za",
-        history: "Joined 2022, Redesigned mobile app",
-        status: "Active",
-    },
-    {
-        id: 4,
-        name: "Kagiso Mthembu",
-        position: "Data Analyst",
-        dept: "Data",
-        salary: 85300,
-        contact: "kagiso@company.co.za",
-        history: "Joined 2020, Built KPI dashboards",
-        status: "Active",
-    },
-    {
-        id: 5,
-        name: "Zanele Khumalo",
-        position: "HR Manager",
-        dept: "Human Resources",
-        salary: 92000,
-        contact: "zanele@company.co.za",
-        history: "Joined 2018, Reduced turnover 18%",
-        status: "Active",
-    },
-    {
-        id: 6,
-        name: "Bongani Sithole",
-        position: "DevOps Engineer",
-        dept: "Engineering",
-        salary: 101500,
-        contact: "bongani@company.co.za",
-        history: "Joined 2021, Cut deploy time 70%",
-        status: "Active",
-    },
-    {
-        id: 7,
-        name: "Lerato Phiri",
-        position: "Marketing Lead",
-        dept: "Marketing",
-        salary: 88400,
-        contact: "lerato@company.co.za",
-        history: "Joined 2020, Grew MQLs 240%",
-        status: "Active",
-    },
-    {
-        id: 8,
-        name: "Sipho Ndlovu",
-        position: "Sales Executive",
-        dept: "Sales",
-        salary: 75600,
-        contact: "sipho@company.co.za",
-        history: "Joined 2023, Top closer Q1 2026",
-        status: "Active",
-    },
-    {
-        id: 9,
-        name: "Ayanda Cele",
-        position: "Finance Officer",
-        dept: "Finance",
-        salary: 81900,
-        contact: "ayanda@company.co.za",
-        history: "Joined 2019, Automated invoicing",
-        status: "Active",
-    },
-    {
-        id: 10,
-        name: "Mandla Zulu",
-        position: "IT Support",
-        dept: "IT",
-        salary: 65800,
-        contact: "mandla@company.co.za",
-        history: "Joined 2022, 99.2% ticket CSAT",
-        status: "Active",
-    },
+  {
+    id: 1,
+    name: "Sibongile Nkosi",
+    position: "Software Engineer",
+    dept: "Engineering",
+    salary: 99400,
+    contact: "sibongile@company.co.za",
+    history: "Joined 2021, Led migration to microservices",
+    status: "Active",
+  },
+  {
+    id: 2,
+    name: "Thabo Molefe",
+    position: "Product Manager",
+    dept: "Product",
+    salary: 105000,
+    contact: "thabo@company.co.za",
+    history: "Joined 2019, Launched 3 major features",
+    status: "Active",
+  },
+  {
+    id: 3,
+    name: "Naledi Dube",
+    position: "UX Designer",
+    dept: "Design",
+    salary: 78200,
+    contact: "naledi@company.co.za",
+    history: "Joined 2022, Redesigned mobile app",
+    status: "Active",
+  },
+  {
+    id: 4,
+    name: "Kagiso Mthembu",
+    position: "Data Analyst",
+    dept: "Data",
+    salary: 85300,
+    contact: "kagiso@company.co.za",
+    history: "Joined 2020, Built KPI dashboards",
+    status: "Active",
+  },
+  {
+    id: 5,
+    name: "Zanele Khumalo",
+    position: "HR Manager",
+    dept: "Human Resources",
+    salary: 92000,
+    contact: "zanele@company.co.za",
+    history: "Joined 2018, Reduced turnover 18%",
+    status: "Active",
+  },
+  {
+    id: 6,
+    name: "Bongani Sithole",
+    position: "DevOps Engineer",
+    dept: "Engineering",
+    salary: 101500,
+    contact: "bongani@company.co.za",
+    history: "Joined 2021, Cut deploy time 70%",
+    status: "Active",
+  },
+  {
+    id: 7,
+    name: "Lerato Phiri",
+    position: "Marketing Lead",
+    dept: "Marketing",
+    salary: 88400,
+    contact: "lerato@company.co.za",
+    history: "Joined 2020, Grew MQLs 240%",
+    status: "Active",
+  },
+  {
+    id: 8,
+    name: "Sipho Ndlovu",
+    position: "Sales Executive",
+    dept: "Sales",
+    salary: 75600,
+    contact: "sipho@company.co.za",
+    history: "Joined 2023, Top closer Q1 2026",
+    status: "Active",
+  },
+  {
+    id: 9,
+    name: "Ayanda Cele",
+    position: "Finance Officer",
+    dept: "Finance",
+    salary: 81900,
+    contact: "ayanda@company.co.za",
+    history: "Joined 2019, Automated invoicing",
+    status: "Active",
+  },
+  {
+    id: 10,
+    name: "Mandla Zulu",
+    position: "IT Support",
+    dept: "IT",
+    salary: 65800,
+    contact: "mandla@company.co.za",
+    history: "Joined 2022, 99.2% ticket CSAT",
+    status: "Active",
+  },
 ];
-
 
 const payrollTimesheet = [
-    {
-        employeeId: 1,
-        hoursWorked: 176,
-        leaveDeductions: 0,
-        finalSalary: 99400,
-        gross: 99400,
-    },
-    {
-        employeeId: 2,
-        hoursWorked: 168,
-        leaveDeductions: 2000,
-        finalSalary: 103000,
-        gross: 105000,
-    },
-    {
-        employeeId: 3,
-        hoursWorked: 176,
-        leaveDeductions: 0,
-        finalSalary: 78200,
-        gross: 78200,
-    },
-    {
-        employeeId: 4,
-        hoursWorked: 160,
-        leaveDeductions: 3200,
-        finalSalary: 82100,
-        gross: 85300,
-    },
-    {
-        employeeId: 5,
-        hoursWorked: 176,
-        leaveDeductions: 0,
-        finalSalary: 92000,
-        gross: 92000,
-    },
-    {
-        employeeId: 6,
-        hoursWorked: 184,
-        leaveDeductions: 0,
-        finalSalary: 101500,
-        gross: 101500,
-    },
-    {
-        employeeId: 7,
-        hoursWorked: 172,
-        leaveDeductions: 800,
-        finalSalary: 87600,
-        gross: 88400,
-    },
-    {
-        employeeId: 8,
-        hoursWorked: 180,
-        leaveDeductions: 0,
-        finalSalary: 75600,
-        gross: 75600,
-    },
-    {
-        employeeId: 9,
-        hoursWorked: 176,
-        leaveDeductions: 0,
-        finalSalary: 81900,
-        gross: 81900,
-    },
-    {
-        employeeId: 10,
-        hoursWorked: 168,
-        leaveDeductions: 1200,
-        finalSalary: 64600,
-        gross: 65800,
-    },
+  {
+    employeeId: 1,
+    hoursWorked: 176,
+    leaveDeductions: 0,
+    finalSalary: 99400,
+    gross: 99400,
+  },
+  {
+    employeeId: 2,
+    hoursWorked: 168,
+    leaveDeductions: 2000,
+    finalSalary: 103000,
+    gross: 105000,
+  },
+  {
+    employeeId: 3,
+    hoursWorked: 176,
+    leaveDeductions: 0,
+    finalSalary: 78200,
+    gross: 78200,
+  },
+  {
+    employeeId: 4,
+    hoursWorked: 160,
+    leaveDeductions: 3200,
+    finalSalary: 82100,
+    gross: 85300,
+  },
+  {
+    employeeId: 5,
+    hoursWorked: 176,
+    leaveDeductions: 0,
+    finalSalary: 92000,
+    gross: 92000,
+  },
+  {
+    employeeId: 6,
+    hoursWorked: 184,
+    leaveDeductions: 0,
+    finalSalary: 101500,
+    gross: 101500,
+  },
+  {
+    employeeId: 7,
+    hoursWorked: 172,
+    leaveDeductions: 800,
+    finalSalary: 87600,
+    gross: 88400,
+  },
+  {
+    employeeId: 8,
+    hoursWorked: 180,
+    leaveDeductions: 0,
+    finalSalary: 75600,
+    gross: 75600,
+  },
+  {
+    employeeId: 9,
+    hoursWorked: 176,
+    leaveDeductions: 0,
+    finalSalary: 81900,
+    gross: 81900,
+  },
+  {
+    employeeId: 10,
+    hoursWorked: 168,
+    leaveDeductions: 1200,
+    finalSalary: 64600,
+    gross: 65800,
+  },
 ];
-
 
 const avatarColors = [
-    "#3B82F6",
-    "#EF4444",
-    "#10B981",
-    "#F59E0B",
-    "#8B5CF6",
-    "#EC4899",
-    "#06B6D4",
-    "#F97316",
-    "#84CC16",
-    "#6366F1",
+  "#3B82F6",
+  "#EF4444",
+  "#10B981",
+  "#F59E0B",
+  "#8B5CF6",
+  "#EC4899",
+  "#06B6D4",
+  "#F97316",
+  "#84CC16",
+  "#6366F1",
 ];
 
-
 function getScoreById(id) {
-    const scores = {
-        1: 92,
-        2: 88,
-        3: 95,
-        4: 85,
-        5: 90,
-        6: 94,
-        7: 87,
-        8: 89,
-        9: 91,
-        10: 86,
-    };
-    return scores[id] || 85;
+  const scores = {
+    1: 92,
+    2: 88,
+    3: 95,
+    4: 85,
+    5: 90,
+    6: 94,
+    7: 87,
+    8: 89,
+    9: 91,
+    10: 86,
+  };
+  return scores[id] || 85;
 }
 
-
 let employees = employeeInformation.map((emp, idx) => ({
-    ...emp,
-    color: avatarColors[idx],
-    initials: emp.name
-        .split(" ")
-        .map((n) => n[0])
-        .join(""),
-    score: getScoreById(emp.id),
+  ...emp,
+  color: avatarColors[idx],
+  initials: emp.name
+    .split(" ")
+    .map((n) => n[0])
+    .join(""),
+  score: getScoreById(emp.id),
 }));
 
-
 const payrollData = employees.map((emp) => {
-    const timesheet = payrollTimesheet.find((t) => t.employeeId === emp.id) || {};
-    const gross = timesheet.gross || emp.salary;
-    const leaveDeductions = timesheet.leaveDeductions || 0;
-    const hoursWorked = timesheet.hoursWorked || 176;
-    const tax = gross * 0.26;
-    const ni = gross * 0.01;
-    const pension = gross * 0.075;
-    const totalDeductions = tax + ni + pension + leaveDeductions;
-    const netPay = gross - totalDeductions;
-    const hourlyRate = gross / hoursWorked;
-    return {
-        ...emp,
-        ...timesheet,
-        grossPay: gross,
-        tax,
-        ni,
-        pension,
-        deductions: totalDeductions,
-        netPay,
-        hourlyRate,
-    };
+  const timesheet = payrollTimesheet.find((t) => t.employeeId === emp.id) || {};
+  const gross = timesheet.gross || emp.salary;
+  const leaveDeductions = timesheet.leaveDeductions || 0;
+  const hoursWorked = timesheet.hoursWorked || 176;
+  const tax = gross * 0.26;
+  const ni = gross * 0.01;
+  const pension = gross * 0.075;
+  const totalDeductions = tax + ni + pension + leaveDeductions;
+  const netPay = gross - totalDeductions;
+  const hourlyRate = gross / hoursWorked;
+  return {
+    ...emp,
+    ...timesheet,
+    grossPay: gross,
+    tax,
+    ni,
+    pension,
+    deductions: totalDeductions,
+    netPay,
+    hourlyRate,
+  };
 });
-
 
 // 3. Shared Utilities
 function toRand(amount) {
-    if (typeof amount !== "number" || isNaN(amount)) return "R0";
-    return "R" + amount.toLocaleString("en-ZA", { maximumFractionDigits: 0 });
+  if (typeof amount !== "number" || isNaN(amount)) return "R0";
+  return "R" + amount.toLocaleString("en-ZA", { maximumFractionDigits: 0 });
 }
 
-
 function showToast(message, type = "success") {
-    const container = document.getElementById("toastContainer");
-    if (!container) return;
-    const toast = document.createElement("div");
-    toast.className = `toast ${type}`;
-    const icon =
-        type === "error"
-            ? '<i class="fa-solid fa-circle-xmark"></i>'
-            : '<i class="fa-solid fa-circle-check"></i>';
-    toast.innerHTML = `${icon}<span>${message}</span>`;
-    container.appendChild(toast);
-    setTimeout(() => toast.classList.add("show"), 10);
-    setTimeout(() => {
-        toast.classList.remove("show");
-        setTimeout(() => toast.remove(), 300);
-    }, 3000);
+  const container = document.getElementById("toastContainer");
+  if (!container) return;
+  const toast = document.createElement("div");
+  toast.className = `toast ${type}`;
+  const icon =
+    type === "error"
+      ? '<i class="fa-solid fa-circle-xmark"></i>'
+      : '<i class="fa-solid fa-circle-check"></i>';
+  toast.innerHTML = `${icon}<span>${message}</span>`;
+  container.appendChild(toast);
+  setTimeout(() => toast.classList.add("show"), 10);
+  setTimeout(() => {
+    toast.classList.remove("show");
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
 }
 
 function getQuirkyFact(data) {
-    const firstName = data.name.split(" ")[0];
-    const facts = [
-        `Did you know? ${firstName} could buy ${Math.floor(data.netPay / 25)} cappuccinos this month.`,
-        `Fun fact: ${firstName}'s hourly rate is enough for ${Math.floor(data.hourlyRate / 60)} minutes of helicopter time.`,
-        `${firstName} worked ${data.hoursWorked} hours. That's ${data.hoursWorked * 60} minutes of brilliance.`,
-        `If ${firstName} saved 10% of net pay, they'd have ${toRand(data.netPay * 0.1 * 12)} after a year.`,
-        `${firstName}'s tax could fund ${Math.floor(data.tax / 15000)} school textbooks.`,
-        `At this rate, ${firstName} earns ${toRand(data.hourlyRate / 60)} per minute.`,
-        `${firstName} is in the top ${100 - data.score}% of performers. Iconic.`,
-    ];
-    return facts[data.id % facts.length];
+  const firstName = data.name.split(" ")[0];
+  const facts = [
+    `Did you know? ${firstName} could buy ${Math.floor(data.netPay / 25)} cappuccinos this month.`,
+    `Fun fact: ${firstName}'s hourly rate is enough for ${Math.floor(data.hourlyRate / 60)} minutes of helicopter time.`,
+    `${firstName} worked ${data.hoursWorked} hours. That's ${data.hoursWorked * 60} minutes of brilliance.`,
+    `If ${firstName} saved 10% of net pay, they'd have ${toRand(data.netPay * 0.1 * 12)} after a year.`,
+    `${firstName}'s tax could fund ${Math.floor(data.tax / 15000)} school textbooks.`,
+    `At this rate, ${firstName} earns ${toRand(data.hourlyRate / 60)} per minute.`,
+    `${firstName} is in the top ${100 - data.score}% of performers. Iconic.`,
+  ];
+  return facts[data.id % facts.length];
 }
 
 function getMonthData(data, monthOffset) {
-    const multiplier = Math.pow(0.95, monthOffset);
-    return {
-        gross: data.grossPay * multiplier,
-        net: data.netPay * multiplier,
-        tax: data.tax * multiplier,
-    };
+  const multiplier = Math.pow(0.95, monthOffset);
+  return {
+    gross: data.grossPay * multiplier,
+    net: data.netPay * multiplier,
+    tax: data.tax * multiplier,
+  };
 }
 
 // 4. EMPLOYEES PAGE FUNCTIONS
 function renderEmployeeGrid(empList = employees) {
-    const grid = document.getElementById("employeeGrid");
-    const empty = document.getElementById("employeeEmpty");
-    if (!grid) return;
+  const grid = document.getElementById("employeeGrid");
+  const empty = document.getElementById("employeeEmpty");
+  if (!grid) return;
 
+  if (empList.length === 0) {
+    grid.innerHTML = "";
+    if (empty) empty.style.display = "block";
+    return;
+  }
 
-    if (empList.length === 0) {
-        grid.innerHTML = "";
-        if (empty) empty.style.display = "block";
-        return;
-    }
+  if (empty) empty.style.display = "none";
 
-
-    if (empty) empty.style.display = "none";
-
-
-    grid.innerHTML = empList
-        .map(
-            (emp) => `
+  grid.innerHTML = empList
+    .map(
+      (emp) => `
     <div class="employee-card" data-employee-id="${emp.id}" role="button" tabindex="0">
       <div class="employee-card-top">
         <div class="employee-avatar" style="background: ${emp.color}">
@@ -762,32 +749,32 @@ function renderEmployeeGrid(empList = employees) {
       </div>
     </div>
   `,
-        )
-        .join("");
+    )
+    .join("");
 
-    document.querySelectorAll(".employee-card").forEach((card) => {
-        const id = parseInt(card.dataset.employeeId);
-        card.onclick = () => openEmployeeProfile(id);
-        card.onkeydown = (e) => {
-            if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                openEmployeeProfile(id);
-            }
-        };
-    });
+  document.querySelectorAll(".employee-card").forEach((card) => {
+    const id = parseInt(card.dataset.employeeId);
+    card.onclick = () => openEmployeeProfile(id);
+    card.onkeydown = (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openEmployeeProfile(id);
+      }
+    };
+  });
 }
 
 function openEmployeeProfile(empId) {
-    const emp = employees.find((e) => e.id === empId);
-    if (!emp) return showToast("Employee not found", "error");
+  const emp = employees.find((e) => e.id === empId);
+  if (!emp) return showToast("Employee not found", "error");
 
-    const overlay = document.getElementById("employeeProfileOverlay");
-    const body = document.getElementById("empModalBody");
-    const title = document.getElementById("empModalTitle");
-    if (!overlay || !body) return;
+  const overlay = document.getElementById("employeeProfileOverlay");
+  const body = document.getElementById("empModalBody");
+  const title = document.getElementById("empModalTitle");
+  if (!overlay || !body) return;
 
-    title.textContent = emp.name;
-    body.innerHTML = `
+  title.textContent = emp.name;
+  body.innerHTML = `
     <div style="display: flex; flex-direction: column; gap: 1.5rem;">
       <div style="display: flex; align-items: center; gap: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid #e2e8f0;">
         <div style="width: 5rem; height: 5rem; border-radius: 9999px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: 700; background-color: ${emp.color}">
@@ -826,50 +813,50 @@ function openEmployeeProfile(empId) {
     </div>
   `;
 
-    overlay.style.display = "flex";
-    document.body.style.overflow = "hidden";
+  overlay.style.display = "flex";
+  document.body.style.overflow = "hidden";
 }
 
 function closeEmployeeProfile() {
-    const overlay = document.getElementById("employeeProfileOverlay");
-    if (overlay) {
-        overlay.style.display = "none";
-        document.body.style.overflow = "";
-    }
+  const overlay = document.getElementById("employeeProfileOverlay");
+  if (overlay) {
+    overlay.style.display = "none";
+    document.body.style.overflow = "";
+  }
 }
 
 function initEmployeeSearch() {
-    const search = document.getElementById("employeeSearch");
-    if (!search) return;
-    search.addEventListener("input", (e) => {
-        const query = e.target.value.toLowerCase().trim();
-        if (!query) return renderEmployeeGrid(employees);
-        const filtered = employees.filter(
-            (emp) =>
-                emp.name.toLowerCase().includes(query) ||
-                emp.position.toLowerCase().includes(query) ||
-                emp.dept.toLowerCase().includes(query) ||
-                emp.contact.toLowerCase().includes(query),
-        );
-        renderEmployeeGrid(filtered);
-    });
+  const search = document.getElementById("employeeSearch");
+  if (!search) return;
+  search.addEventListener("input", (e) => {
+    const query = e.target.value.toLowerCase().trim();
+    if (!query) return renderEmployeeGrid(employees);
+    const filtered = employees.filter(
+      (emp) =>
+        emp.name.toLowerCase().includes(query) ||
+        emp.position.toLowerCase().includes(query) ||
+        emp.dept.toLowerCase().includes(query) ||
+        emp.contact.toLowerCase().includes(query),
+    );
+    renderEmployeeGrid(filtered);
+  });
 }
 
 function initFilterButton() {
-    const filterBtn = document.getElementById("filterBtn");
-    if (!filterBtn) return;
-    filterBtn.addEventListener("click", showFilterModal);
+  const filterBtn = document.getElementById("filterBtn");
+  if (!filterBtn) return;
+  filterBtn.addEventListener("click", showFilterModal);
 }
 
 function showFilterModal() {
-    const depts = [...new Set(employees.map((e) => e.dept))].sort();
-    const overlay = document.getElementById("employeeProfileOverlay");
-    const body = document.getElementById("empModalBody");
-    const title = document.getElementById("empModalTitle");
-    if (!overlay || !body) return;
+  const depts = [...new Set(employees.map((e) => e.dept))].sort();
+  const overlay = document.getElementById("employeeProfileOverlay");
+  const body = document.getElementById("empModalBody");
+  const title = document.getElementById("empModalTitle");
+  if (!overlay || !body) return;
 
-    title.textContent = "Filter Employees";
-    body.innerHTML = `
+  title.textContent = "Filter Employees";
+  body.innerHTML = `
     <div style="display: flex; flex-direction: column; gap: 1rem;">
       <div>
         <label style="display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem; color: #374151;">Department</label>
@@ -888,49 +875,49 @@ function showFilterModal() {
       </div>
     </div>
   `;
-    overlay.style.display = "flex";
-    document.body.style.overflow = "hidden";
+  overlay.style.display = "flex";
+  document.body.style.overflow = "hidden";
 
-    document.getElementById("applyFilterBtn").onclick = applyEmployeeFilter;
-    document.getElementById("clearFilterBtn").onclick = () => {
-        clearEmployeeFilter();
-        closeEmployeeProfile();
-    };
+  document.getElementById("applyFilterBtn").onclick = applyEmployeeFilter;
+  document.getElementById("clearFilterBtn").onclick = () => {
+    clearEmployeeFilter();
+    closeEmployeeProfile();
+  };
 }
 
 function applyEmployeeFilter() {
-    const dept = document.getElementById("filterDept").value;
-    const minScore = parseInt(document.getElementById("filterScore").value) || 0;
-    const filtered = employees.filter((emp) => {
-        const deptMatch = !dept || emp.dept === dept;
-        const scoreMatch = emp.score >= minScore;
-        return deptMatch && scoreMatch;
-    });
-    renderEmployeeGrid(filtered);
-    closeEmployeeProfile();
-    showToast(`Showing ${filtered.length} employees`);
+  const dept = document.getElementById("filterDept").value;
+  const minScore = parseInt(document.getElementById("filterScore").value) || 0;
+  const filtered = employees.filter((emp) => {
+    const deptMatch = !dept || emp.dept === dept;
+    const scoreMatch = emp.score >= minScore;
+    return deptMatch && scoreMatch;
+  });
+  renderEmployeeGrid(filtered);
+  closeEmployeeProfile();
+  showToast(`Showing ${filtered.length} employees`);
 }
 
 function clearEmployeeFilter() {
-    renderEmployeeGrid(employees);
-    const search = document.getElementById("employeeSearch");
-    if (search) search.value = "";
+  renderEmployeeGrid(employees);
+  const search = document.getElementById("employeeSearch");
+  if (search) search.value = "";
 }
 
 function initAddEmployeeButton() {
-    const addBtn = document.getElementById("addEmployeeBtn");
-    if (!addBtn) return;
-    addBtn.addEventListener("click", showAddEmployeeModal);
+  const addBtn = document.getElementById("addEmployeeBtn");
+  if (!addBtn) return;
+  addBtn.addEventListener("click", showAddEmployeeModal);
 }
 
 function showAddEmployeeModal() {
-    const overlay = document.getElementById("employeeProfileOverlay");
-    const body = document.getElementById("empModalBody");
-    const title = document.getElementById("empModalTitle");
-    if (!overlay || !body) return;
+  const overlay = document.getElementById("employeeProfileOverlay");
+  const body = document.getElementById("empModalBody");
+  const title = document.getElementById("empModalTitle");
+  if (!overlay || !body) return;
 
-    title.textContent = "Add New Employee";
-    body.innerHTML = `
+  title.textContent = "Add New Employee";
+  body.innerHTML = `
     <form id="addEmployeeForm" style="display: flex; flex-direction: column; gap: 1rem; font-family: system-ui, -apple-system, sans-serif;">
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
         <div>
@@ -967,39 +954,39 @@ function showAddEmployeeModal() {
     </form>
   `;
 
-    overlay.style.display = "flex";
-    document.body.style.overflow = "hidden";
-    document.getElementById("addEmployeeForm").onsubmit = handleAddEmployee;
+  overlay.style.display = "flex";
+  document.body.style.overflow = "hidden";
+  document.getElementById("addEmployeeForm").onsubmit = handleAddEmployee;
 }
 
 function handleAddEmployee(e) {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const newId = Math.max(...employees.map((emp) => emp.id), 0) + 1;
-    const colorIdx = employees.length % avatarColors.length;
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const newId = Math.max(...employees.map((emp) => emp.id), 0) + 1;
+  const colorIdx = employees.length % avatarColors.length;
 
-    const newEmp = {
-        id: newId,
-        name: formData.get("name"),
-        position: formData.get("position"),
-        dept: formData.get("dept"),
-        salary: parseInt(formData.get("salary")),
-        contact: formData.get("contact"),
-        history: formData.get("history") || "New employee",
-        status: "Active",
-        color: avatarColors[colorIdx],
-        initials: formData
-            .get("name")
-            .split(" ")
-            .map((n) => n[0])
-            .join(""),
-        score: 85,
-    };
+  const newEmp = {
+    id: newId,
+    name: formData.get("name"),
+    position: formData.get("position"),
+    dept: formData.get("dept"),
+    salary: parseInt(formData.get("salary")),
+    contact: formData.get("contact"),
+    history: formData.get("history") || "New employee",
+    status: "Active",
+    color: avatarColors[colorIdx],
+    initials: formData
+      .get("name")
+      .split(" ")
+      .map((n) => n[0])
+      .join(""),
+    score: 85,
+  };
 
-    employees.push(newEmp);
-    renderEmployeeGrid(employees);
-    closeEmployeeProfile();
-    showToast(`${newEmp.name} added successfully`);
+  employees.push(newEmp);
+  renderEmployeeGrid(employees);
+  closeEmployeeProfile();
+  showToast(`${newEmp.name} added successfully`);
 }
 
 // 5. PAYROLL PAGE FUNCTIONS
@@ -1009,38 +996,38 @@ let payrollBreakdownChart = null;
 let topEarnersChart = null;
 
 function initPayrollPage() {
-    renderPayrollTable();
-    updatePayrollSummary();
-    renderPayrollCharts();
-    initPayslipSystem();
+  renderPayrollTable();
+  updatePayrollSummary();
+  renderPayrollCharts();
+  initPayslipSystem();
 
-    const exportBtn = document.getElementById("exportAllBtn");
-    if (exportBtn) {
-        exportBtn.addEventListener("click", () =>
-            showToast("Export started. You'll receive an email when ready."),
-        );
-    }
+  const exportBtn = document.getElementById("exportAllBtn");
+  if (exportBtn) {
+    exportBtn.addEventListener("click", () =>
+      showToast("Export started. You'll receive an email when ready."),
+    );
+  }
 
-    const monthSelect = document.getElementById("monthSelect");
-    if (monthSelect) {
-        monthSelect.addEventListener("change", (e) => {
-            const selectedMonth = e.target.value;
-            showToast(`Switched to ${selectedMonth}`);
-            const tableHeader = document.querySelector(
-                "#payroll-data.table-header h4",
-            );
-            if (tableHeader)
-                tableHeader.textContent = `Employee Payroll — ${selectedMonth}`;
-        });
-    }
+  const monthSelect = document.getElementById("monthSelect");
+  if (monthSelect) {
+    monthSelect.addEventListener("change", (e) => {
+      const selectedMonth = e.target.value;
+      showToast(`Switched to ${selectedMonth}`);
+      const tableHeader = document.querySelector(
+        "#payroll-data.table-header h4",
+      );
+      if (tableHeader)
+        tableHeader.textContent = `Employee Payroll — ${selectedMonth}`;
+    });
+  }
 }
 
 function renderPayrollTable() {
-    const tbody = document.getElementById("payrollTableBody");
-    if (!tbody) return;
-    tbody.innerHTML = payrollData
-        .map(
-            (emp) => `
+  const tbody = document.getElementById("payrollTableBody");
+  if (!tbody) return;
+  tbody.innerHTML = payrollData
+    .map(
+      (emp) => `
     <tr data-employee-id="${emp.id}">
       <td>
         <div class="employee-cell">
@@ -1064,509 +1051,466 @@ function renderPayrollTable() {
       </td>
     </tr>
   `,
-        )
-        .join("");
+    )
+    .join("");
 
-    tbody.querySelectorAll(".btn-table[data-payslip-id]").forEach((btn) => {
-        btn.addEventListener("click", () =>
-            openPayslip(parseInt(btn.dataset.payslipId)),
-        );
-    });
+  tbody.querySelectorAll(".btn-table[data-payslip-id]").forEach((btn) => {
+    btn.addEventListener("click", () =>
+      openPayslip(parseInt(btn.dataset.payslipId)),
+    );
+  });
 }
 
 function updatePayrollSummary() {
-    const grossTotal = payrollData.reduce((sum, e) => sum + e.grossPay, 0);
-    const deductTotal = payrollData.reduce((sum, e) => sum + e.deductions, 0);
-    const netTotal = payrollData.reduce((sum, e) => sum + e.netPay, 0);
-    document.getElementById("grossPayroll").textContent = toRand(grossTotal);
-    document.getElementById("totalDeductions").textContent = toRand(deductTotal);
-    document.getElementById("netPayroll").textContent = toRand(netTotal);
+  const grossTotal = payrollData.reduce((sum, e) => sum + e.grossPay, 0);
+  const deductTotal = payrollData.reduce((sum, e) => sum + e.deductions, 0);
+  const netTotal = payrollData.reduce((sum, e) => sum + e.netPay, 0);
+  document.getElementById("grossPayroll").textContent = toRand(grossTotal);
+  document.getElementById("totalDeductions").textContent = toRand(deductTotal);
+  document.getElementById("netPayroll").textContent = toRand(netTotal);
 }
 
 function renderPayrollCharts() {
-    if (typeof Chart === "undefined") return;
+  if (typeof Chart === "undefined") return;
 
-    const ctx1 = document.getElementById("payrollBreakdownChart");
-    if (ctx1) {
-        if (payrollBreakdownChart) payrollBreakdownChart.destroy();
-        const totals = payrollData.reduce(
-            (acc, e) => {
-                acc.net += e.netPay;
-                acc.tax += e.tax;
-                acc.ni += e.ni;
-                acc.pension += e.pension;
-                return acc;
+  const ctx1 = document.getElementById("payrollBreakdownChart");
+  if (ctx1) {
+    if (payrollBreakdownChart) payrollBreakdownChart.destroy();
+    const totals = payrollData.reduce(
+      (acc, e) => {
+        acc.net += e.netPay;
+        acc.tax += e.tax;
+        acc.ni += e.ni;
+        acc.pension += e.pension;
+        return acc;
+      },
+      { net: 0, tax: 0, ni: 0, pension: 0 },
+    );
+    payrollBreakdownChart = new Chart(ctx1, {
+      type: "doughnut",
+      data: {
+        labels: ["Net Pay", "PAYE Tax", "UIF", "Pension"],
+        datasets: [
+          {
+            data: [totals.net, totals.tax, totals.ni, totals.pension],
+            backgroundColor: ["#10B981", "#EF4444", "#F59E0B", "#3B82F6"],
+            borderColor: "#0b0f19",
+            borderWidth: 2,
+            hoverOffset: 8,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: "68%",
+        rotation: -90,
+        animation: { duration: 1400, easing: "easeOutQuart" },
+        plugins: {
+          legend: {
+            position: "bottom",
+            labels: {
+              color: "#cbd5e1",
+              padding: 16,
+              boxWidth: 12,
+              font: { size: 12, family: "Inter, sans-serif", weight: "600" },
             },
-            { net: 0, tax: 0, ni: 0, pension: 0 },
-        );
-        payrollBreakdownChart = new Chart(ctx1, {
-            type: "doughnut",
-            data: {
-                labels: ["Net Pay", "PAYE Tax", "UIF", "Pension"],
-                datasets: [
-                    {
-                        data: [totals.net, totals.tax, totals.ni, totals.pension],
-                        backgroundColor: ["#10B981", "#EF4444", "#F59E0B", "#3B82F6"],
-                        borderColor: "#0b0f19",
-                        borderWidth: 2,
-                        hoverOffset: 8,
-                    },
-                ],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                cutout: "68%",
-                rotation: -90,
-                animation: { duration: 1400, easing: "easeOutQuart" },
-                plugins: {
-                    legend: {
-                        position: "bottom",
-                        labels: {
-                            color: "#cbd5e1",
-                            padding: 16,
-                            boxWidth: 12,
-                            font: { size: 12, family: "Inter, sans-serif", weight: "600" },
-                        },
-                    },
-                    title: {
-                        display: true,
-                        text: "Company Payroll Breakdown",
-                        color: "#f8fafc",
-                        font: { size: 18, weight: "700", family: "Inter, sans-serif" },
-                        padding: { bottom: 16 },
-                    },
-                    tooltip: {
-                        backgroundColor: "rgba(15, 23, 42, 0.95)",
-                        titleColor: "#f8fafc",
-                        bodyColor: "#cbd5e1",
-                        borderColor: "rgba(99, 102, 241, 0.3)",
-                        borderWidth: 1,
-                        padding: 12,
-                    },
-                },
-            },
-        });
-    }
+          },
+          title: {
+            display: true,
+            text: "Company Payroll Breakdown",
+            color: "#f8fafc",
+            font: { size: 18, weight: "700", family: "Inter, sans-serif" },
+            padding: { bottom: 16 },
+          },
+          tooltip: {
+            backgroundColor: "rgba(15, 23, 42, 0.95)",
+            titleColor: "#f8fafc",
+            bodyColor: "#cbd5e1",
+            borderColor: "rgba(99, 102, 241, 0.3)",
+            borderWidth: 1,
+            padding: 12,
+          },
+        },
+      },
+    });
+  }
 
-    const ctx2 = document.getElementById("topEarnersChart");
-    if (ctx2) {
-        if (topEarnersChart) topEarnersChart.destroy();
-        const top5 = [...payrollData]
-            .sort((a, b) => b.netPay - a.netPay)
-            .slice(0, 5);
-        topEarnersChart = new Chart(ctx2, {
-            type: "bar",
-            data: {
-                labels: top5.map((e) => e.name.split(" ")[0]),
-                datasets: [
-                    {
-                        label: "Net Pay",
-                        data: top5.map((e) => e.netPay),
-                        backgroundColor: ["#6366f1", "#8b5cf6", "#06b6d4", "#10b981", "#f59e0b"],
-                        borderRadius: 10,
-                        borderSkipped: false,
-                    },
-                ],
+  const ctx2 = document.getElementById("topEarnersChart");
+  if (ctx2) {
+    if (topEarnersChart) topEarnersChart.destroy();
+    const top5 = [...payrollData]
+      .sort((a, b) => b.netPay - a.netPay)
+      .slice(0, 5);
+    topEarnersChart = new Chart(ctx2, {
+      type: "bar",
+      data: {
+        labels: top5.map((e) => e.name.split(" ")[0]),
+        datasets: [
+          {
+            label: "Net Pay",
+            data: top5.map((e) => e.netPay),
+            backgroundColor: [
+              "#6366f1",
+              "#8b5cf6",
+              "#06b6d4",
+              "#10b981",
+              "#f59e0b",
+            ],
+            borderRadius: 10,
+            borderSkipped: false,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: { duration: 1400, easing: "easeOutQuart" },
+        plugins: {
+          legend: { display: false },
+          title: {
+            display: true,
+            text: "Top 5 Earners by Net Pay",
+            color: "#f8fafc",
+            font: { size: 18, weight: "700", family: "Inter, sans-serif" },
+            padding: { bottom: 16 },
+          },
+          tooltip: {
+            backgroundColor: "rgba(15, 23, 42, 0.95)",
+            titleColor: "#f8fafc",
+            bodyColor: "#cbd5e1",
+            borderColor: "rgba(99, 102, 241, 0.3)",
+            borderWidth: 1,
+            padding: 12,
+          },
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+            ticks: {
+              color: "#cbd5e1",
+              font: { size: 12, family: "Inter, sans-serif" },
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                animation: { duration: 1400, easing: "easeOutQuart" },
-                plugins: {
-                    legend: { display: false },
-                    title: {
-                        display: true,
-                        text: "Top 5 Earners by Net Pay",
-                        color: "#f8fafc",
-                        font: { size: 18, weight: "700", family: "Inter, sans-serif" },
-                        padding: { bottom: 16 },
-                    },
-                    tooltip: {
-                        backgroundColor: "rgba(15, 23, 42, 0.95)",
-                        titleColor: "#f8fafc",
-                        bodyColor: "#cbd5e1",
-                        borderColor: "rgba(99, 102, 241, 0.3)",
-                        borderWidth: 1,
-                        padding: 12,
-                    },
-                },
-                scales: {
-                    x: {
-                        grid: { display: false },
-                        ticks: { color: "#cbd5e1", font: { size: 12, family: "Inter, sans-serif" } },
-                    },
-                    y: {
-                        beginAtZero: true,
-                        grid: { color: "rgba(255, 255, 255, 0.08)" },
-                        ticks: {
-                            color: "#cbd5e1",
-                            font: { size: 12, family: "Inter, sans-serif" },
-                            callback: (v) => toRand(v),
-                        },
-                    },
-                },
+          },
+          y: {
+            beginAtZero: true,
+            grid: { color: "rgba(255, 255, 255, 0.08)" },
+            ticks: {
+              color: "#cbd5e1",
+              font: { size: 12, family: "Inter, sans-serif" },
+              callback: (v) => toRand(v),
             },
-        });
-    }
+          },
+        },
+      },
+    });
+  }
 }
 
 // 6. Payslip System V2 - Works for Payroll Page
 function initPayslipSystem() {
-    const overlay = document.getElementById("payslipModalOverlay");
-    const closeBtn = document.getElementById("closePayslipBtn");
-    const downloadBtn = document.getElementById("downloadPayslipBtn");
-    const emailBtn = document.getElementById("emailPayslipBtn");
+  const overlay = document.getElementById("payslipModalOverlay");
+  const closeBtn = document.getElementById("closePayslipBtn");
+  const downloadBtn = document.getElementById("downloadPayslipBtn");
+  const emailBtn = document.getElementById("emailPayslipBtn");
 
-    if (closeBtn) closeBtn.addEventListener("click", closePayslip);
-    if (overlay)
-        overlay.addEventListener("click", (e) => {
-            if (e.target === overlay) closePayslip();
-        });
-    if (downloadBtn) downloadBtn.addEventListener("click", downloadPayslipPDF);
-    if (emailBtn)
-        emailBtn.addEventListener("click", () =>
-            showToast("Payslip emailed to employee"),
-        );
-
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closePayslip();
+  if (closeBtn) closeBtn.addEventListener("click", closePayslip);
+  if (overlay)
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) closePayslip();
     });
+  if (downloadBtn) downloadBtn.addEventListener("click", downloadPayslipPDF);
+  if (emailBtn)
+    emailBtn.addEventListener("click", () =>
+      showToast("Payslip emailed to employee"),
+    );
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closePayslip();
+  });
 }
 
 function openPayslip(empId) {
-    console.log("[Payslip] Opening ID:", empId);
-    const data = payrollData.find((e) => e.id === empId);
-    if (!data) return showToast("Employee not found", "error");
+  console.log("[Payslip] Opening ID:", empId);
+  const data = payrollData.find((e) => e.id === empId);
+  if (!data) return showToast("Employee not found", "error");
 
-    activePayslipData = data;
-    const overlay = document.getElementById("payslipModalOverlay");
-    const content = document.getElementById("payslipContent");
-    const title = document.getElementById("payslipTitle");
+  activePayslipData = data;
+  const overlay = document.getElementById("payslipModalOverlay");
+  const content = document.getElementById("payslipContent");
+  const title = document.getElementById("payslipTitle");
 
-    if (!overlay || !content) {
-        console.error("[Payslip] Modal elements missing");
-        showToast("Payslip modal error", "error");
-        return;
-    }
+  if (!overlay || !content) {
+    console.error("[Payslip] Modal elements missing");
+    showToast("Payslip modal error", "error");
+    return;
+  }
 
-    title.textContent = `${data.name} - June 2026 Payslip`;
-    content.innerHTML = `
-  <div class="space-y-6">
-    <div class="flex items-center justify-between pb-4 border-b">
-      <div>
-        <h4 class="text-xl font-bold">${data.name}</h4>
-        <p class="text-gray-600">${data.position} | ${data.dept}</p>
-        <p class="text-sm text-gray-500">Employee ID: ${data.id}</p>
+  title.textContent = `${data.name} - June 2026 Payslip`;
+
+  // Pure ATM-style HTML - no charts
+  content.innerHTML = `
+      <div class="atm-slip-preview">
+        <pre style="font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.3; margin: 0; white-space: pre;">${generateATMSlipText(data)}</pre>
       </div>
-      <div class="w-16 h-16 rounded-full flex items-center justify-center text-white text-xl font-bold" style="background-color: ${data.color}">
-        ${data.initials}
-      </div>
-    </div>
+    `;
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div class="bg-gray-50 p-4 rounded-lg">
-        <h5 class="font-semibold mb-3 text-gray-700">Earnings</h5>
-        <div class="space-y-2 text-sm">
-          <div class="flex justify-between">
-            <span>Basic Salary</span>
-            <span class="font-medium">${toRand(data.grossPay)}</span>
-          </div>
-          <div class="flex justify-between">
-            <span>Hours Worked</span>
-            <span class="font-medium">${data.hoursWorked} hrs</span>
-          </div>
-          <div class="flex justify-between">
-            <span>Hourly Rate</span>
-            <span class="font-medium">${toRand(data.hourlyRate)}</span>
-          </div>
-          <div class="flex justify-between font-semibold border-t pt-2 mt-2">
-            <span>Gross Pay</span>
-            <span>${toRand(data.grossPay)}</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="bg-gray-50 p-4 rounded-lg">
-        <h5 class="font-semibold mb-3 text-gray-700">Deductions</h5>
-        <div class="space-y-2 text-sm">
-          <div class="flex justify-between">
-            <span>PAYE Tax</span>
-            <span class="font-medium">${toRand(data.tax)}</span>
-          </div>
-          <div class="flex justify-between">
-            <span>UIF</span>
-            <span class="font-medium">${toRand(data.ni)}</span>
-          </div>
-          <div class="flex justify-between">
-            <span>Pension</span>
-            <span class="font-medium">${toRand(data.pension)}</span>
-          </div>
-          <div class="flex justify-between">
-            <span>Leave Deductions</span>
-            <span class="font-medium">${toRand(data.leaveDeductions)}</span>
-          </div>
-          <div class="flex justify-between font-semibold border-t pt-2 mt-2">
-            <span>Total Deductions</span>
-            <span>${toRand(data.deductions)}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="bg-green-50 border-2 border-green-200 p-5 rounded-lg">
-      <div class="flex justify-between items-center">
-        <span class="text-lg font-semibold text-green-900">Net Pay</span>
-        <span class="text-3xl font-bold text-green-600">${toRand(data.netPay)}</span>
-      </div>
-    </div>
-
-    <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg">
-      <p class="text-sm text-blue-900 italic">${getQuirkyFact(data)}</p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div>
-        <h6 class="font-semibold mb-2 text-sm text-gray-700">Pay Breakdown</h6>
-        <canvas id="payslipPieChart"></canvas>
-      </div>
-      <div>
-        <h6 class="font-semibold mb-2 text-sm text-gray-700">3 Month Trend</h6>
-        <canvas id="payslipTrendChart"></canvas>
-      </div>
-    </div>
-  </div>
-`;
-
-    overlay.classList.add("active");
-    overlay.style.display = "flex";
-    document.body.style.overflow = "hidden";
-    setTimeout(() => renderNewPayslipCharts(data), 50);
+  overlay.classList.add("active");
+  overlay.style.display = "flex";
+  document.body.style.overflow = "hidden";
 }
+function generateATMSlipText(d) {
+  const line = "-".repeat(40);
+  const pair = (left, right) => {
+    const space = 40 - left.length - right.length;
+    return left + " ".repeat(Math.max(1, space)) + right;
+  };
+  const center = (text) => {
+    const pad = Math.floor((40 - text.length) / 2);
+    return " ".repeat(Math.max(0, pad)) + text;
+  };
 
+  return [
+    center("MODERNTECH HR"),
+    center("PAYSLIP - JUNE 2026"),
+    line,
+    pair("Employee:", d.name),
+    pair("ID:", String(d.id)),
+    pair("Dept:", d.dept),
+    line,
+    pair("Gross Pay", toRand(d.grossPay)),
+    pair("PAYE Tax", toRand(d.tax)),
+    pair("UIF", toRand(d.ni)),
+    pair("Pension", toRand(d.pension)),
+    pair("Leave Ded", toRand(d.leaveDeductions)),
+    line,
+    pair("NET PAY", toRand(d.netPay)),
+    line,
+    center(getQuirkyFact(d)),
+    line,
+  ].join("\n");
+}
 function renderNewPayslipCharts(data) {
-    activePayslipCharts.forEach((chart) => chart.destroy());
-    activePayslipCharts = [];
+  activePayslipCharts.forEach((chart) => chart.destroy());
+  activePayslipCharts = [];
 
-    const pieCtx = document.getElementById("payslipPieChart");
-    const trendCtx = document.getElementById("payslipTrendChart");
+  const pieCtx = document.getElementById("payslipPieChart");
+  const trendCtx = document.getElementById("payslipTrendChart");
 
-    if (pieCtx && typeof Chart !== "undefined") {
-        const pieChart = new Chart(pieCtx, {
-            type: "doughnut",
-            data: {
-                labels: ["Net Pay", "PAYE", "UIF", "Pension", "Leave"],
-                datasets: [
-                    {
-                        data: [
-                            data.netPay,
-                            data.tax,
-                            data.ni,
-                            data.pension,
-                            data.leaveDeductions,
-                        ],
-                        backgroundColor: [
-                            "#10B981",
-                            "#EF4444",
-                            "#F59E0B",
-                            "#3B82F6",
-                            "#8B5CF6",
-                        ],
-                    },
-                ],
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: "bottom",
-                        labels: { boxWidth: 12, font: { size: 11 } },
-                    },
-                },
-            },
-        });
-        activePayslipCharts.push(pieChart);
-    }
+  if (pieCtx && typeof Chart !== "undefined") {
+    const pieChart = new Chart(pieCtx, {
+      type: "doughnut",
+      data: {
+        labels: ["Net Pay", "PAYE", "UIF", "Pension", "Leave"],
+        datasets: [
+          {
+            data: [
+              data.netPay,
+              data.tax,
+              data.ni,
+              data.pension,
+              data.leaveDeductions,
+            ],
+            backgroundColor: [
+              "#10B981",
+              "#EF4444",
+              "#F59E0B",
+              "#3B82F6",
+              "#8B5CF6",
+            ],
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: "bottom",
+            labels: { boxWidth: 12, font: { size: 11 } },
+          },
+        },
+      },
+    });
+    activePayslipCharts.push(pieChart);
+  }
 
-    if (trendCtx && typeof Chart !== "undefined") {
-        const may = getMonthData(data, 1);
-        const apr = getMonthData(data, 2);
-        const trendChart = new Chart(trendCtx, {
-            type: "line",
-            data: {
-                labels: ["Apr", "May", "Jun"],
-                datasets: [
-                    {
-                        label: "Net Pay",
-                        data: [apr.net, may.net, data.netPay],
-                        borderColor: "#10B981",
-                        backgroundColor: "rgba(16, 185, 129, 0.1)",
-                        tension: 0.4,
-                        fill: true,
-                    },
-                ],
-            },
-            options: {
-                responsive: true,
-                plugins: { legend: { display: false } },
-                scales: {
-                    y: { ticks: { callback: (v) => toRand(v), font: { size: 10 } } },
-                },
-            },
-        });
-        activePayslipCharts.push(trendChart);
-    }
+  if (trendCtx && typeof Chart !== "undefined") {
+    const may = getMonthData(data, 1);
+    const apr = getMonthData(data, 2);
+    const trendChart = new Chart(trendCtx, {
+      type: "line",
+      data: {
+        labels: ["Apr", "May", "Jun"],
+        datasets: [
+          {
+            label: "Net Pay",
+            data: [apr.net, may.net, data.netPay],
+            borderColor: "#10B981",
+            backgroundColor: "rgba(16, 185, 129, 0.1)",
+            tension: 0.4,
+            fill: true,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { ticks: { callback: (v) => toRand(v), font: { size: 10 } } },
+        },
+      },
+    });
+    activePayslipCharts.push(trendChart);
+  }
 }
 
 function closePayslipModal() {
-    const overlay = document.getElementById("payslipModalOverlay");
-    if (overlay) {
-        overlay.classList.remove("active");
-        overlay.style.display = "none";
-        document.body.style.overflow = "";
-    }
-    activePayslipCharts.forEach((chart) => chart.destroy());
-    activePayslipCharts = [];
-    activePayslipData = null;
+  const overlay = document.getElementById("payslipModalOverlay");
+  if (overlay) {
+    overlay.classList.remove("active");
+    overlay.style.display = "none";
+    document.body.style.overflow = "";
+  }
+  activePayslipData = null;
 }
 
 function downloadPayslipPDF() {
-    if (!activePayslipData) {
-        showToast("No payslip data loaded", "error");
-        return;
-    }
+  if (!activePayslipData) {
+    showToast("No payslip data loaded", "error");
+    return;
+  }
 
-    if (typeof window.jspdf === "undefined") {
-        showToast("PDF library not loaded. Refresh the page.", "error");
-        return;
-    }
+  if (typeof window.jspdf === "undefined") {
+    showToast("PDF library not loaded. Refresh the page.", "error");
+    return;
+  }
 
-    try {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-        const d = activePayslipData;
+  try {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const d = activePayslipData;
 
-        doc.setFontSize(20);
-        doc.setFont("helvetica", "bold");
-        doc.text("ModernTech HR", 105, 20, { align: "center" });
-        doc.setFontSize(16);
-        doc.text("Payslip - June 2026", 105, 30, { align: "center" });
+    doc.setFontSize(20);
+    doc.setFont("helvetica", "bold");
+    doc.text("ModernTech HR", 105, 20, { align: "center" });
+    doc.setFontSize(16);
+    doc.text("Payslip - June 2026", 105, 30, { align: "center" });
 
-        doc.setFontSize(11);
-        doc.setFont("helvetica", "normal");
-        doc.text(`Employee: ${d.name}`, 20, 45);
-        doc.text(`Position: ${d.position}`, 20, 52);
-        doc.text(`Department: ${d.dept}`, 20, 59);
-        doc.text(`Employee ID: ${d.id}`, 20, 66);
+    doc.setFontSize(11);
+    doc.setFont("helvetica", "normal");
+    doc.text(`Employee: ${d.name}`, 20, 45);
+    doc.text(`Position: ${d.position}`, 20, 52);
+    doc.text(`Department: ${d.dept}`, 20, 59);
+    doc.text(`Employee ID: ${d.id}`, 20, 66);
 
-        doc.setLineWidth(0.5);
-        doc.line(20, 72, 190, 72);
+    doc.setLineWidth(0.5);
+    doc.line(20, 72, 190, 72);
 
-        doc.setFont("helvetica", "bold");
-        doc.text("Earnings", 20, 82);
-        doc.setFont("helvetica", "normal");
-        doc.text(`Basic Salary:`, 30, 90);
-        doc.text(toRand(d.grossPay), 190, 90, { align: "right" });
-        doc.text(`Hours Worked:`, 30, 97);
-        doc.text(`${d.hoursWorked} hrs @ ${toRand(d.hourlyRate)}/hr`, 190, 97, {
-            align: "right",
-        });
-        doc.setFont("helvetica", "bold");
-        doc.text(`Gross Pay:`, 30, 104);
-        doc.text(toRand(d.grossPay), 190, 104, { align: "right" });
+    doc.setFont("helvetica", "bold");
+    doc.text("Earnings", 20, 82);
+    doc.setFont("helvetica", "normal");
+    doc.text(`Basic Salary:`, 30, 90);
+    doc.text(toRand(d.grossPay), 190, 90, { align: "right" });
+    doc.text(`Hours Worked:`, 30, 97);
+    doc.text(`${d.hoursWorked} hrs @ ${toRand(d.hourlyRate)}/hr`, 190, 97, {
+      align: "right",
+    });
+    doc.setFont("helvetica", "bold");
+    doc.text(`Gross Pay:`, 30, 104);
+    doc.text(toRand(d.grossPay), 190, 104, { align: "right" });
 
-        doc.setFont("helvetica", "bold");
-        doc.text("Deductions", 20, 116);
-        doc.setFont("helvetica", "normal");
-        doc.text(`PAYE Tax:`, 30, 124);
-        doc.text(toRand(d.tax), 190, 124, { align: "right" });
-        doc.text(`UIF:`, 30, 131);
-        doc.text(toRand(d.ni), 190, 131, { align: "right" });
-        doc.text(`Pension:`, 30, 138);
-        doc.text(toRand(d.pension), 190, 138, { align: "right" });
-        doc.text(`Leave Deductions:`, 30, 145);
-        doc.text(toRand(d.leaveDeductions), 190, 145, { align: "right" });
-        doc.setFont("helvetica", "bold");
-        doc.text(`Total Deductions:`, 30, 152);
-        doc.text(toRand(d.deductions), 190, 152, { align: "right" });
+    doc.setFont("helvetica", "bold");
+    doc.text("Deductions", 20, 116);
+    doc.setFont("helvetica", "normal");
+    doc.text(`PAYE Tax:`, 30, 124);
+    doc.text(toRand(d.tax), 190, 124, { align: "right" });
+    doc.text(`UIF:`, 30, 131);
+    doc.text(toRand(d.ni), 190, 131, { align: "right" });
+    doc.text(`Pension:`, 30, 138);
+    doc.text(toRand(d.pension), 190, 138, { align: "right" });
+    doc.text(`Leave Deductions:`, 30, 145);
+    doc.text(toRand(d.leaveDeductions), 190, 145, { align: "right" });
+    doc.setFont("helvetica", "bold");
+    doc.text(`Total Deductions:`, 30, 152);
+    doc.text(toRand(d.deductions), 190, 152, { align: "right" });
 
-        doc.setLineWidth(1);
-        doc.line(20, 158, 190, 158);
-        doc.setFontSize(14);
-        doc.setFont("helvetica", "bold");
-        doc.text(`Net Pay:`, 30, 168);
-        doc.text(toRand(d.netPay), 190, 168, { align: "right" });
+    doc.setLineWidth(1);
+    doc.line(20, 158, 190, 158);
+    doc.setFontSize(14);
+    doc.setFont("helvetica", "bold");
+    doc.text(`Net Pay:`, 30, 168);
+    doc.text(toRand(d.netPay), 190, 168, { align: "right" });
 
-        doc.setFontSize(9);
-        doc.setFont("helvetica", "italic");
-        doc.text(getQuirkyFact(d), 20, 185, { maxWidth: 170 });
-        doc.text(`Generated: ${new Date().toLocaleDateString("en-ZA")}`, 20, 280);
+    doc.setFontSize(9);
+    doc.setFont("helvetica", "italic");
+    doc.text(getQuirkyFact(d), 20, 185, { maxWidth: 170 });
+    doc.text(`Generated: ${new Date().toLocaleDateString("en-ZA")}`, 20, 280);
 
-        const filename = `Payslip_${d.name.replace(/\s+/g, "_")}_June2026.pdf`;
-        doc.save(filename);
-        showToast("Payslip downloaded successfully");
-    } catch (err) {
-        console.error("[PDF] Generation error:", err);
-        showToast("Failed to generate PDF", "error");
-    }
+    const filename = `Payslip_${d.name.replace(/\s+/g, "_")}_June2026.pdf`;
+    doc.save(filename);
+    showToast("Payslip downloaded successfully");
+  } catch (err) {
+    console.error("[PDF] Generation error:", err);
+    showToast("Failed to generate PDF", "error");
+  }
 }
 
 function initPayslipSystem() {
-    const closeBtn = document.getElementById("closePayslipBtn");
-    const overlay = document.getElementById("payslipModalOverlay");
-    const downloadBtn = document.getElementById("downloadPayslipBtn");
-    const emailBtn = document.getElementById("emailPayslipBtn");
+  const closeBtn = document.getElementById("closePayslipBtn");
+  const overlay = document.getElementById("payslipModalOverlay");
+  const downloadBtn = document.getElementById("downloadPayslipBtn");
+  const emailBtn = document.getElementById("emailPayslipBtn");
 
-    closePayslipModal();
+  closePayslipModal();
 
-    if (closeBtn) closeBtn.addEventListener("click", closePayslipModal);
-    if (overlay) {
-        overlay.addEventListener("click", (e) => {
-            if (e.target === overlay) closePayslipModal();
-        });
-    }
-    if (downloadBtn) downloadBtn.addEventListener("click", downloadPayslipPDF);
-    if (emailBtn) {
-        emailBtn.addEventListener("click", () => {
-            showToast("Payslip emailed to employee");
-        });
-    }
+  if (closeBtn) closeBtn.addEventListener("click", closePayslipModal);
+  if (overlay) {
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) closePayslipModal();
+    });
+  }
+  if (downloadBtn) downloadBtn.addEventListener("click", downloadPayslipPDF);
+  if (emailBtn) {
+    emailBtn.addEventListener("click", () => {
+      showToast("Payslip emailed to employee");
+    });
+  }
 }
 
 // 7. Global Init - Router
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("[Init] Starting page");
+  console.log("[Init] Starting page");
 
-    // Initialize employees page if present
-    if (document.getElementById("employeeGrid")) {
-        renderEmployeeGrid();
-        initEmployeeSearch();
-        initFilterButton();
-        initAddEmployeeButton();
+  // Initialize employees page if present
+  if (document.getElementById("employeeGrid")) {
+    renderEmployeeGrid();
+    initEmployeeSearch();
+    initFilterButton();
+    initAddEmployeeButton();
+  }
+
+  // Initialize payroll page if present
+  if (document.getElementById("payrollTableBody")) {
+    initPayrollPage();
+  }
+
+  // Global modal close handlers
+  const closeBtn = document.getElementById("closeEmployeeModalBtn");
+  const overlay = document.getElementById("employeeProfileOverlay");
+
+  if (closeBtn) closeBtn.onclick = closeEmployeeProfile;
+  if (overlay) {
+    overlay.onclick = (e) => {
+      if (e.target === overlay) closeEmployeeProfile();
+    };
+  }
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeEmployeeProfile();
+      closePayslipModal();
     }
-
-    // Initialize payroll page if present
-    if (document.getElementById("payrollTableBody")) {
-        initPayrollPage();
-    }
-
-    // Global modal close handlers
-    const closeBtn = document.getElementById("closeEmployeeModalBtn");
-    const overlay = document.getElementById("employeeProfileOverlay");
-
-    if (closeBtn) closeBtn.onclick = closeEmployeeProfile;
-    if (overlay) {
-        overlay.onclick = (e) => {
-            if (e.target === overlay) closeEmployeeProfile();
-        };
-    }
-
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-            closeEmployeeProfile();
-            closePayslipModal();
-        }
-    });
+  });
 });
 
 // Expose for debugging
@@ -1574,7 +1518,6 @@ window.openEmployeeProfile = openEmployeeProfile;
 window.closeEmployeeProfile = closeEmployeeProfile;
 window.openPayslip = openPayslip;
 window.closePayslipModal = closePayslipModal;
-
 
 // ============================================
 // CALEB_DEV
@@ -1588,92 +1531,101 @@ const SHIFT_DURATION_HOURS = 8;
 
 // Color Palette - Matching ModernTech HR System
 const COLORS = {
-    primary: '#6366f1',
-    primaryLight: '#8b5cf6',
-    primaryDark: '#4f46e5',
-    accent: '#14b8a6',
-    accentHover: '#0d9488',
-    success: '#10b981',
-    successBg: 'rgba(16, 185, 129, 0.18)',
-    danger: '#ef4444',
-    dangerBg: 'rgba(239, 68, 68, 0.18)',
-    warning: '#f59e0b',
-    warningBg: 'rgba(245, 158, 11, 0.18)',
-    info: '#6366f1',
-    infoBg: 'rgba(99, 102, 241, 0.15)',
-    surface: '#131a2c',
-    surfaceAlt: '#17203a',
-    surfaceStrong: '#0f172a',
-    text: '#f8fafc',
-    textMuted: '#94a3b8',
-    textSoft: '#cbd5e1',
-    border: 'rgba(255, 255, 255, 0.08)',
-    avatar: ['#6366f1', '#14b8a6', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4', '#f43f5e', '#10b981']
+  primary: "#6366f1",
+  primaryLight: "#8b5cf6",
+  primaryDark: "#4f46e5",
+  accent: "#14b8a6",
+  accentHover: "#0d9488",
+  success: "#10b981",
+  successBg: "rgba(16, 185, 129, 0.18)",
+  danger: "#ef4444",
+  dangerBg: "rgba(239, 68, 68, 0.18)",
+  warning: "#f59e0b",
+  warningBg: "rgba(245, 158, 11, 0.18)",
+  info: "#6366f1",
+  infoBg: "rgba(99, 102, 241, 0.15)",
+  surface: "#131a2c",
+  surfaceAlt: "#17203a",
+  surfaceStrong: "#0f172a",
+  text: "#f8fafc",
+  textMuted: "#94a3b8",
+  textSoft: "#cbd5e1",
+  border: "rgba(255, 255, 255, 0.08)",
+  avatar: [
+    "#6366f1",
+    "#14b8a6",
+    "#f59e0b",
+    "#ef4444",
+    "#8b5cf6",
+    "#06b6d4",
+    "#f43f5e",
+    "#10b981",
+  ],
 };
 
 // Detect which page we're on
 const currentPage = window.location.pathname.toLowerCase();
-const isAttendancePage = currentPage.includes('attendance');
-const isReviewsPage = currentPage.includes('reviews');
+const isAttendancePage = currentPage.includes("attendance");
+const isReviewsPage = currentPage.includes("reviews");
 
 // DOM Elements
-const attendanceSection = document.getElementById('attendance-data');
-const visualsSection = document.getElementById('attendance-visuals');
-const reviewsContainer = document.getElementById('reviews-data-list');
+const attendanceSection = document.getElementById("attendance-data");
+const visualsSection = document.getElementById("attendance-visuals");
+const reviewsContainer = document.getElementById("reviews-data-list");
 
 // Data Sources
 const ATTENDANCE_SOURCES = [
-    'data/attendance.json',
-    './data/attendance.json',
-    '../data/attendance.json',
-    '../M1 Project Module - Employee Dummy JSON Data/attendance.json'
+  "data/attendance.json",
+  "./data/attendance.json",
+  "../data/attendance.json",
+  "../M1 Project Module - Employee Dummy JSON Data/attendance.json",
 ];
 
 const REVIEW_SOURCES = [
-    'data/employee_info.json',
-    './data/employee_info.json',
-    '../data/employee_info.json'
+  "data/employee_info.json",
+  "./data/employee_info.json",
+  "../data/employee_info.json",
 ];
 
 // ============================================
 // FALLBACK DATA
 // ============================================
 const fallbackAttendanceData = {
-    attendanceAndLeave: [
-        {
-            employeeId: 1,
-            name: 'Sibongile Nkosi',
-            attendance: [
-                { date: '2025-07-25', status: 'Present' },
-                { date: '2025-07-26', status: 'Absent' },
-                { date: '2025-07-27', status: 'Present' },
-                { date: '2025-07-28', status: 'Present' },
-                { date: '2025-07-29', status: 'Present' }
-            ]
-        },
-        {
-            employeeId: 2,
-            name: 'Lungile Moyo',
-            attendance: [
-                { date: '2025-07-25', status: 'Present' },
-                { date: '2025-07-26', status: 'Present' },
-                { date: '2025-07-27', status: 'Absent' },
-                { date: '2025-07-28', status: 'Present' },
-                { date: '2025-07-29', status: 'Present' }
-            ]
-        },
-        {
-            employeeId: 3,
-            name: 'Thandiwe Zulu',
-            attendance: [
-                { date: '2025-07-25', status: 'Present' },
-                { date: '2025-07-26', status: 'Present' },
-                { date: '2025-07-27', status: 'Present' },
-                { date: '2025-07-28', status: 'Absent' },
-                { date: '2025-07-29', status: 'Present' }
-            ]
-        }
-    ]
+  attendanceAndLeave: [
+    {
+      employeeId: 1,
+      name: "Sibongile Nkosi",
+      attendance: [
+        { date: "2025-07-25", status: "Present" },
+        { date: "2025-07-26", status: "Absent" },
+        { date: "2025-07-27", status: "Present" },
+        { date: "2025-07-28", status: "Present" },
+        { date: "2025-07-29", status: "Present" },
+      ],
+    },
+    {
+      employeeId: 2,
+      name: "Lungile Moyo",
+      attendance: [
+        { date: "2025-07-25", status: "Present" },
+        { date: "2025-07-26", status: "Present" },
+        { date: "2025-07-27", status: "Absent" },
+        { date: "2025-07-28", status: "Present" },
+        { date: "2025-07-29", status: "Present" },
+      ],
+    },
+    {
+      employeeId: 3,
+      name: "Thandiwe Zulu",
+      attendance: [
+        { date: "2025-07-25", status: "Present" },
+        { date: "2025-07-26", status: "Present" },
+        { date: "2025-07-27", status: "Present" },
+        { date: "2025-07-28", status: "Absent" },
+        { date: "2025-07-29", status: "Present" },
+      ],
+    },
+  ],
 };
 
 // ============================================
@@ -1681,67 +1633,72 @@ const fallbackAttendanceData = {
 // ============================================
 
 async function fetchWithFallback(sources, parser, fallback) {
-    for (const source of sources) {
-        try {
-            const response = await fetch(source);
-            if (response.ok) {
-                const data = await response.json();
-                const parsed = parser(data);
-                if (parsed && (Array.isArray(parsed) ? parsed.length : true)) {
-                    return parsed;
-                }
-            }
-        } catch (error) {
-            console.warn(`Failed to fetch ${source}:`, error.message);
+  for (const source of sources) {
+    try {
+      const response = await fetch(source);
+      if (response.ok) {
+        const data = await response.json();
+        const parsed = parser(data);
+        if (parsed && (Array.isArray(parsed) ? parsed.length : true)) {
+          return parsed;
         }
+      }
+    } catch (error) {
+      console.warn(`Failed to fetch ${source}:`, error.message);
     }
-    return fallback();
+  }
+  return fallback();
 }
 
-function getInitials(name = '') {
-    return name
-        .split(' ')
-        .filter(Boolean)
-        .slice(0, 2)
-        .map((part) => part[0])
-        .join('')
-        .toUpperCase();
+function getInitials(name = "") {
+  return name
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase();
 }
 
 function getStars(rating = 0) {
-    const rounded = Math.min(Math.max(Math.round(rating), 0), 5);
-    return '★'.repeat(rounded) + '☆'.repeat(5 - rounded);
+  const rounded = Math.min(Math.max(Math.round(rating), 0), 5);
+  return "★".repeat(rounded) + "☆".repeat(5 - rounded);
 }
 
 function getScheduleTimes(record) {
-    const baseHour = SHIFT_START_HOUR + ((record.employeeId - 1) % 3);
-    const checkInTime = record.checkIn || `${String(baseHour).padStart(2, '0')}:00`;
-    const checkOutTime = record.checkOut || `${String(baseHour + SHIFT_DURATION_HOURS).padStart(2, '0')}:30`;
-    return { checkInTime, checkOutTime };
+  const baseHour = SHIFT_START_HOUR + ((record.employeeId - 1) % 3);
+  const checkInTime =
+    record.checkIn || `${String(baseHour).padStart(2, "0")}:00`;
+  const checkOutTime =
+    record.checkOut ||
+    `${String(baseHour + SHIFT_DURATION_HOURS).padStart(2, "0")}:30`;
+  return { checkInTime, checkOutTime };
 }
 
 function getAttendanceMarkup(attendance = []) {
-    if (!attendance?.length) {
-        return '<span style="color: #94a3b8; font-style: italic;">No data</span>';
-    }
+  if (!attendance?.length) {
+    return '<span style="color: #94a3b8; font-style: italic;">No data</span>';
+  }
 
-    return attendance.map((item) => {
-        const status = (item.status || 'unknown').toLowerCase();
-        let className = 'attendance-badge';
-        if (status === 'present') className += ' present';
-        if (status === 'absent') className += ' absent';
-        return `<span class="${className}">${item.date} • ${item.status || 'Unknown'}</span>`;
-    }).join('');
+  return attendance
+    .map((item) => {
+      const status = (item.status || "unknown").toLowerCase();
+      let className = "attendance-badge";
+      if (status === "present") className += " present";
+      if (status === "absent") className += " absent";
+      return `<span class="${className}">${item.date} • ${item.status || "Unknown"}</span>`;
+    })
+    .join("");
 }
 
 function getFeedback(employee = {}) {
-    const role = employee.position || 'team member';
-    const department = employee.department || 'the company';
-    return `${employee.name || 'This employee'} brings strong focus to ${department.toLowerCase()} work and continues to contribute positively as a ${role.toLowerCase()}. Their reliability and collaboration make them a valuable part of the team.`;
+  const role = employee.position || "team member";
+  const department = employee.department || "the company";
+  return `${employee.name || "This employee"} brings strong focus to ${department.toLowerCase()} work and continues to contribute positively as a ${role.toLowerCase()}. Their reliability and collaboration make them a valuable part of the team.`;
 }
 
 function getColorForEmployee(id) {
-    return COLORS.avatar[(id - 1) % COLORS.avatar.length];
+  return COLORS.avatar[(id - 1) % COLORS.avatar.length];
 }
 
 // ============================================
@@ -1749,41 +1706,42 @@ function getColorForEmployee(id) {
 // ============================================
 
 function highlightActiveNav() {
-    const currentPath = window.location.pathname.toLowerCase();
-    document.querySelectorAll('.nav-links a').forEach((link) => {
-        const href = link.getAttribute('href')?.toLowerCase() || '';
-        const isActive = currentPath.includes(href.replace('.html', '')) ||
-            (href === '' && currentPath.endsWith('/'));
-        link.closest('li')?.classList.toggle('active', isActive);
-    });
+  const currentPath = window.location.pathname.toLowerCase();
+  document.querySelectorAll(".nav-links a").forEach((link) => {
+    const href = link.getAttribute("href")?.toLowerCase() || "";
+    const isActive =
+      currentPath.includes(href.replace(".html", "")) ||
+      (href === "" && currentPath.endsWith("/"));
+    link.closest("li")?.classList.toggle("active", isActive);
+  });
 }
 
 // ============================================
 // NOTIFICATION SYSTEM
 // ============================================
 
-function showNotification(message, type = 'success') {
-    const existing = document.querySelector('.notification');
-    if (existing) existing.remove();
+function showNotification(message, type = "success") {
+  const existing = document.querySelector(".notification");
+  if (existing) existing.remove();
 
-    const notification = document.createElement('div');
-    notification.className = 'notification';
+  const notification = document.createElement("div");
+  notification.className = "notification";
 
-    const colors = {
-        success: '#10b981',
-        error: '#ef4444',
-        warning: '#f59e0b',
-        info: '#6366f1'
-    };
+  const colors = {
+    success: "#10b981",
+    error: "#ef4444",
+    warning: "#f59e0b",
+    info: "#6366f1",
+  };
 
-    const icons = {
-        success: '✅',
-        error: '❌',
-        warning: '⚠️',
-        info: 'ℹ️'
-    };
+  const icons = {
+    success: "✅",
+    error: "❌",
+    warning: "⚠️",
+    info: "ℹ️",
+  };
 
-    notification.style.cssText = `
+  notification.style.cssText = `
         position: fixed;
         top: 20px;
         right: 20px;
@@ -1801,13 +1759,13 @@ function showNotification(message, type = 'success') {
         font-family: 'Inter', system-ui, sans-serif;
     `;
 
-    notification.innerHTML = `${icons[type] || '📢'} ${message}`;
-    document.body.appendChild(notification);
+  notification.innerHTML = `${icons[type] || "📢"} ${message}`;
+  document.body.appendChild(notification);
 
-    setTimeout(() => {
-        notification.style.animation = 'slideOutRight 0.3s ease';
-        setTimeout(() => notification.remove(), 300);
-    }, 3000);
+  setTimeout(() => {
+    notification.style.animation = "slideOutRight 0.3s ease";
+    setTimeout(() => notification.remove(), 300);
+  }, 3000);
 }
 
 // ============================================
@@ -1815,9 +1773,9 @@ function showNotification(message, type = 'success') {
 // ============================================
 
 function createAttendanceTable(records) {
-    const table = document.createElement('table');
-    table.className = 'attendance-table';
-    table.style.cssText = `
+  const table = document.createElement("table");
+  table.className = "attendance-table";
+  table.style.cssText = `
         width: 100%;
         border-collapse: collapse;
         background: #0f172a;
@@ -1826,7 +1784,7 @@ function createAttendanceTable(records) {
         overflow: hidden;
     `;
 
-    table.innerHTML = `
+  table.innerHTML = `
         <thead>
             <tr style="
                 background: #0a0f1a;
@@ -1882,10 +1840,10 @@ function createAttendanceTable(records) {
         <tbody></tbody>
     `;
 
-    const tbody = table.querySelector('tbody');
+  const tbody = table.querySelector("tbody");
 
-    if (!records?.length) {
-        tbody.innerHTML = `
+  if (!records?.length) {
+    tbody.innerHTML = `
             <tr>
                 <td colspan="5" style="
                     padding: 40px;
@@ -1897,41 +1855,41 @@ function createAttendanceTable(records) {
                 </td>
             </tr>
         `;
-        return table;
-    }
+    return table;
+  }
 
-    records.forEach((record, index) => {
-        const attendanceSummary = getAttendanceMarkup(record.attendance);
-        const { checkInTime, checkOutTime } = getScheduleTimes(record);
-        const bgColor = index % 2 === 0 ? '#0f172a' : '#1a2332';
+  records.forEach((record, index) => {
+    const attendanceSummary = getAttendanceMarkup(record.attendance);
+    const { checkInTime, checkOutTime } = getScheduleTimes(record);
+    const bgColor = index % 2 === 0 ? "#0f172a" : "#1a2332";
 
-        const row = document.createElement('tr');
-        row.style.cssText = `
+    const row = document.createElement("tr");
+    row.style.cssText = `
             background: ${bgColor};
             transition: all 0.2s ease;
             border-bottom: 1px solid #1e293b;
         `;
 
-        // Hover effect
-        row.addEventListener('mouseenter', function () {
-            this.style.background = '#2d3748';
-            this.style.transform = 'scale(1.002)';
-            this.style.boxShadow = '0 2px 8px rgba(0,0,0,0.3)';
-        });
-        row.addEventListener('mouseleave', function () {
-            this.style.background = bgColor;
-            this.style.transform = 'scale(1)';
-            this.style.boxShadow = 'none';
-        });
+    // Hover effect
+    row.addEventListener("mouseenter", function () {
+      this.style.background = "#2d3748";
+      this.style.transform = "scale(1.002)";
+      this.style.boxShadow = "0 2px 8px rgba(0,0,0,0.3)";
+    });
+    row.addEventListener("mouseleave", function () {
+      this.style.background = bgColor;
+      this.style.transform = "scale(1)";
+      this.style.boxShadow = "none";
+    });
 
-        row.innerHTML = `
+    row.innerHTML = `
             <td style="
                 padding: 12px 16px;
                 font-weight: 700;
                 color: #a5b4fc;
                 font-size: 0.9rem;
             ">
-                #${String(record.employeeId).padStart(3, '0')}
+                #${String(record.employeeId).padStart(3, "0")}
             </td>
             <td style="
                 padding: 12px 16px;
@@ -1979,10 +1937,10 @@ function createAttendanceTable(records) {
                 </span>
             </td>
         `;
-        tbody.appendChild(row);
-    });
+    tbody.appendChild(row);
+  });
 
-    return table;
+  return table;
 }
 
 // ============================================
@@ -1990,29 +1948,40 @@ function createAttendanceTable(records) {
 // ============================================
 
 function renderVisuals(records = []) {
-    if (!visualsSection) return;
+  if (!visualsSection) return;
 
-    const allAttendance = records.flatMap((record) => record.attendance || []);
-    const presentCount = allAttendance.filter((item) => (item.status || '').toLowerCase() === 'present').length;
-    const absentCount = allAttendance.filter((item) => (item.status || '').toLowerCase() === 'absent').length;
-    const totalCount = allAttendance.length || 1;
+  const allAttendance = records.flatMap((record) => record.attendance || []);
+  const presentCount = allAttendance.filter(
+    (item) => (item.status || "").toLowerCase() === "present",
+  ).length;
+  const absentCount = allAttendance.filter(
+    (item) => (item.status || "").toLowerCase() === "absent",
+  ).length;
+  const totalCount = allAttendance.length || 1;
 
-    const presentPercent = Math.round((presentCount / totalCount) * 100);
-    const absentPercent = Math.round((absentCount / totalCount) * 100);
+  const presentPercent = Math.round((presentCount / totalCount) * 100);
+  const absentPercent = Math.round((absentCount / totalCount) * 100);
 
-    const dates = [...new Set(allAttendance.map(item => item.date))].sort();
+  const dates = [...new Set(allAttendance.map((item) => item.date))].sort();
 
-    const dailySummary = dates.map((date) => {
-        const dayRecords = allAttendance.filter((item) => item.date === date);
-        const present = dayRecords.filter((item) => (item.status || '').toLowerCase() === 'present').length;
-        const absent = dayRecords.filter((item) => (item.status || '').toLowerCase() === 'absent').length;
-        return { date, present, absent };
-    });
+  const dailySummary = dates.map((date) => {
+    const dayRecords = allAttendance.filter((item) => item.date === date);
+    const present = dayRecords.filter(
+      (item) => (item.status || "").toLowerCase() === "present",
+    ).length;
+    const absent = dayRecords.filter(
+      (item) => (item.status || "").toLowerCase() === "absent",
+    ).length;
+    return { date, present, absent };
+  });
 
-    const maxValue = Math.max(...dailySummary.map(d => Math.max(d.present, d.absent)), 1);
-    const maxHeight = 120;
+  const maxValue = Math.max(
+    ...dailySummary.map((d) => Math.max(d.present, d.absent)),
+    1,
+  );
+  const maxHeight = 120;
 
-    visualsSection.innerHTML = `
+  visualsSection.innerHTML = `
         <div class="visuals-header" style="
             background: rgba(255, 255, 255, 0.04);
             border-radius: 1.5rem;
@@ -2062,10 +2031,17 @@ function renderVisuals(records = []) {
             ">
                 <h3 style="color: #94a3b8; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.8rem;">📈 Daily Trends</h3>
                 <div class="bar-chart" style="display: flex; align-items: flex-end; gap: 0.8rem; height: 170px; overflow-x: auto; padding-top: 0.5rem;">
-                    ${dailySummary.map((day) => {
-        const presentHeight = Math.max((day.present / maxValue) * maxHeight, 6);
-        const absentHeight = Math.max((day.absent / maxValue) * maxHeight, 6);
-        return `
+                    ${dailySummary
+                      .map((day) => {
+                        const presentHeight = Math.max(
+                          (day.present / maxValue) * maxHeight,
+                          6,
+                        );
+                        const absentHeight = Math.max(
+                          (day.absent / maxValue) * maxHeight,
+                          6,
+                        );
+                        return `
                             <div class="bar-group" style="display: flex; flex-direction: column; align-items: center; gap: 0.7rem; min-width: 56px;">
                                 <div class="bar-pair" style="display: flex; align-items: flex-end; gap: 0.4rem; width: 100%;">
                                     <div class="bar-fill present" style="height: ${presentHeight}px; width: 14px; border-radius: 0.7rem 0.7rem 0 0; min-height: 12px; background: linear-gradient(180deg, #22c55e, #10b981); transition: height 0.35s ease;" title="${day.present} present"></div>
@@ -2074,7 +2050,8 @@ function renderVisuals(records = []) {
                                 <div class="bar-label" style="color: #94a3b8; font-size: 0.82rem;">${day.date.slice(5)}</div>
                             </div>
                         `;
-    }).join('')}
+                      })
+                      .join("")}
                 </div>
             </div>
         </div>
@@ -2082,8 +2059,8 @@ function renderVisuals(records = []) {
 }
 
 function renderReviewCards(employees) {
-    if (!employees?.length) {
-        return `
+  if (!employees?.length) {
+    return `
             <div class="empty-state" style="
                 padding: 2rem;
                 text-align: center;
@@ -2096,14 +2073,15 @@ function renderReviewCards(employees) {
                 <p>Check back later for performance updates</p>
             </div>
         `;
-    }
+  }
 
-    return employees.map((employee) => {
-        const rating = Number((4.0 + ((employee.employeeId % 5) * 0.2)).toFixed(1));
-        const initials = getInitials(employee.name);
-        const avatarColor = getColorForEmployee(employee.employeeId);
+  return employees
+    .map((employee) => {
+      const rating = Number((4.0 + (employee.employeeId % 5) * 0.2).toFixed(1));
+      const initials = getInitials(employee.name);
+      const avatarColor = getColorForEmployee(employee.employeeId);
 
-        return `
+      return `
             <article class="review-card" style="
                 background: #0f172a;
                 border-radius: 1.5rem;
@@ -2120,10 +2098,10 @@ function renderReviewCards(employees) {
                         <span class="initials" style="width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; background: ${avatarColor}; box-shadow: 0 10px 30px rgba(24, 195, 200, 0.22); flex-shrink: 0;">${initials}</span>
                         <div>
                             <h3 style="color: #f8fafc; font-size: 1rem; margin: 0;">${employee.name}</h3>
-                            <p style="color: #94a3b8; font-size: 0.85rem; margin: 0.2rem 0 0;">${employee.position || 'Employee'}</p>
+                            <p style="color: #94a3b8; font-size: 0.85rem; margin: 0.2rem 0 0;">${employee.position || "Employee"}</p>
                         </div>
                     </div>
-                    <span class="review-badge" style="padding: 0.45rem 0.85rem; border-radius: 999px; background: rgba(99, 102, 241, 0.14); color: #c7d2fe; font-size: 0.75rem; font-weight: 700; white-space: nowrap;">${employee.department || 'General'}</span>
+                    <span class="review-badge" style="padding: 0.45rem 0.85rem; border-radius: 999px; background: rgba(99, 102, 241, 0.14); color: #c7d2fe; font-size: 0.75rem; font-weight: 700; white-space: nowrap;">${employee.department || "General"}</span>
                 </div>
                 <div class="review-meta" style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; color: #94a3b8; font-size: 0.9rem;">
                     <span class="rating" style="color: #fbbf24; font-weight: 700; display: inline-flex; align-items: center; gap: 0.4rem;">${getStars(rating)} ${rating.toFixed(1)}/5</span>
@@ -2131,11 +2109,12 @@ function renderReviewCards(employees) {
                 </div>
                 <p class="feedback" style="color: #cbd5e1; line-height: 1.7; margin: 0;">${getFeedback(employee)}</p>
                 <div class="review-footer" style="border-top: 1px solid #1e293b; padding-top: 0.75rem; font-size: 0.75rem; color: #94a3b8;">
-                    <span>📅 Reviewed: ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                    <span>📅 Reviewed: ${new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</span>
                 </div>
             </article>
         `;
-    }).join('');
+    })
+    .join("");
 }
 
 // ============================================
@@ -2143,77 +2122,97 @@ function renderReviewCards(employees) {
 // ============================================
 
 function applyFilters(status, dateFrom, dateTo) {
-    const rows = document.querySelectorAll('#attendance-data tbody tr');
-    rows.forEach(row => {
-        let show = true;
+  const rows = document.querySelectorAll("#attendance-data tbody tr");
+  rows.forEach((row) => {
+    let show = true;
 
-        if (status && status !== 'all') {
-            const statusElements = row.querySelectorAll('.attendance-badge');
-            let hasStatus = false;
-            statusElements.forEach(el => {
-                if (el.classList.contains(status)) hasStatus = true;
-            });
-            if (!hasStatus) show = false;
-        }
-
-        if (dateFrom || dateTo) {
-            const dateElements = row.querySelectorAll('.attendance-badge');
-            let hasDate = false;
-            dateElements.forEach(el => {
-                const text = el.textContent || '';
-                const dateMatch = text.match(/\d{4}-\d{2}-\d{2}/);
-                if (dateMatch) {
-                    const date = dateMatch[0];
-                    if (dateFrom && date < dateFrom) return;
-                    if (dateTo && date > dateTo) return;
-                    hasDate = true;
-                }
-            });
-            if (!hasDate) show = false;
-        }
-
-        row.style.display = show ? '' : 'none';
-    });
-
-    const filterBtn = document.getElementById('filterBtn');
-    if (filterBtn) {
-        filterBtn.textContent = status !== 'all' || dateFrom || dateTo ? '🔍 Filtered' : '🔍 Filter';
+    if (status && status !== "all") {
+      const statusElements = row.querySelectorAll(".attendance-badge");
+      let hasStatus = false;
+      statusElements.forEach((el) => {
+        if (el.classList.contains(status)) hasStatus = true;
+      });
+      if (!hasStatus) show = false;
     }
+
+    if (dateFrom || dateTo) {
+      const dateElements = row.querySelectorAll(".attendance-badge");
+      let hasDate = false;
+      dateElements.forEach((el) => {
+        const text = el.textContent || "";
+        const dateMatch = text.match(/\d{4}-\d{2}-\d{2}/);
+        if (dateMatch) {
+          const date = dateMatch[0];
+          if (dateFrom && date < dateFrom) return;
+          if (dateTo && date > dateTo) return;
+          hasDate = true;
+        }
+      });
+      if (!hasDate) show = false;
+    }
+
+    row.style.display = show ? "" : "none";
+  });
+
+  const filterBtn = document.getElementById("filterBtn");
+  if (filterBtn) {
+    filterBtn.textContent =
+      status !== "all" || dateFrom || dateTo ? "🔍 Filtered" : "🔍 Filter";
+  }
 }
 
 function clearFilters() {
-    const rows = document.querySelectorAll('#attendance-data tbody tr');
-    rows.forEach(row => row.style.display = '');
-    const filterBtn = document.getElementById('filterBtn');
-    if (filterBtn) filterBtn.textContent = '🔍 Filter';
+  const rows = document.querySelectorAll("#attendance-data tbody tr");
+  rows.forEach((row) => (row.style.display = ""));
+  const filterBtn = document.getElementById("filterBtn");
+  if (filterBtn) filterBtn.textContent = "🔍 Filter";
 }
 
 function applySort(sortType) {
-    const container = document.getElementById('reviews-data-list');
-    if (!container) return;
+  const container = document.getElementById("reviews-data-list");
+  if (!container) return;
 
-    const cards = Array.from(container.children);
+  const cards = Array.from(container.children);
 
-    cards.sort((a, b) => {
-        const nameA = a.querySelector('h3')?.textContent || '';
-        const nameB = b.querySelector('h3')?.textContent || '';
-        const ratingA = parseFloat(a.querySelector('.rating')?.textContent?.match(/\d\.\d/)?.[0] || 0);
-        const ratingB = parseFloat(b.querySelector('.rating')?.textContent?.match(/\d\.\d/)?.[0] || 0);
-        const dateA = a.querySelector('.review-footer')?.textContent?.replace('📅 Reviewed: ', '').trim() || '';
-        const dateB = b.querySelector('.review-footer')?.textContent?.replace('📅 Reviewed: ', '').trim() || '';
+  cards.sort((a, b) => {
+    const nameA = a.querySelector("h3")?.textContent || "";
+    const nameB = b.querySelector("h3")?.textContent || "";
+    const ratingA = parseFloat(
+      a.querySelector(".rating")?.textContent?.match(/\d\.\d/)?.[0] || 0,
+    );
+    const ratingB = parseFloat(
+      b.querySelector(".rating")?.textContent?.match(/\d\.\d/)?.[0] || 0,
+    );
+    const dateA =
+      a
+        .querySelector(".review-footer")
+        ?.textContent?.replace("📅 Reviewed: ", "")
+        .trim() || "";
+    const dateB =
+      b
+        .querySelector(".review-footer")
+        ?.textContent?.replace("📅 Reviewed: ", "")
+        .trim() || "";
 
-        switch (sortType) {
-            case 'rating-desc': return ratingB - ratingA;
-            case 'rating-asc': return ratingA - ratingB;
-            case 'name-asc': return nameA.localeCompare(nameB);
-            case 'name-desc': return nameB.localeCompare(nameA);
-            case 'date-desc': return dateB.localeCompare(dateA);
-            case 'date-asc': return dateA.localeCompare(dateB);
-            default: return 0;
-        }
-    });
+    switch (sortType) {
+      case "rating-desc":
+        return ratingB - ratingA;
+      case "rating-asc":
+        return ratingA - ratingB;
+      case "name-asc":
+        return nameA.localeCompare(nameB);
+      case "name-desc":
+        return nameB.localeCompare(nameA);
+      case "date-desc":
+        return dateB.localeCompare(dateA);
+      case "date-asc":
+        return dateA.localeCompare(dateB);
+      default:
+        return 0;
+    }
+  });
 
-    cards.forEach(card => container.appendChild(card));
+  cards.forEach((card) => container.appendChild(card));
 }
 
 // ============================================
@@ -2221,73 +2220,73 @@ function applySort(sortType) {
 // ============================================
 
 async function loadAttendanceData() {
-    if (!isAttendancePage) return;
-    if (!attendanceSection) {
-        console.warn('Attendance section not found');
-        return;
-    }
+  if (!isAttendancePage) return;
+  if (!attendanceSection) {
+    console.warn("Attendance section not found");
+    return;
+  }
 
-    try {
-        attendanceSection.innerHTML = `<div style="padding: 2rem; text-align: center; color: #94a3b8;">⏳ Loading attendance data...</div>`;
+  try {
+    attendanceSection.innerHTML = `<div style="padding: 2rem; text-align: center; color: #94a3b8;">⏳ Loading attendance data...</div>`;
 
-        const records = await fetchWithFallback(
-            ATTENDANCE_SOURCES,
-            (data) => data?.attendanceAndLeave || null,
-            () => fallbackAttendanceData.attendanceAndLeave
-        );
+    const records = await fetchWithFallback(
+      ATTENDANCE_SOURCES,
+      (data) => data?.attendanceAndLeave || null,
+      () => fallbackAttendanceData.attendanceAndLeave,
+    );
 
-        renderVisuals(records);
-        const table = createAttendanceTable(records);
-        attendanceSection.innerHTML = '';
-        attendanceSection.appendChild(table);
-        console.log(`✅ Attendance data loaded: ${records.length} records`);
-    } catch (error) {
-        console.error('❌ Error loading attendance data:', error);
-        const records = fallbackAttendanceData.attendanceAndLeave;
-        renderVisuals(records);
-        const table = createAttendanceTable(records);
-        attendanceSection.innerHTML = '';
-        attendanceSection.appendChild(table);
-    }
+    renderVisuals(records);
+    const table = createAttendanceTable(records);
+    attendanceSection.innerHTML = "";
+    attendanceSection.appendChild(table);
+    console.log(`✅ Attendance data loaded: ${records.length} records`);
+  } catch (error) {
+    console.error("❌ Error loading attendance data:", error);
+    const records = fallbackAttendanceData.attendanceAndLeave;
+    renderVisuals(records);
+    const table = createAttendanceTable(records);
+    attendanceSection.innerHTML = "";
+    attendanceSection.appendChild(table);
+  }
 }
 
 async function loadReviews() {
-    if (!isReviewsPage) return;
-    if (!reviewsContainer) {
-        console.warn('Reviews container not found');
-        return;
-    }
+  if (!isReviewsPage) return;
+  if (!reviewsContainer) {
+    console.warn("Reviews container not found");
+    return;
+  }
 
-    try {
-        reviewsContainer.innerHTML = `<div style="padding: 2rem; text-align: center; color: #94a3b8;">⏳ Loading employee reviews...</div>`;
+  try {
+    reviewsContainer.innerHTML = `<div style="padding: 2rem; text-align: center; color: #94a3b8;">⏳ Loading employee reviews...</div>`;
 
-        const employees = await fetchWithFallback(
-            REVIEW_SOURCES,
-            (data) => data?.employeeInformation || null,
-            () => []
-        );
+    const employees = await fetchWithFallback(
+      REVIEW_SOURCES,
+      (data) => data?.employeeInformation || null,
+      () => [],
+    );
 
-        if (!employees.length) {
-            reviewsContainer.innerHTML = `
+    if (!employees.length) {
+      reviewsContainer.innerHTML = `
                 <div style="padding: 2rem; text-align: center; background: #0f172a; border-radius: 1.5rem; border: 1px solid #1e293b; color: #94a3b8;">
                     <p style="font-size: 1.2rem; color: #f8fafc; margin-bottom: 0.5rem;">📝 No employee reviews available</p>
                     <p>Please add employee data to see reviews</p>
                 </div>
             `;
-            return;
-        }
+      return;
+    }
 
-        reviewsContainer.innerHTML = renderReviewCards(employees);
-        console.log(`✅ Reviews loaded: ${employees.length} employees`);
-    } catch (error) {
-        console.error('❌ Error loading reviews:', error);
-        reviewsContainer.innerHTML = `
+    reviewsContainer.innerHTML = renderReviewCards(employees);
+    console.log(`✅ Reviews loaded: ${employees.length} employees`);
+  } catch (error) {
+    console.error("❌ Error loading reviews:", error);
+    reviewsContainer.innerHTML = `
             <div style="padding: 2rem; text-align: center; background: rgba(239, 68, 68, 0.1); border-radius: 1.5rem; border: 2px solid #ef4444; color: #94a3b8;">
                 <p style="font-size: 1.2rem; color: #ef4444; margin-bottom: 0.5rem;">⚠️ Failed to load employee reviews</p>
                 <p>Please try refreshing the page</p>
             </div>
         `;
-    }
+  }
 }
 
 // ============================================
@@ -2295,17 +2294,17 @@ async function loadReviews() {
 // ============================================
 
 function createAttendanceForm() {
-    // Check if form already exists
-    let form = document.getElementById('attendanceFormModal');
-    if (form) {
-        form.remove();
-        return;
-    }
+  // Check if form already exists
+  let form = document.getElementById("attendanceFormModal");
+  if (form) {
+    form.remove();
+    return;
+  }
 
-    // Create modal overlay
-    form = document.createElement('div');
-    form.id = 'attendanceFormModal';
-    form.style.cssText = `
+  // Create modal overlay
+  form = document.createElement("div");
+  form.id = "attendanceFormModal";
+  form.style.cssText = `
         position: fixed;
         top: 0;
         left: 0;
@@ -2320,7 +2319,7 @@ function createAttendanceForm() {
         animation: fadeIn 0.3s ease;
     `;
 
-    form.innerHTML = `
+  form.innerHTML = `
         <div class="modal-content" style="
             background: linear-gradient(145deg, #1a2332, #0f172a);
             border-radius: 20px;
@@ -2485,113 +2484,129 @@ function createAttendanceForm() {
         </div>
     `;
 
-    // Auto-fill date and time
-    const dateInput = form.querySelector('#attendanceDate');
-    const timeInput = form.querySelector('#attendanceTime');
+  // Auto-fill date and time
+  const dateInput = form.querySelector("#attendanceDate");
+  const timeInput = form.querySelector("#attendanceTime");
 
-    if (dateInput) {
-        const today = new Date().toISOString().split('T')[0];
-        dateInput.value = today;
+  if (dateInput) {
+    const today = new Date().toISOString().split("T")[0];
+    dateInput.value = today;
+  }
+  if (timeInput) {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    timeInput.value = `${hours}:${minutes}`;
+  }
+
+  // Add focus styles
+  form.querySelectorAll("input, select").forEach((input) => {
+    input.addEventListener("focus", function () {
+      this.style.borderColor = "#6366f1";
+      this.style.background = "#1a2332";
+      this.style.boxShadow = "0 0 0 4px rgba(99, 102, 241, 0.15)";
+    });
+    input.addEventListener("blur", function () {
+      this.style.borderColor = "#1e293b";
+      this.style.background = "#0f172a";
+      this.style.boxShadow = "none";
+    });
+  });
+
+  // Hover effects for buttons
+  form.querySelectorAll(".btn").forEach((btn) => {
+    btn.addEventListener("mouseenter", function () {
+      this.style.transform = "translateY(-2px)";
+    });
+    btn.addEventListener("mouseleave", function () {
+      this.style.transform = "translateY(0)";
+    });
+  });
+
+  document.body.appendChild(form);
+
+  // Submit button
+  document
+    .getElementById("submitAttendanceBtn")
+    .addEventListener("click", function () {
+      const employeeName = document
+        .getElementById("employeeName")
+        ?.value.trim();
+      const attendanceDate = document.getElementById("attendanceDate")?.value;
+      const attendanceTime = document.getElementById("attendanceTime")?.value;
+      const attendanceStatus =
+        document.getElementById("attendanceStatus")?.value;
+
+      if (!employeeName) {
+        showNotification("Please enter employee name", "error");
+        document.getElementById("employeeName").focus();
+        return;
+      }
+
+      if (!attendanceDate) {
+        showNotification("Please select a date", "error");
+        document.getElementById("attendanceDate").focus();
+        return;
+      }
+
+      if (!attendanceTime) {
+        showNotification("Please select a time", "error");
+        document.getElementById("attendanceTime").focus();
+        return;
+      }
+
+      const newRecord = {
+        employeeId: Date.now(),
+        name: employeeName,
+        attendance: [
+          {
+            date: attendanceDate,
+            status: attendanceStatus,
+            time: attendanceTime,
+          },
+        ],
+      };
+
+      console.log("New attendance record:", newRecord);
+      showNotification(
+        `✅ Record added for ${employeeName} - ${attendanceStatus}`,
+        "success",
+      );
+
+      form.remove();
+
+      // Update the new record button text
+      const newRecordBtn = document.getElementById("newRecordBtn");
+      if (newRecordBtn) {
+        newRecordBtn.textContent = "📝 New Record";
+      }
+
+      if (typeof loadAttendanceData === "function") loadAttendanceData();
+    });
+
+  // Cancel button
+  document
+    .getElementById("cancelAttendanceBtn")
+    .addEventListener("click", function () {
+      form.remove();
+      const newRecordBtn = document.getElementById("newRecordBtn");
+      if (newRecordBtn) {
+        newRecordBtn.textContent = "📝 New Record";
+      }
+    });
+
+  // Close on background click
+  form.addEventListener("click", function (e) {
+    if (e.target === form) {
+      form.remove();
+      const newRecordBtn = document.getElementById("newRecordBtn");
+      if (newRecordBtn) {
+        newRecordBtn.textContent = "📝 New Record";
+      }
     }
-    if (timeInput) {
-        const now = new Date();
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        timeInput.value = `${hours}:${minutes}`;
-    }
+  });
 
-    // Add focus styles
-    form.querySelectorAll('input, select').forEach(input => {
-        input.addEventListener('focus', function () {
-            this.style.borderColor = '#6366f1';
-            this.style.background = '#1a2332';
-            this.style.boxShadow = '0 0 0 4px rgba(99, 102, 241, 0.15)';
-        });
-        input.addEventListener('blur', function () {
-            this.style.borderColor = '#1e293b';
-            this.style.background = '#0f172a';
-            this.style.boxShadow = 'none';
-        });
-    });
-
-    // Hover effects for buttons
-    form.querySelectorAll('.btn').forEach(btn => {
-        btn.addEventListener('mouseenter', function () {
-            this.style.transform = 'translateY(-2px)';
-        });
-        btn.addEventListener('mouseleave', function () {
-            this.style.transform = 'translateY(0)';
-        });
-    });
-
-    document.body.appendChild(form);
-
-    // Submit button
-    document.getElementById('submitAttendanceBtn').addEventListener('click', function () {
-        const employeeName = document.getElementById('employeeName')?.value.trim();
-        const attendanceDate = document.getElementById('attendanceDate')?.value;
-        const attendanceTime = document.getElementById('attendanceTime')?.value;
-        const attendanceStatus = document.getElementById('attendanceStatus')?.value;
-
-        if (!employeeName) {
-            showNotification('Please enter employee name', 'error');
-            document.getElementById('employeeName').focus();
-            return;
-        }
-
-        if (!attendanceDate) {
-            showNotification('Please select a date', 'error');
-            document.getElementById('attendanceDate').focus();
-            return;
-        }
-
-        if (!attendanceTime) {
-            showNotification('Please select a time', 'error');
-            document.getElementById('attendanceTime').focus();
-            return;
-        }
-
-        const newRecord = {
-            employeeId: Date.now(),
-            name: employeeName,
-            attendance: [{ date: attendanceDate, status: attendanceStatus, time: attendanceTime }]
-        };
-
-        console.log('New attendance record:', newRecord);
-        showNotification(`✅ Record added for ${employeeName} - ${attendanceStatus}`, 'success');
-
-        form.remove();
-
-        // Update the new record button text
-        const newRecordBtn = document.getElementById('newRecordBtn');
-        if (newRecordBtn) {
-            newRecordBtn.textContent = '📝 New Record';
-        }
-
-        if (typeof loadAttendanceData === 'function') loadAttendanceData();
-    });
-
-    // Cancel button
-    document.getElementById('cancelAttendanceBtn').addEventListener('click', function () {
-        form.remove();
-        const newRecordBtn = document.getElementById('newRecordBtn');
-        if (newRecordBtn) {
-            newRecordBtn.textContent = '📝 New Record';
-        }
-    });
-
-    // Close on background click
-    form.addEventListener('click', function (e) {
-        if (e.target === form) {
-            form.remove();
-            const newRecordBtn = document.getElementById('newRecordBtn');
-            if (newRecordBtn) {
-                newRecordBtn.textContent = '📝 New Record';
-            }
-        }
-    });
-
-    return form;
+  return form;
 }
 
 // ============================================
@@ -2599,36 +2614,36 @@ function createAttendanceForm() {
 // ============================================
 
 function initializeButtons() {
-    // ============================================
-    // ATTENDANCE PAGE BUTTONS
-    // ============================================
-    if (isAttendancePage) {
-        console.log('📋 Initializing Attendance page buttons...');
+  // ============================================
+  // ATTENDANCE PAGE BUTTONS
+  // ============================================
+  if (isAttendancePage) {
+    console.log("📋 Initializing Attendance page buttons...");
 
-        const newRecordBtn = document.getElementById('newRecordBtn');
-        const filterBtn = document.getElementById('filterBtn');
+    const newRecordBtn = document.getElementById("newRecordBtn");
+    const filterBtn = document.getElementById("filterBtn");
 
-        // New Record Button - Opens styled modal form
-        if (newRecordBtn) {
-            newRecordBtn.addEventListener('click', function (e) {
-                e.preventDefault();
-                createAttendanceForm();
-                this.textContent = '✖ Close Form';
-            });
-        }
+    // New Record Button - Opens styled modal form
+    if (newRecordBtn) {
+      newRecordBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        createAttendanceForm();
+        this.textContent = "✖ Close Form";
+      });
+    }
 
-        // Filter Button
-        if (filterBtn) {
-            filterBtn.addEventListener('click', function (e) {
-                e.preventDefault();
-                let filterDropdown = document.getElementById('filterDropdown');
+    // Filter Button
+    if (filterBtn) {
+      filterBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        let filterDropdown = document.getElementById("filterDropdown");
 
-                if (!filterDropdown) {
-                    filterDropdown = document.createElement('div');
-                    filterDropdown.id = 'filterDropdown';
+        if (!filterDropdown) {
+          filterDropdown = document.createElement("div");
+          filterDropdown.id = "filterDropdown";
 
-                    const rect = filterBtn.getBoundingClientRect();
-                    filterDropdown.style.cssText = `
+          const rect = filterBtn.getBoundingClientRect();
+          filterDropdown.style.cssText = `
                         position: fixed;
                         top: ${rect.bottom + 8}px;
                         right: ${window.innerWidth - rect.right}px;
@@ -2642,7 +2657,7 @@ function initializeButtons() {
                         animation: slideDown 0.3s ease;
                     `;
 
-                    filterDropdown.innerHTML = `
+          filterDropdown.innerHTML = `
                         <div style="margin-bottom: 12px;">
                             <label style="display: block; font-size: 0.8rem; font-weight: 600; color: #94a3b8; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em;">Filter by Status</label>
                             <select id="filterStatus" style="width: 100%; padding: 0.6rem 0.8rem; background: #0f172a; border: 1px solid #1e293b; border-radius: 10px; color: #f8fafc; font-size: 0.9rem;">
@@ -2662,51 +2677,55 @@ function initializeButtons() {
                         </div>
                     `;
 
-                    document.body.appendChild(filterDropdown);
+          document.body.appendChild(filterDropdown);
 
-                    document.getElementById('applyFilterBtn').addEventListener('click', function () {
-                        const status = document.getElementById('filterStatus').value;
-                        const dateFrom = document.getElementById('filterDateFrom').value;
-                        const dateTo = document.getElementById('filterDateTo').value;
-                        applyFilters(status, dateFrom, dateTo);
-                        filterDropdown.remove();
-                        filterBtn.textContent = '🔍 Filter';
-                    });
-
-                    document.getElementById('clearFilterBtn').addEventListener('click', function () {
-                        clearFilters();
-                        filterDropdown.remove();
-                        filterBtn.textContent = '🔍 Filter';
-                    });
-
-                    filterBtn.textContent = '✖ Close';
-                } else {
-                    filterDropdown.remove();
-                    filterBtn.textContent = '🔍 Filter';
-                }
+          document
+            .getElementById("applyFilterBtn")
+            .addEventListener("click", function () {
+              const status = document.getElementById("filterStatus").value;
+              const dateFrom = document.getElementById("filterDateFrom").value;
+              const dateTo = document.getElementById("filterDateTo").value;
+              applyFilters(status, dateFrom, dateTo);
+              filterDropdown.remove();
+              filterBtn.textContent = "🔍 Filter";
             });
+
+          document
+            .getElementById("clearFilterBtn")
+            .addEventListener("click", function () {
+              clearFilters();
+              filterDropdown.remove();
+              filterBtn.textContent = "🔍 Filter";
+            });
+
+          filterBtn.textContent = "✖ Close";
+        } else {
+          filterDropdown.remove();
+          filterBtn.textContent = "🔍 Filter";
         }
+      });
     }
+  }
 
-    // ============================================
-    // REVIEWS PAGE BUTTONS
-    // ============================================
-    if (isReviewsPage) {
-        console.log('⭐ Initializing Reviews page buttons...');
+  // ============================================
+  // REVIEWS PAGE BUTTONS
+  // ============================================
+  if (isReviewsPage) {
+    console.log("⭐ Initializing Reviews page buttons...");
 
-        const addReviewBtn = document.querySelector('.topbar-actions .btn-primary');
-        const sortBtn = document.querySelector('.topbar-actions .btn-secondary');
+    const addReviewBtn = document.querySelector(".topbar-actions .btn-primary");
+    const sortBtn = document.querySelector(".topbar-actions .btn-secondary");
 
-        // Add Review Button - Creates modal with form
-        if (addReviewBtn) {
-            addReviewBtn.addEventListener('click', function (e) {
-                e.preventDefault();
+    // Add Review Button - Creates modal with form
+    if (addReviewBtn) {
+      addReviewBtn.addEventListener("click", function (e) {
+        e.preventDefault();
 
-                // Create modal overlay
-                const modal = document.createElement('div');
-                modal.id = 'reviewModal';
+        // Create modal overlay
+        const modal = document.createElement("div");
+        modal.id = "reviewModal";
 
-                modal.innerHTML = `
+        modal.innerHTML = `
                     <div class="modal-content">
                         <h2>⭐ Add New Review</h2>
                         <p class="modal-subtitle">Fill in the details for the employee review</p>
@@ -2749,61 +2768,73 @@ function initializeButtons() {
                     </div>
                 `;
 
-                document.body.appendChild(modal);
+        document.body.appendChild(modal);
 
-                // Submit Review
-                document.getElementById('submitReviewBtn').addEventListener('click', function () {
-                    const name = document.getElementById('reviewEmployeeName').value.trim();
-                    const department = document.getElementById('reviewDepartment').value.trim();
-                    const position = document.getElementById('reviewPosition').value.trim();
-                    const rating = document.getElementById('reviewRating').value;
-                    const feedback = document.getElementById('reviewFeedback').value.trim();
+        // Submit Review
+        document
+          .getElementById("submitReviewBtn")
+          .addEventListener("click", function () {
+            const name = document
+              .getElementById("reviewEmployeeName")
+              .value.trim();
+            const department = document
+              .getElementById("reviewDepartment")
+              .value.trim();
+            const position = document
+              .getElementById("reviewPosition")
+              .value.trim();
+            const rating = document.getElementById("reviewRating").value;
+            const feedback = document
+              .getElementById("reviewFeedback")
+              .value.trim();
 
-                    if (!name) {
-                        showNotification('Please enter employee name', 'error');
-                        document.getElementById('reviewEmployeeName').focus();
-                        return;
-                    }
+            if (!name) {
+              showNotification("Please enter employee name", "error");
+              document.getElementById("reviewEmployeeName").focus();
+              return;
+            }
 
-                    const newReview = {
-                        employeeId: Date.now(),
-                        name: name,
-                        department: department || 'General',
-                        position: position || 'Employee',
-                        rating: parseFloat(rating),
-                        feedback: feedback || 'No additional feedback provided.'
-                    };
+            const newReview = {
+              employeeId: Date.now(),
+              name: name,
+              department: department || "General",
+              position: position || "Employee",
+              rating: parseFloat(rating),
+              feedback: feedback || "No additional feedback provided.",
+            };
 
-                    console.log('New review added:', newReview);
-                    showNotification(`✅ Review added for ${name}`, 'success');
-                    modal.remove();
-                    if (typeof loadReviews === 'function') loadReviews();
-                });
+            console.log("New review added:", newReview);
+            showNotification(`✅ Review added for ${name}`, "success");
+            modal.remove();
+            if (typeof loadReviews === "function") loadReviews();
+          });
 
-                // Cancel Review
-                document.getElementById('cancelReviewBtn').addEventListener('click', function () {
-                    modal.remove();
-                });
+        // Cancel Review
+        document
+          .getElementById("cancelReviewBtn")
+          .addEventListener("click", function () {
+            modal.remove();
+          });
 
-                // Close on background click
-                modal.addEventListener('click', function (e) {
-                    if (e.target === modal) modal.remove();
-                });
-            });
-        }
+        // Close on background click
+        modal.addEventListener("click", function (e) {
+          if (e.target === modal) modal.remove();
+        });
+      });
+    }
 
-        // Sort Button
-        if (sortBtn) {
-            sortBtn.addEventListener('click', function (e) {
-                e.preventDefault();
-                let sortDropdown = document.getElementById('sortDropdown');
+    // Sort Button
+    if (sortBtn) {
+      sortBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        let sortDropdown = document.getElementById("sortDropdown");
 
-                if (!sortDropdown) {
-                    sortDropdown = document.createElement('div');
-                    sortDropdown.id = 'sortDropdown';
+        if (!sortDropdown) {
+          sortDropdown = document.createElement("div");
+          sortDropdown.id = "sortDropdown";
 
-                    const rect = sortBtn.getBoundingClientRect();
-                    sortDropdown.style.cssText = `
+          const rect = sortBtn.getBoundingClientRect();
+          sortDropdown.style.cssText = `
                         position: fixed;
                         top: ${rect.bottom + 8}px;
                         right: ${window.innerWidth - rect.right}px;
@@ -2817,54 +2848,58 @@ function initializeButtons() {
                         animation: slideDown 0.3s ease;
                     `;
 
-                    const sortOptions = [
-                        { value: 'rating-desc', label: '⭐ Rating (High to Low)' },
-                        { value: 'rating-asc', label: '⭐ Rating (Low to High)' },
-                        { value: 'name-asc', label: '👤 Name (A-Z)' },
-                        { value: 'name-desc', label: '👤 Name (Z-A)' },
-                        { value: 'date-desc', label: '📅 Newest First' },
-                        { value: 'date-asc', label: '📅 Oldest First' }
-                    ];
+          const sortOptions = [
+            { value: "rating-desc", label: "⭐ Rating (High to Low)" },
+            { value: "rating-asc", label: "⭐ Rating (Low to High)" },
+            { value: "name-asc", label: "👤 Name (A-Z)" },
+            { value: "name-desc", label: "👤 Name (Z-A)" },
+            { value: "date-desc", label: "📅 Newest First" },
+            { value: "date-asc", label: "📅 Oldest First" },
+          ];
 
-                    sortDropdown.innerHTML = `
+          sortDropdown.innerHTML = `
                         <div style="margin-bottom: 8px; font-weight: 600; color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; padding: 0 0.5rem;">Sort Reviews By:</div>
-                        ${sortOptions.map(opt => `
+                        ${sortOptions
+                          .map(
+                            (opt) => `
                             <button class="sort-option" data-sort="${opt.value}" style="display: block; width: 100%; padding: 0.6rem 0.8rem; background: none; border: none; text-align: left; cursor: pointer; border-radius: 10px; font-size: 0.9rem; color: #cbd5e1; transition: all 0.2s ease;">
                                 ${opt.label}
                             </button>
-                        `).join('')}
+                        `,
+                          )
+                          .join("")}
                     `;
 
-                    document.body.appendChild(sortDropdown);
+          document.body.appendChild(sortDropdown);
 
-                    sortDropdown.querySelectorAll('.sort-option').forEach(btn => {
-                        btn.addEventListener('mouseenter', function () {
-                            this.style.background = 'rgba(99, 102, 241, 0.15)';
-                            this.style.color = '#fff';
-                        });
-                        btn.addEventListener('mouseleave', function () {
-                            this.style.background = 'none';
-                            this.style.color = '#cbd5e1';
-                        });
-
-                        btn.addEventListener('click', function () {
-                            const sortType = this.dataset.sort;
-                            applySort(sortType);
-                            sortDropdown.remove();
-                            const label = this.textContent.trim();
-                            sortBtn.textContent = `📊 ${label.split(' ').slice(0, 2).join(' ')}`;
-                            showNotification(`Sorted by: ${label}`, 'success');
-                        });
-                    });
-
-                    sortBtn.textContent = '✖ Close';
-                } else {
-                    sortDropdown.remove();
-                    sortBtn.textContent = '📊 Sort';
-                }
+          sortDropdown.querySelectorAll(".sort-option").forEach((btn) => {
+            btn.addEventListener("mouseenter", function () {
+              this.style.background = "rgba(99, 102, 241, 0.15)";
+              this.style.color = "#fff";
             });
+            btn.addEventListener("mouseleave", function () {
+              this.style.background = "none";
+              this.style.color = "#cbd5e1";
+            });
+
+            btn.addEventListener("click", function () {
+              const sortType = this.dataset.sort;
+              applySort(sortType);
+              sortDropdown.remove();
+              const label = this.textContent.trim();
+              sortBtn.textContent = `📊 ${label.split(" ").slice(0, 2).join(" ")}`;
+              showNotification(`Sorted by: ${label}`, "success");
+            });
+          });
+
+          sortBtn.textContent = "✖ Close";
+        } else {
+          sortDropdown.remove();
+          sortBtn.textContent = "📊 Sort";
         }
+      });
     }
+  }
 }
 
 // ============================================
@@ -2872,11 +2907,11 @@ function initializeButtons() {
 // ============================================
 
 (function injectStyles() {
-    if (document.getElementById('dynamic-styles')) return;
+  if (document.getElementById("dynamic-styles")) return;
 
-    const style = document.createElement('style');
-    style.id = 'dynamic-styles';
-    style.textContent = `
+  const style = document.createElement("style");
+  style.id = "dynamic-styles";
+  style.textContent = `
         /* Additional animations and styles not in main CSS */
         @keyframes slideDown {
             from { opacity: 0; transform: translateY(-20px) scale(0.95); }
@@ -3066,40 +3101,50 @@ function initializeButtons() {
             }
         }
     `;
-    document.head.appendChild(style);
+  document.head.appendChild(style);
 })();
 
 // ============================================
 // INITIALIZATION
 // ============================================
 
-document.addEventListener('DOMContentLoaded', function () {
-    console.log('🚀 Initializing ModernTech HR System...');
-    console.log(`📄 Current page: ${isAttendancePage ? 'Attendance' : isReviewsPage ? 'Reviews' : 'Other'}`);
+document.addEventListener("DOMContentLoaded", function () {
+  console.log("🚀 Initializing ModernTech HR System...");
+  console.log(
+    `📄 Current page: ${isAttendancePage ? "Attendance" : isReviewsPage ? "Reviews" : "Other"}`,
+  );
 
-    try {
-        highlightActiveNav();
-        initializeButtons();
-        loadAttendanceData();
-        loadReviews();
+  try {
+    highlightActiveNav();
+    initializeButtons();
+    loadAttendanceData();
+    loadReviews();
 
-        // Close dropdowns on outside click
-        document.addEventListener('click', function (e) {
-            ['filterDropdown', 'sortDropdown'].forEach(id => {
-                const dropdown = document.getElementById(id);
-                const btn = id === 'filterDropdown' ? document.getElementById('filterBtn') : document.querySelector('.topbar-actions .btn-secondary');
-                if (dropdown && btn && !btn.contains(e.target) && !dropdown.contains(e.target)) {
-                    dropdown.remove();
-                    if (id === 'filterDropdown' && btn) btn.textContent = '🔍 Filter';
-                    if (id === 'sortDropdown' && btn) btn.textContent = '📊 Sort';
-                }
-            });
-        });
+    // Close dropdowns on outside click
+    document.addEventListener("click", function (e) {
+      ["filterDropdown", "sortDropdown"].forEach((id) => {
+        const dropdown = document.getElementById(id);
+        const btn =
+          id === "filterDropdown"
+            ? document.getElementById("filterBtn")
+            : document.querySelector(".topbar-actions .btn-secondary");
+        if (
+          dropdown &&
+          btn &&
+          !btn.contains(e.target) &&
+          !dropdown.contains(e.target)
+        ) {
+          dropdown.remove();
+          if (id === "filterDropdown" && btn) btn.textContent = "🔍 Filter";
+          if (id === "sortDropdown" && btn) btn.textContent = "📊 Sort";
+        }
+      });
+    });
 
-        console.log('✅ Dashboard initialized successfully');
-    } catch (error) {
-        console.error('❌ Failed to initialize dashboard:', error);
-    }
+    console.log("✅ Dashboard initialized successfully");
+  } catch (error) {
+    console.error("❌ Failed to initialize dashboard:", error);
+  }
 });
 
 // ============================================
@@ -3107,11 +3152,11 @@ document.addEventListener('DOMContentLoaded', function () {
 // ============================================
 
 window.debug = {
-    loadAttendanceData,
-    loadReviews,
-    showNotification,
-    applyFilters,
-    clearFilters,
-    applySort,
-    COLORS
+  loadAttendanceData,
+  loadReviews,
+  showNotification,
+  applyFilters,
+  clearFilters,
+  applySort,
+  COLORS,
 };
