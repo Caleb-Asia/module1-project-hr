@@ -9,53 +9,66 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
   </head>
   <body>
     <div class="page-wrapper">
-      <!-- SIDEBAR -->
       <aside class="sidebar">
-        <div class="logo">
-          <div class="logo-icon">💼</div>
-          <div class="logo-text">
-            <h2>ModernTech</h2>
-            <p>HR System</p>
-          </div>
-        </div>
-
-        <nav>
-          <ul class="nav-links">
+        <div class="navbar-rail">
+          <ul class="nav-links nav-links-left">
             <li>
-              <a href="dashboard.html"
-                ><i class="fa-solid fa-house"></i>Dashboard</a
+              <a href="dashboard.html">
+                <i class="bi bi-house"></i>
+                <span>Dashboard</span></a
               >
             </li>
             <li>
-              <a href="employees.html"
-                ><i class="fa-solid fa-people-group"></i>Employees</a
+              <a href="employees.html">
+                <i class="bi bi-people"></i><span>Employees</span></a
+              >
+            </li>
+            <li>
+              <a href="payroll.html">
+                <i class="bi bi-cash"></i><span>Payroll</span></a
+              >
+            </li>
+          </ul>
+
+          <div class="logo">
+            <div class="logo-icon">💼</div>
+            <div class="logo-text">
+              <h2>ModernTech</h2>
+              <p>HR System</p>
+            </div>
+          </div>
+
+          <ul class="nav-links nav-links-right">
+            <li>
+              <a href="time-off.html">
+                <i class="bi bi-calendar-event"></i><span>Time Off</span></a
               >
             </li>
             <li class="active">
-              <a href="payroll.html"
-                ><i class="fa-solid fa-money-bill-wave"></i>Payroll</a
+              <a href="attendance.html">
+                <i class="bi bi-clock"></i><span>Attendance</span></a
               >
             </li>
             <li>
-              <a href="time-off.html"
-                ><i class="fa-solid fa-calendar-days"></i>Time Off</a
+              <a href="reviews.html">
+                <i class="bi bi-star"></i><span>Reviews</span></a
               >
-            </li>
-            <li>
-              <a href="attendance.html"
-                ><i class="fa-solid fa-clock"></i>Attendance</a
-              >
-            </li>
-            <li>
-              <a href="reviews.html"><i class="fa-solid fa-star"></i>Reviews</a>
             </li>
           </ul>
-        </nav>
+        </div>
 
         <div class="sidebar-bottom">
+          <button class="signout-btn" id="signOutBtn" type="button">
+            <i class="bi bi-box-arrow-right"></i>
+            <span>Sign Out</span>
+          </button>
           <div class="profile">
             <div class="avatar">HR</div>
             <div class="profile-info">
@@ -202,6 +215,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="./script.js"></script>
+    <script src="./js/payroll.js"></script>
   </body>
 </html>
