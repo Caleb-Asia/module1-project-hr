@@ -1,5 +1,5 @@
 // ============================================
-// attendance.js - CALEB_DEV (Trash Icon)
+// attendance.js - CALEB_DEV (Trash Icon + Add Button)
 // ============================================
 import { API_BASE, showNotification } from './main.js';
 
@@ -8,6 +8,7 @@ if (window.location.pathname.toLowerCase().includes('attendance')) {
     const attendanceSection = document.getElementById("attendance-data");
     const visualsSection = document.getElementById("attendance-visuals");
 
+    // 1. Load attendance data
     async function loadAttendanceData() {
         if (!attendanceSection) return;
 
@@ -31,6 +32,7 @@ if (window.location.pathname.toLowerCase().includes('attendance')) {
         }
     }
 
+    // 2. Load Stats
     async function loadAttendanceStats() {
         if (!visualsSection) return;
         
@@ -66,6 +68,7 @@ if (window.location.pathname.toLowerCase().includes('attendance')) {
         }
     }
 
+    // 3. Create the Grouped Table (With Trash Icon)
     function createGroupedAttendanceTable(records) {
         const table = document.createElement("table");
         table.className = "attendance-table";
@@ -125,13 +128,12 @@ if (window.location.pathname.toLowerCase().includes('attendance')) {
                 const bg = isPresent ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)';
                 const border = isPresent ? 'rgba(16, 185, 129, 0.3)' : 'rgba(239, 68, 68, 0.3)';
                 
-                // We make the badge a clickable button with a TRASH ICON
                 historyHtml += `
                     <button class="attendance-badge-btn" 
                             data-emp-id="${employee.employee_id}" 
                             data-date="${item.date}"
                             style="display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; margin: 3px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; background: ${bg}; color: ${color}; border: 1px solid ${border}; cursor: pointer; transition: all 0.2s;">
-                        ${new Date(item.date).toLocaleDateString('en-ZA')} • ${item.status}
+                        ${item.date} • ${item.status}
                         <i class="bi bi-trash" style="font-size: 0.7rem; opacity: 0.6; transition: opacity 0.2s;"></i>
                     </button>
                 `;
@@ -158,20 +160,19 @@ if (window.location.pathname.toLowerCase().includes('attendance')) {
             tbody.appendChild(row);
         });
 
-        // EVENT LISTENER: Handle clicking a specific date badge
+        // EVENT LISTENER: Handle clicking a specific date badge to delete it
         tbody.querySelectorAll('.attendance-badge-btn').forEach(btn => {
             btn.addEventListener('click', async function(e) {
                 e.stopPropagation(); 
                 const empId = this.dataset.empId;
-                const dateToDelete = this.dataset.date;
+                const dateToDelete = this.dataset.date.split('T')[0]; 
                 const empName = this.closest('tr').querySelector('td:first-child').innerText.trim();
 
-                // 1. Confirmation
-                if (!confirm(`Are you sure you want to delete the attendance record for ${empName} on ${new Date(dateToDelete).toLocaleDateString('en-ZA')}?`)) {
+                // ✅ FIX: Show the raw date string in the prompt, do not use new Date()
+                if (!confirm(`Are you sure you want to delete the attendance record for ${empName} on ${dateToDelete}?`)) {
                     return;
                 }
 
-                // 2. Send DELETE request
                 try {
                     const encodedDate = encodeURIComponent(dateToDelete);
                     const response = await fetch(`${API_BASE}/api/attendance/${empId}/${encodedDate}`, {
@@ -183,8 +184,7 @@ if (window.location.pathname.toLowerCase().includes('attendance')) {
                         throw new Error(errData.error || "Failed to delete record");
                     }
 
-                    // 3. Success
-                    showNotification(`🗑️ Deleted record for ${empName} on ${new Date(dateToDelete).toLocaleDateString('en-ZA')}`, 'success');
+                    showNotification(`🗑️ Deleted record for ${empName} on ${dateToDelete}`, 'success');
                     loadAttendanceData();
 
                 } catch (error) {
@@ -197,7 +197,6 @@ if (window.location.pathname.toLowerCase().includes('attendance')) {
             btn.addEventListener('mouseenter', function() {
                 this.style.transform = 'scale(1.05)';
                 this.style.boxShadow = '0 0 10px rgba(255,255,255,0.2)';
-                // Make the trash icon solid red on hover
                 const icon = this.querySelector('.bi-trash');
                 if (icon) {
                     icon.style.opacity = '1';
@@ -218,5 +217,53 @@ if (window.location.pathname.toLowerCase().includes('attendance')) {
         return table;
     }
 
-    document.addEventListener("DOMContentLoaded", loadAttendanceData);
+    // ============================================
+    // NEW: "Add Record" Button Logic
+    // ============================================
+    function initAttendanceButtons() {
+        const newRecordBtn = document.getElementById('newRecordBtn');
+        
+        if (newRecordBtn) {
+            newRecordBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // 1. Simple prompt for testing
+                const empId = prompt("Enter Employee ID to add attendance (1-10):");
+                if (!empId || isNaN(empId)) return alert("Please enter a valid Employee ID number.");
+                
+                const status = confirm("Click OK for Present, Cancel for Absent") ? "Present" : "Absent";
+                const date = new Date().toISOString().split('T')[0]; 
+
+                // 2. Send POST to backend
+                fetch(`${API_BASE}/api/attendance`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        employee_id: parseInt(empId),
+                        date: date,
+                        status: status
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        showNotification(`❌ Error: ${data.error}`, 'error');
+                    } else {
+                        showNotification(`✅ Record added for Employee ${empId}!`, 'success');
+                        loadAttendanceData(); // Refresh the table
+                    }
+                })
+                .catch(err => {
+                    showNotification(`❌ Failed to connect to backend`, 'error');
+                    console.error(err);
+                });
+            });
+        }
+    }
+
+    // Run on load
+    document.addEventListener("DOMContentLoaded", () => {
+        loadAttendanceData();
+        initAttendanceButtons();
+    });
 }

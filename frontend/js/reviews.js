@@ -1,5 +1,5 @@
 // ============================================
-// reviews.js - CALEB_DEV
+// reviews.js - CALEB_DEV (Add Review Button)
 // ============================================
 import { API_BASE, showNotification, getInitials, COLORS } from './main.js';
 
@@ -13,13 +13,11 @@ if (window.location.pathname.toLowerCase().includes('reviews')) {
         try {
             reviewsContainer.innerHTML = `<div style="padding: 2rem; text-align: center; color: #94a3b8;">⏳ Loading reviews from server...</div>`;
 
-            // Fetch all reviews from backend
             const response = await fetch(`${API_BASE}/api/reviews`);
             if (!response.ok) throw new Error("Failed to fetch reviews");
             
             let reviews = await response.json();
 
-            // Ensure rating is a number for every review
             reviews = reviews.map(review => ({
                 ...review,
                 rating: parseFloat(review.rating) || 0
@@ -30,17 +28,14 @@ if (window.location.pathname.toLowerCase().includes('reviews')) {
                 return;
             }
 
-            // 1. Update the "Total Reviews" card in the header
             const totalReviewsDisplay = document.getElementById('totalReviewsDisplay');
             if (totalReviewsDisplay) {
                 totalReviewsDisplay.innerText = reviews.length;
             }
 
-            // 2. Render the review cards
             reviewsContainer.innerHTML = renderReviewCards(reviews);
             console.log(`✅ Reviews loaded: ${reviews.length} records`);
 
-            // 3. Load and update the Average Rating from the API
             loadAverageRating();
 
         } catch (error) {
@@ -58,12 +53,10 @@ if (window.location.pathname.toLowerCase().includes('reviews')) {
             const starsElement = document.getElementById('avgStarsDisplay');
             
             if (avgElement) {
-                // Update the text (e.g., "4.3/5")
                 avgElement.innerText = `${data.average}/5`;
             }
 
             if (starsElement) {
-                // Dynamically generate Bootstrap stars based on the average
                 const avg = parseFloat(data.average) || 0;
                 const fullStars = Math.floor(avg);
                 const hasHalfStar = (avg - fullStars) >= 0.5;
@@ -90,7 +83,6 @@ if (window.location.pathname.toLowerCase().includes('reviews')) {
             const initials = getInitials(`${review.first_name} ${review.last_name}`);
             const avatarColor = COLORS.avatar[(review.employee_id - 1) % COLORS.avatar.length];
 
-            // Generate star ratings using Bootstrap Icons
             const safeRating = review.rating || 0;
             const fullStars = Math.floor(safeRating);
             const hasHalfStar = (safeRating - fullStars) >= 0.5;
@@ -132,6 +124,58 @@ if (window.location.pathname.toLowerCase().includes('reviews')) {
         }).join("");
     }
 
+    // ============================================
+    // NEW: "Add Review" Button Logic
+    // ============================================
+    function initReviewsButtons() {
+        const addReviewBtn = document.querySelector('.topbar-actions .btn-primary');
+        
+        if (addReviewBtn) {
+            addReviewBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Simple prompts for testing
+                const empId = prompt("Enter Employee ID to review (1-10):");
+                if (!empId || isNaN(empId)) return alert("Please enter a valid Employee ID.");
+
+                const rating = prompt("Enter rating (1-5):");
+                if (!rating || isNaN(rating) || parseFloat(rating) < 1 || parseFloat(rating) > 5) {
+                    return alert("Please enter a rating between 1 and 5.");
+                }
+
+                const comments = prompt("Enter review feedback comments:");
+                if (!comments) return alert("Please enter feedback comments.");
+
+                // Send POST to backend
+                fetch(`${API_BASE}/api/reviews`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        employee_id: parseInt(empId),
+                        rating: parseFloat(rating),
+                        comments: comments
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        showNotification(`❌ Error: ${data.error}`, 'error');
+                    } else {
+                        showNotification(`✅ Review added for Employee ${empId}!`, 'success');
+                        loadReviews(); // Refresh the cards
+                    }
+                })
+                .catch(err => {
+                    showNotification(`❌ Failed to connect to backend`, 'error');
+                    console.error(err);
+                });
+            });
+        }
+    }
+
     // Initialize on load
-    document.addEventListener("DOMContentLoaded", loadReviews);
+    document.addEventListener("DOMContentLoaded", () => {
+        loadReviews();
+        initReviewsButtons();
+    });
 }
