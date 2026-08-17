@@ -27,7 +27,7 @@ export function getInitials(name = "") {
   return name.split(" ").filter(Boolean).slice(0, 2).map(n => n[0]).join("").toUpperCase();
 }
 
-// Utility: Show Toast Notification
+// Utility: Show Toast Notification (NO ICONS)
 export function showNotification(message, type = "success") {
   const existing = document.querySelector(".notification");
   if (existing) existing.remove();
@@ -36,7 +36,6 @@ export function showNotification(message, type = "success") {
   notification.className = "notification";
   
   const colors = { success: "#10b981", error: "#ef4444", warning: "#f59e0b", info: "#6366f1" };
-  const icons = { success: "✅", error: "❌", warning: "⚠️", info: "ℹ️" };
   
   notification.style.cssText = `
     position: fixed; top: 20px; right: 20px; padding: 16px 24px;
@@ -47,7 +46,10 @@ export function showNotification(message, type = "success") {
     border: 1px solid rgba(255,255,255,0.08);
     font-family: 'Inter', system-ui, sans-serif;
   `;
-  notification.innerHTML = `${icons[type] || "📢"} ${message}`;
+  
+  // ✅ FIX: No icons, just plain text
+  notification.innerHTML = message;
+  
   document.body.appendChild(notification);
 
   setTimeout(() => {
