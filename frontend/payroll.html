@@ -118,7 +118,7 @@
                 <i class="fa-solid fa-chart-pie text-purple-500"></i>
                 Payroll Breakdown
               </h4>
-              <div style="height: 280px; position: relative">
+              <div class="chart-container">
                 <canvas id="payrollBreakdownChart"></canvas>
               </div>
             </div>
@@ -128,7 +128,7 @@
                 <i class="fa-solid fa-chart-column text-teal-500"></i>
                 Top 5 Earners - Net Pay
               </h4>
-              <div style="height: 280px; position: relative">
+              <div class="chart-container">
                 <canvas id="topEarnersChart"></canvas>
               </div>
             </div>
@@ -173,7 +173,7 @@
       <div class="payslip-modal">
         <div class="payslip-header">
           <h3 id="payslipTitle">Payslip</h3>
-          <button type="button" id="closePayslipBtn" class="payslip-close">
+          <button type="button" id="closePayslipBtn" class="payslip-close" title="Close payslip">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
@@ -195,5 +195,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="script.js"></script>
+    <script type="module" src="js/nav.js"></script>
+    <script type="module" src="js/main.js"></script>
   </body>
 </html>

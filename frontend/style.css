@@ -99,8 +99,8 @@ body {
     font-weight: 700;
     letter-spacing: -0.5px;
     background: linear-gradient(to right, #fff, #94a3b8);
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -229,8 +229,8 @@ body {
     font-weight: 800;
     letter-spacing: -1px;
     background: linear-gradient(to right, #fff, #cbd5e1);
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -1197,8 +1197,8 @@ body {
   font-weight: 800;
   letter-spacing: -1px;
   background: linear-gradient(to right, #fff, #cbd5e1);
-  background-clip: text;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 4px;
 }
@@ -1643,6 +1643,7 @@ body {
   position: fixed;
   inset: 0;
   background: rgba(7, 10, 19, 0.85);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   display: none;
   align-items: center;
@@ -1860,6 +1861,7 @@ body {
   position: fixed;
   inset: 0;
   background: rgba(15, 23, 42, 0.75);
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   z-index: 9999;
   align-items: center;
@@ -3356,4 +3358,27 @@ section[id$='-welcome'] p {
         width: 100% !important;
         justify-content: flex-start !important;
     }
+}
+
+/* Chart container for responsive chart layouts */
+.chart-container {
+  height: 280px;
+  position: relative;
+}
+
+/* Department color classes */
+.dept-engineering .dept-color-dot {
+  background-color: #6366f1;
+}
+
+.dept-marketing .dept-color-dot {
+  background-color: #10b981;
+}
+
+.dept-sales .dept-color-dot {
+  background-color: #f59e0b;
+}
+
+.dept-hr-ops .dept-color-dot {
+  background-color: #f43f5e;
 }
