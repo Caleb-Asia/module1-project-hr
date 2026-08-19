@@ -1,5 +1,5 @@
 // ============================================
-// auth.js - Real Backend Login
+// auth.js - Fixed Sign Out
 // ============================================
 import { API_BASE, showNotification } from './main.js';
 
@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             try {
-                // Send request to your real backend auth route
                 const response = await fetch(`${API_BASE}/api/auth/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -34,13 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     throw new Error(data.error || "Login failed. Check credentials.");
                 }
 
-                // ✅ SUCCESS: Save the JWT token to browser storage
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('user', JSON.stringify(data.user));
 
                 showNotification(`Welcome back, ${data.user.username}!`, 'success');
 
-                // Redirect to dashboard
                 setTimeout(() => {
                     window.location.href = 'dashboard.html';
                 }, 500);
@@ -52,17 +49,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 2. Sign Out Logic ---
+    // --- 2. SIGN OUT LOGIC (FIXED) ---
     if (signOutBtn) {
         signOutBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            
-            // Remove the token from storage
+            e.stopPropagation(); // Prevents any parent elements from reacting
+
+            console.log(" Sign Out button clicked!");
+
+            // Clear the session
             localStorage.removeItem('token');
             localStorage.removeItem('user');
-            
-            // Send them back to index.html
-            window.location.href = 'index.html';
+
+            // 🔥 FORCEFUL REDIRECT: Even if index.html is cached, this forces a reload
+            window.location.replace('index.html');
         });
+    } else {
+        // If the button isn't found, warn us in the console
+        console.warn(" Sign Out button with ID 'signOutBtn' was not found in the DOM.");
     }
 });

@@ -120,8 +120,7 @@ if (window.location.pathname.toLowerCase().includes('attendance')) {
             if (!groupedData[id]) {
                 groupedData[id] = {
                     employee_id: id,
-                    first_name: record.first_name,
-                    last_name: record.last_name,
+                    employee_name: record.employee_name || 'Unknown',
                     department: record.department || 'General',
                     attendance_dates: []
                 };
@@ -136,7 +135,7 @@ if (window.location.pathname.toLowerCase().includes('attendance')) {
 
         groupedArray.forEach((employee, index) => {
             const bgColor = index % 2 === 0 ? "#0f172a" : "#1a2332";
-            const fullName = `${employee.first_name} ${employee.last_name}`;
+            const fullName = employee.employee_name;
 
             let historyHtml = '';
             employee.attendance_dates.sort((a, b) => new Date(b.date) - new Date(a.date));

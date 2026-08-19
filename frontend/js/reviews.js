@@ -1,5 +1,5 @@
 // ============================================
-// reviews.js - CALEB_DEV 
+// reviews.js - CALEB_DEV (Bootstrap Icons & Delete)
 // ============================================
 import { API_BASE, showNotification, getInitials, COLORS } from './main.js';
 
@@ -99,7 +99,8 @@ if (window.location.pathname.toLowerCase().includes('reviews')) {
 
     function renderReviewCards(reviews) {
         return reviews.map((review) => {
-            const initials = getInitials(`${review.first_name} ${review.last_name}`);
+            const fullName = review.employee_name || 'Unknown Employee';
+            const initials = getInitials(fullName);
             const avatarColor = COLORS.avatar[(review.employee_id - 1) % COLORS.avatar.length];
             const safeRating = review.rating || 0;
             const fullStars = Math.floor(safeRating);
@@ -112,12 +113,12 @@ if (window.location.pathname.toLowerCase().includes('reviews')) {
                 else starHtml += `<i class="bi bi-star" style="color: #fbbf24;"></i>`;
             }
 
-            // ✅ FIX: Added 'margin-right: 1.8rem;' to the badge so it doesn't touch the trash icon
+            // ✅ FIX: Added margin-right to the badge so it doesn't touch the trash icon
             return `
                 <article class="review-card" data-review-id="${review.review_id}" style="background: #0f172a; border-radius: 1.5rem; padding: 1.35rem; border: 1px solid #1e293b; box-shadow: 0 18px 50px rgba(0, 0, 0, 0.16); display: flex; flex-direction: column; gap: 0.75rem; position: relative;">
                     
                     <!-- 🗑️ DELETE ICON -->
-                    <button class="delete-review-btn" data-id="${review.review_id}" style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: #64748b; cursor: pointer; font-size: 1.1rem; transition: all 0.2s ease;" title="Delete this review">
+                    <button class="delete-review-btn" data-id="${review.review_id}" style="position: absolute; top: 0.8rem; right: 0.8rem; background: none; border: none; color: #64748b; cursor: pointer; font-size: 1.1rem; transition: all 0.2s ease;" title="Delete this review">
                         <i class="bi bi-trash"></i>
                     </button>
 
@@ -125,11 +126,11 @@ if (window.location.pathname.toLowerCase().includes('reviews')) {
                         <div class="review-card-title" style="display: flex; align-items: center; gap: 0.85rem;">
                             <span class="initials" style="width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; background: ${avatarColor}; flex-shrink: 0;">${initials}</span>
                             <div>
-                                <h3 style="color: #f8fafc; font-size: 1rem; margin: 0;">${review.first_name} ${review.last_name}</h3>
+                                <h3 style="color: #f8fafc; font-size: 1rem; margin: 0;">${fullName}</h3>
                                 <p style="color: #94a3b8; font-size: 0.85rem; margin: 0.2rem 0 0;">${review.department || "Employee"}</p>
                             </div>
                         </div>
-                        <span class="review-badge" style="padding: 0.45rem 0.85rem; border-radius: 999px; background: rgba(99, 102, 241, 0.14); color: #c7d2fe; font-size: 0.75rem; font-weight: 700; margin-right: 1.8rem;">${review.quarter || "General"}</span>
+                        <span class="review-badge" style="padding: 0.45rem 0.85rem; border-radius: 999px; background: rgba(99, 102, 241, 0.14); color: #c7d2fe; font-size: 0.75rem; font-weight: 700; margin-right: 2.2rem;">${review.quarter || "General"}</span>
                     </div>
                     <div class="review-meta" style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; color: #94a3b8; font-size: 0.9rem;">
                         <span class="rating" style="color: #fbbf24; font-weight: 700; display: inline-flex; align-items: center; gap: 0.4rem;">

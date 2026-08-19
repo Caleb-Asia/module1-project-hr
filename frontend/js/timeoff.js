@@ -1,5 +1,5 @@
 // ============================================
-// timeoff.js - CHAD_DEV (Connected to Backend)
+// timeoff.js - CHAD_DEV (Fixed Employee Dropdown)
 // ============================================
 import { API_BASE, showNotification } from './main.js';
 
@@ -20,11 +20,53 @@ document.addEventListener('DOMContentLoaded', () => {
     const tabBtns = document.querySelectorAll('.tab-btn');
     const employeeSelect = document.getElementById('employeeSelect');
 
-    // --- 1. Modal Logic ---
+    // --- Helper: Get JWT Token for API Calls ---
+    function getAuthHeaders() {
+        const token = localStorage.getItem('token');
+        const headers = { 'Content-Type': 'application/json' };
+        if (token && token !== 'undefined' && token !== 'null') {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+        return headers;
+    }
+
+    // --- 1. MODAL LOGIC & DROPDOWN FIX ---
     if (btnNewRequest && modalOverlay) {
-        btnNewRequest.addEventListener('click', () => {
+        btnNewRequest.addEventListener('click', async () => {
+            // ✅ FIX: Populate the dropdown BEFORE opening the modal
+            await loadEmployeeDropdown();
             modalOverlay.classList.add('active');
         });
+    }
+
+    // ✅ FIX: Fetch employees and populate the dropdown
+    async function loadEmployeeDropdown() {
+        if (!employeeSelect) return;
+        
+        try {
+            const response = await fetch(`${API_BASE}/api/employees`, {
+                headers: getAuthHeaders()
+            });
+
+            if (!response.ok) throw new Error("Failed to fetch employees");
+
+            const employees = await response.json();
+
+            // Clear existing options (keep the first "Select employee..." placeholder)
+            employeeSelect.innerHTML = `<option value="">Select employee...</option>`;
+
+            // Add each employee to the dropdown
+            employees.forEach(emp => {
+                const option = document.createElement('option');
+                option.value = emp.id; // Use the database ID
+                option.textContent = emp.name; // Use the full name
+                employeeSelect.appendChild(option);
+            });
+
+        } catch (error) {
+            console.error("Error loading employee dropdown:", error);
+            showNotification("Failed to load employee list.", "error");
+        }
     }
 
     const closeModal = () => {
@@ -42,17 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 2. Helper: Get JWT Token for API Calls ---
-    function getAuthHeaders() {
-        const token = localStorage.getItem('token');
-        const headers = { 'Content-Type': 'application/json' };
-        if (token && token !== 'undefined' && token !== 'null') {
-            headers['Authorization'] = `Bearer ${token}`;
-        }
-        return headers;
-    }
-
-    // --- 3. Fetch and Render Data from Backend ---
+    // --- 2. FETCH AND RENDER TIME OFF DATA ---
     async function loadTimeOffData() {
         try {
             const response = await fetch(`${API_BASE}/api/timeoff`, {
@@ -70,7 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const requests = await response.json();
             
-            // Store in a global variable for local filtering/updating
             window.timeOffRequests = requests;
 
             renderLeaveRequests(requests);
@@ -93,11 +124,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Sort by newest first
         const sorted = [...requests].sort((a, b) => new Date(b.start_date) - new Date(a.start_date));
 
         leaveRequestsList.innerHTML = sorted.map((request, index) => {
-            // Safely handle name if null
             const fullName = request.employee_name || "Unknown Employee";
             const initials = fullName.split(' ').map(name => name[0]).join('').slice(0, 2).toUpperCase();
             
@@ -141,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (rejectedCount) rejectedCount.textContent = rejected;
     }
 
-    // --- 4. Tabs Filtering ---
+    // --- 3. TABS FILTERING ---
     const applyRequestFilter = (filterValue) => {
         const requestCards = document.querySelectorAll('.request-card-item');
         const normalizedFilter = filterValue === 'rejected' ? 'rejected' : filterValue;
@@ -164,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 5. Approve / Reject Logic ---
+    // --- 4. APPROVE / REJECT LOGIC ---
     if (leaveRequestsList) {
         leaveRequestsList.addEventListener('click', async (event) => {
             const button = event.target.closest('.btn-action');
@@ -192,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 showNotification(`${empName}'s request ${newStatus.toLowerCase()}!`, 'success');
-                loadTimeOffData(); // Refresh the list
+                loadTimeOffData();
 
             } catch (error) {
                 console.error("Error updating status:", error);
@@ -201,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 6. Submit New Request Form ---
+    // --- 5. SUBMIT NEW REQUEST FORM ---
     if (timeOffForm) {
         timeOffForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -246,6 +275,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 7. Initial Load ---
+    // --- 6. INITIAL LOAD ---
     loadTimeOffData();
 });

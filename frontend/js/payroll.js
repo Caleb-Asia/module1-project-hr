@@ -47,10 +47,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const records = await recordResponse.json();
 
-            // Fetch the summary stats
-            const summaryResponse = await fetch(`${API_BASE}/api/payroll/summary`, {
+            // 🚨 FINAL FIX: Force the exact URL and add a cache-buster
+            const summaryResponse = await fetch(`http://127.0.0.1:3000/api/payroll/summary?_t=${Date.now()}`, {
                 headers: getAuthHeaders()
             });
+
+            if (!summaryResponse.ok) {
+                throw new Error(`Summary fetch failed with status ${summaryResponse.status}`);
+            }
+
             const summary = await summaryResponse.json();
 
             // Render everything
@@ -79,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         payrollTableBody.innerHTML = records.map(emp => `
-            <tr data-employee-id="${emp.employee_id}">
+            <tr data-employee-id="${emp.employeeId}">
                 <td>
                     <div class="employee-cell">
                         <div class="employee-avatar-small" style="background: #6366f1;">
@@ -91,13 +96,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </div>
                 </td>
-                <td class="mono">${toRand(emp.base_salary || 0)}</td>
+                <td class="mono">${toRand(emp.gross || 0)}</td>
                 <td class="text-red mono">-${toRand(emp.tax || 0)}</td>
-                <td class="text-red mono">-${toRand(emp.uif_deduction || 0)}</td>
+                <td class="text-red mono">-${toRand(emp.uif || 0)}</td>
                 <td class="text-amber mono">-${toRand(emp.pension || 0)}</td>
-                <td class="text-teal mono font-bold">${toRand(emp.final_salary || 0)}</td>
+                <td class="text-teal mono font-bold">${toRand(emp.finalSalary || 0)}</td>
                 <td>
-                    <button type="button" class="btn-table" data-payslip-id="${emp.employee_id}">
+                    <button type="button" class="btn-table" data-payslip-id="${emp.employeeId}">
                         <i class="fa-regular fa-file-lines"></i> Payslip
                     </button>
                 </td>
@@ -117,7 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function updatePayrollSummary(summary) {
         if (!summary) return;
 
-        // Calculate deductions if they aren't provided directly
         const deductions = summary.totalDeductions || (summary.totalGross - summary.totalNet);
 
         if (grossPayrollEl) grossPayrollEl.textContent = toRand(summary.totalGross || 0);
@@ -132,16 +136,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 4A. Payroll Breakdown Doughnut Chart
         if (breakdownCtx) {
-            // Destroy existing chart if it exists
             if (window.breakdownChartInstance) {
                 window.breakdownChartInstance.destroy();
             }
 
-            // Calculate totals based on the current records
             const totals = records.reduce((acc, e) => {
-                acc.net += e.final_salary || 0;
+                acc.net += e.finalSalary || 0;
                 acc.tax += e.tax || 0;
-                acc.uif += e.uif_deduction || 0;
+                acc.uif += e.uif || 0;
                 acc.pension += e.pension || 0;
                 return acc;
             }, { net: 0, tax: 0, uif: 0, pension: 0 });
@@ -187,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const top5 = [...records]
-                .sort((a, b) => (b.final_salary || 0) - (a.final_salary || 0))
+                .sort((a, b) => (b.finalSalary || 0) - (a.finalSalary || 0))
                 .slice(0, 5);
 
             window.topEarnersChartInstance = new Chart(topEarnersCtx, {
@@ -196,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     labels: top5.map(e => (e.employee_name || 'Employee').split(' ')[0]),
                     datasets: [{
                         label: 'Net Pay',
-                        data: top5.map(e => e.final_salary || 0),
+                        data: top5.map(e => e.finalSalary || 0),
                         backgroundColor: ['#6366f1', '#8b5cf6', '#06b6d4', '#10b981', '#f59e0b'],
                         borderRadius: 10,
                         borderSkipped: false,
@@ -239,7 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let activePayslipData = null;
 
     function openPayslip(empId, allRecords) {
-        const data = allRecords.find(e => e.employee_id === empId);
+        const data = allRecords.find(e => e.employeeId === empId);
         if (!data) return showNotification("Employee record not found", "error");
 
         activePayslipData = data;
@@ -255,22 +257,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         title.textContent = `${data.employee_name || 'Employee'} - Payslip`;
         
-        // Simple ATM-style text
         content.innerHTML = `
             <div class="atm-slip-preview">
                 <pre style="font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.3; margin: 0; white-space: pre;">
                     MODERNTECH HR
-                    PAYSLIP - ${new Date(data.payroll_month).toLocaleDateString('en-ZA', { month: 'long', year: 'numeric' })}
+                    PAYSLIP - ${new Date().toLocaleDateString('en-ZA', { month: 'long', year: 'numeric' })}
                     ----------------------------------------
                     Employee:   ${data.employee_name || 'Unknown'}
                     Dept:       ${data.department || 'General'}
                     ----------------------------------------
-                    Gross Pay:  ${toRand(data.base_salary || 0)}
+                    Gross Pay:  ${toRand(data.gross || 0)}
                     PAYE Tax:   ${toRand(data.tax || 0)}
-                    UIF:        ${toRand(data.uif_deduction || 0)}
+                    UIF:        ${toRand(data.uif || 0)}
                     Pension:    ${toRand(data.pension || 0)}
                     ----------------------------------------
-                    NET PAY:    ${toRand(data.final_salary || 0)}
+                    NET PAY:    ${toRand(data.finalSalary || 0)}
                     ----------------------------------------
                 </pre>
             </div>
@@ -280,7 +281,6 @@ document.addEventListener('DOMContentLoaded', () => {
         overlay.style.display = 'flex';
         document.body.style.overflow = 'hidden';
 
-        // Close button setup
         const closeBtn = document.getElementById('closePayslipBtn');
         const downloadBtn = document.getElementById('downloadPayslipBtn');
         const emailBtn = document.getElementById('emailPayslipBtn');
@@ -312,18 +312,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- 6. EVENT LISTENERS ---
-    // Export Button
     if (exportBtn) {
         exportBtn.addEventListener('click', () => {
             showNotification("Export started. (Simulated)", "success");
         });
     }
 
-    // Month Selector
     if (monthSelect) {
         monthSelect.addEventListener('change', (e) => {
             showNotification(`Switched to ${e.target.value}`, "info");
-            // In the future, you could re-fetch with a date filter here
         });
     }
 

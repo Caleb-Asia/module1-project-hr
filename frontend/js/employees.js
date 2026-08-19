@@ -68,9 +68,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const avatarColors = ["#3B82F6", "#EF4444", "#10B981", "#F59E0B", "#8B5CF6", "#EC4899", "#06B6D4", "#F97316", "#84CC16", "#6366F1"];
 
         employeeGrid.innerHTML = empList.map((emp, index) => {
-            const fullName = emp.full_name || `${emp.first_name || ''} ${emp.last_name || ''}`.trim() || 'Unknown';
+            // ✅ FIX: Use emp.name directly from the database
+            const fullName = emp.name || 'Unknown';
             const initials = fullName.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
             const color = avatarColors[(emp.id - 1) % avatarColors.length];
+            const employeeScore = emp.score || 85; // Use the score from DB or default to 85
 
             return `
                 <div class="employee-card" data-employee-id="${emp.id}" role="button" tabindex="0">
@@ -84,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span class="dept-badge">${emp.department || 'General'}</span>
                         <div class="score-badge">
                             <i class="fa-solid fa-star"></i>
-                            <span>85%</span> <!-- Default score placeholder -->
+                            <span>${employeeScore}%</span>
                         </div>
                     </div>
                 </div>
@@ -109,7 +111,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) throw new Error("Failed to fetch employee details");
             
             const emp = await response.json();
-            const fullName = emp.full_name || `${emp.first_name || ''} ${emp.last_name || ''}`.trim() || 'Unknown';
+            // ✅ FIX: Use emp.name
+            const fullName = emp.name || 'Unknown';
 
             if (!overlay || !modalBody || !modalTitle) return;
             
@@ -119,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p><strong>Position:</strong> ${emp.position || 'N/A'}</p>
                     <p><strong>Department:</strong> ${emp.department || 'N/A'}</p>
                     <p><strong>Salary:</strong> ${toRand(emp.salary || 0)}</p>
-                    <p><strong>Email:</strong> ${emp.email || 'N/A'}</p>
+                    <p><strong>Contact:</strong> ${emp.email || 'N/A'}</p>
                     <p><strong>History:</strong> ${emp.history || 'No history available.'}</p>
                 </div>
             `;
@@ -147,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!query || !window._allEmployees) return renderEmployeeGrid(window._allEmployees);
             
             const filtered = window._allEmployees.filter(emp => {
-                const fullName = emp.full_name || `${emp.first_name || ''} ${emp.last_name || ''}`;
+                const fullName = emp.name || '';
                 return fullName.toLowerCase().includes(query) || 
                        (emp.position || '').toLowerCase().includes(query) ||
                        (emp.department || '').toLowerCase().includes(query);
