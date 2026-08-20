@@ -103,48 +103,31 @@
             <section class="analytics-section">
 
                 <div class="analytics-card">
-                    <div class="chart-header">Headcount Growth Trend</div>
-                    <div class="trend-chart-container">
-                        <svg class="trend-svg" viewBox="0 0 500 200">
-                            <line class="grid-line" x1="40" y1="20" x2="480" y2="20" />
-                            <line class="grid-line" x1="40" y1="60" x2="480" y2="60" />
-                            <line class="grid-line" x1="40" y1="100" x2="480" y2="100" />
-                            <line class="grid-line" x1="40" y1="140" x2="480" y2="140" />
-                            <line class="grid-line" x1="40" y1="180" x2="480" y2="180" />
+                    <div class="chart-header">Attendance &amp; Performance</div>
+                    <div class="stat-overview">
 
-                            <text class="axis-text" x="15" y="24">160</text>
-                            <text class="axis-text" x="15" y="64">140</text>
-                            <text class="axis-text" x="15" y="104">120</text>
-                            <text class="axis-text" x="15" y="144">100</text>
-                            <text class="axis-text" x="15" y="184">80</text>
+                        <div class="stat-block">
+                            <div class="stat-block-label">Attendance Rate</div>
+                            <div class="stat-block-value" id="attendancePercentValue">--%</div>
+                            <div class="attendance-bar">
+                                <div class="attendance-bar-fill" id="attendanceBarFill" style="width: 0%;"></div>
+                            </div>
+                            <div class="attendance-bar-legend">
+                                <span><i class="bi bi-circle-fill legend-present"></i> Present
+                                    <strong id="presentPercentText">--%</strong></span>
+                                <span><i class="bi bi-circle-fill legend-absent"></i> Absent
+                                    <strong id="absentPercentText">--%</strong></span>
+                            </div>
+                        </div>
 
-                            <text class="axis-text text-center" x="60" y="196">Jan</text>
-                            <text class="axis-text text-center" x="144" y="196">Feb</text>
-                            <text class="axis-text text-center" x="228" y="196">Mar</text>
-                            <text class="axis-text text-center" x="312" y="196">Apr</text>
-                            <text class="axis-text text-center" x="396" y="196">May</text>
-                            <text class="axis-text text-center" x="460" y="196">Jun</text>
+                        <div class="stat-divider"></div>
 
-                            <path class="trend-line" d="M 60 160 L 144 135 L 228 110 L 312 115 L 396 70 L 460 45" />
+                        <div class="stat-block">
+                            <div class="stat-block-label">Average Review Rating</div>
+                            <div class="stat-block-value" id="avgRatingValue">--</div>
+                            <div class="rating-stars" id="avgRatingStars"></div>
+                        </div>
 
-                            <!-- Headcount labels -->
-                            <text class="point-value" x="60" y="148">90</text>
-                            <text class="point-value" x="144" y="123">105</text>
-                            <text class="point-value" x="228" y="98">118</text>
-                            <text class="point-value" x="312" y="103">115</text>
-                            <text class="point-value" x="396" y="58">138</text>
-                            <text class="point-value" x="460" y="33">148</text>
-
-                            <!-- Data points (The JS will replace these dynamically) -->
-                            <circle class="trend-dot" cx="60" cy="160" r="5" data-month="January" data-value="90" />
-                            <circle class="trend-dot" cx="144" cy="135" r="5" data-month="February" data-value="105" />
-                            <circle class="trend-dot" cx="228" cy="110" r="5" data-month="March" data-value="118" />
-                            <circle class="trend-dot" cx="312" cy="115" r="5" data-month="April" data-value="115" />
-                            <circle class="trend-dot" cx="396" cy="70" r="5" data-month="May" data-value="138" />
-                            <circle class="trend-dot" cx="460" cy="45" r="5" data-month="June" data-value="148" />
-                        </svg>
-                        <!-- FIX: tooltip now lives inside the positioned container it's measured against -->
-                        <div class="chart-tooltip"></div>
                     </div>
                 </div>
 

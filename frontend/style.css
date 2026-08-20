@@ -331,82 +331,97 @@ body {
     letter-spacing: -0.3px;
 }
 
-.trend-chart-container {
-    position: relative;
+/* Attendance Rate + Average Review Rating stat card */
+
+.stat-overview {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 24px;
+    padding: 12px 0 4px;
+    min-height: 168px;
+}
+
+.stat-block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+}
+
+.stat-block-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-block-value {
+    font-size: 42px;
+    font-weight: 800;
+    color: var(--text-main);
+    line-height: 1;
+}
+
+.stat-divider {
+    width: 1px;
+    align-self: stretch;
+    background: var(--border-color);
+}
+
+.attendance-bar {
     width: 100%;
+    max-width: 220px;
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(244, 63, 94, 0.18);
+    overflow: hidden;
 }
 
-.trend-svg {
-    width: 100%;
-    height: auto;
-    overflow: visible;
+.attendance-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #10b981, #34d399);
+    border-radius: 999px;
+    transition: width 0.6s ease;
 }
 
-.grid-line {
-    stroke: rgba(30, 41, 59, 0.6);
-    stroke-width: 1;
+.attendance-bar-legend {
+    display: flex;
+    gap: 16px;
+    font-size: 13px;
+    color: var(--text-muted);
+    align-items: center;
 }
 
-.axis-text {
-    font-size: 11px;
-    fill: #64748b;
-    font-weight: 500;
-}
-
-.text-center {
-    text-anchor: middle;
-}
-
-.trend-line {
-    fill: none;
-    stroke: #6366f1;
-    stroke-width: 3.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
-    animation: drawTrendLine 1.8s ease-out forwards;
-}
-
-.trend-dot {
-    fill: #131a2c;
-    stroke: #6366f1;
-    stroke-width: 3;
-    cursor: pointer;
-    transition: r 0.2s, stroke-width 0.2s, fill 0.2s;
-}
-
-.trend-dot:hover {
-    r: 7;
-    fill: #6366f1;
-    stroke: #fff;
-}
-
-.trend-dot.is-active {
-    r: 7;
-    fill: #6366f1;
-    stroke: #fff;
-}
-
-.point-value {
-    fill: #a5b4fc;
-    font-size: 9px;
+.attendance-bar-legend strong {
+    color: var(--text-main);
     font-weight: 700;
-    text-anchor: middle;
-   
+    margin-left: 2px;
 }
 
-@keyframes drawTrendLine {
-    to {
-        stroke-dashoffset: 0;
-    }
+.legend-present {
+    color: #10b981;
+    font-size: 8px;
+    margin-right: 4px;
 }
 
-.hover-guide {
-    stroke: #475569;
-    stroke-width: 1;
-    stroke-dasharray: 4 4;
-    opacity: 0;
+.legend-absent {
+    color: #f43f5e;
+    font-size: 8px;
+    margin-right: 4px;
+}
+
+.rating-stars {
+    font-size: 20px;
+    color: #f59e0b;
+    letter-spacing: 2px;
+}
+
+.rating-stars i.empty {
+    color: rgba(148, 163, 184, 0.3);
 }
 
 .donut-wrapper {
@@ -918,24 +933,6 @@ body {
     cursor: pointer;
 }
 
-.chart-tooltip {
-    position: absolute;
-    padding: 10px 14px;
-    background: #1e293b;
-    border: 1px solid #334155;
-    border-radius: 12px;
-    font-size: 20px;
-    color: #fff;
-    pointer-events: none;
-    opacity: 0;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-    z-index: 9999;
-}
-
-.chart-tooltip.visible {
-    opacity: 1;
-}
-
 @media (max-width: 992px) {
     .sidebar {
         flex-direction: column;
@@ -1001,6 +998,17 @@ body {
     .analytics-section {
         grid-template-columns: 1fr;
         gap: 16px;
+    }
+
+    .stat-overview {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .stat-divider {
+        width: 100%;
+        height: 1px;
+        align-self: auto;
     }
 
     .dept-list {
