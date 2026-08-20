@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error("[Payroll] Error fetching data:", error);
             if (payrollTableBody) {
-                payrollTableBody.innerHTML = `<tr><td colspan="7" style="padding: 2rem; text-align: center; color: #ef4444;">Failed to load payroll data. Is the backend running?</td></tr>`;
+                payrollTableBody.innerHTML = `<tr><td colspan="6" style="padding: 2rem; text-align: center; color: #ef4444;">Failed to load payroll data. Is the backend running?</td></tr>`;
             }
             showNotification('Failed to load payroll data.', 'error');
         }
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!payrollTableBody) return;
 
         if (!records || records.length === 0) {
-            payrollTableBody.innerHTML = `<tr><td colspan="7" style="padding: 2rem; text-align: center; color: #94a3b8;">No payroll records found.</td></tr>`;
+            payrollTableBody.innerHTML = `<tr><td colspan="6" style="padding: 2rem; text-align: center; color: #94a3b8;">No payroll records found.</td></tr>`;
             return;
         }
 
@@ -99,8 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td class="mono">${toRand(emp.gross || 0)}</td>
                 <td class="text-red mono">-${toRand(emp.tax || 0)}</td>
                 <td class="text-red mono">-${toRand(emp.uif || 0)}</td>
-                <td class="text-amber mono">-${toRand(emp.pension || 0)}</td>
-                <td class="text-teal mono font-bold">${toRand(emp.finalSalary || 0)}</td>
+                <td class="text-teal mono font-bold">${toRand(emp.calculatedNetPay || 0)}</td>
                 <td>
                     <button type="button" class="btn-table" data-payslip-id="${emp.employeeId}">
                         <i class="fa-regular fa-file-lines"></i> Payslip
@@ -141,20 +140,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const totals = records.reduce((acc, e) => {
-                acc.net += e.finalSalary || 0;
+                acc.net += e.calculatedNetPay || 0;
                 acc.tax += e.tax || 0;
                 acc.uif += e.uif || 0;
-                acc.pension += e.pension || 0;
                 return acc;
-            }, { net: 0, tax: 0, uif: 0, pension: 0 });
+            }, { net: 0, tax: 0, uif: 0 });
 
             window.breakdownChartInstance = new Chart(breakdownCtx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Net Pay', 'PAYE Tax', 'UIF', 'Pension'],
+                    labels: ['Net Pay', 'PAYE Tax', 'UIF'],
                     datasets: [{
-                        data: [totals.net, totals.tax, totals.uif, totals.pension],
-                        backgroundColor: ['#10B981', '#EF4444', '#F59E0B', '#3B82F6'],
+                        data: [totals.net, totals.tax, totals.uif],
+                        backgroundColor: ['#10B981', '#EF4444', '#F59E0B'],
                         borderColor: '#0f172a',
                         borderWidth: 2,
                         hoverOffset: 8,
@@ -189,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const top5 = [...records]
-                .sort((a, b) => (b.finalSalary || 0) - (a.finalSalary || 0))
+                .sort((a, b) => (b.calculatedNetPay || 0) - (a.calculatedNetPay || 0))
                 .slice(0, 5);
 
             window.topEarnersChartInstance = new Chart(topEarnersCtx, {
@@ -198,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     labels: top5.map(e => (e.employee_name || 'Employee').split(' ')[0]),
                     datasets: [{
                         label: 'Net Pay',
-                        data: top5.map(e => e.finalSalary || 0),
+                        data: top5.map(e => e.calculatedNetPay || 0),
                         backgroundColor: ['#6366f1', '#8b5cf6', '#06b6d4', '#10b981', '#f59e0b'],
                         borderRadius: 10,
                         borderSkipped: false,
@@ -269,9 +267,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     Gross Pay:  ${toRand(data.gross || 0)}
                     PAYE Tax:   ${toRand(data.tax || 0)}
                     UIF:        ${toRand(data.uif || 0)}
-                    Pension:    ${toRand(data.pension || 0)}
                     ----------------------------------------
-                    NET PAY:    ${toRand(data.finalSalary || 0)}
+                    NET PAY:    ${toRand(data.calculatedNetPay || 0)}
                     ----------------------------------------
                 </pre>
             </div>

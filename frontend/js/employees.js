@@ -12,10 +12,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterBtn = document.getElementById('filterBtn');
     const addBtn = document.getElementById('addEmployeeBtn');
 
-    // Modals
+    // Profile Modal
     const overlay = document.getElementById('employeeProfileOverlay');
     const modalBody = document.getElementById('empModalBody');
     const modalTitle = document.getElementById('empModalTitle');
+
+    // Add Employee Modal
+    const addOverlay = document.getElementById('addEmployeeOverlay');
+    const addForm = document.getElementById('addEmployeeForm');
+    const closeAddEmpBtn = document.getElementById('closeAddEmpBtn');
 
     // --- Helper: Get JWT Token ---
     function getAuthHeaders() {
@@ -159,8 +164,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 5. CLOSE MODAL EVENTS ---
-    const closeBtn = document.getElementById('closeEmployeeModalBtn');
+    // --- 5. CLOSE PROFILE MODAL EVENTS ---
+    const closeBtn = document.getElementById('closeEmpModalBtn');
     if (closeBtn) closeBtn.addEventListener('click', closeEmployeeProfile);
     if (overlay) {
         overlay.addEventListener('click', (e) => {
@@ -168,13 +173,76 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 6. ADD EMPLOYEE (Basic Setup) ---
+    // --- 6. ADD EMPLOYEE MODAL ---
+    function openAddEmployeeModal() {
+        if (!addOverlay) return;
+        if (addForm) addForm.reset();
+        addOverlay.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeAddEmployeeModal() {
+        if (addOverlay) {
+            addOverlay.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+    }
+
     if (addBtn) {
-        addBtn.addEventListener('click', () => {
-            showNotification("Add Employee feature coming soon!", "info");
+        addBtn.addEventListener('click', openAddEmployeeModal);
+    }
+
+    if (closeAddEmpBtn) {
+        closeAddEmpBtn.addEventListener('click', closeAddEmployeeModal);
+    }
+
+    if (addOverlay) {
+        addOverlay.addEventListener('click', (e) => {
+            if (e.target === addOverlay) closeAddEmployeeModal();
         });
     }
 
+    if (addForm) {
+        addForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const newEmployee = {
+                name: document.getElementById('newEmpName').value.trim(),
+                position: document.getElementById('newEmpPosition').value.trim(),
+                department: document.getElementById('newEmpDepartment').value.trim(),
+                salary: parseFloat(document.getElementById('newEmpSalary').value) || 0,
+                email: document.getElementById('newEmpEmail').value.trim(),
+                status: document.getElementById('newEmpStatus').value || 'Active'
+            };
+
+            if (!newEmployee.name || !newEmployee.position || !newEmployee.department || !newEmployee.email) {
+                showNotification('Please fill in all required fields.', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/api/employees`, {
+                    method: 'POST',
+                    headers: getAuthHeaders(),
+                    body: JSON.stringify(newEmployee)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Server returned ${response.status}`);
+                }
+
+                showNotification(`${newEmployee.name} added successfully.`, 'success');
+                closeAddEmployeeModal();
+                loadEmployees(); // Refresh the grid with the new employee included
+
+            } catch (error) {
+                console.error("[Employees] Error creating employee:", error);
+                showNotification('Failed to add employee.', 'error');
+            }
+        });
+    }
+    const cancelAddEmpBtn = document.getElementById('cancelAddEmpBtn');
+        if (cancelAddEmpBtn) cancelAddEmpBtn.addEventListener('click', closeAddEmployeeModal);
     // --- 7. INITIAL LOAD ---
     loadEmployees();
 });
