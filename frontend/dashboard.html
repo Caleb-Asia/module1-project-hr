@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModernTech HR Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+
+    <div class="page-wrapper">
+
+        <aside class="sidebar">
+            <div class="navbar-rail">
+                <ul class="nav-links nav-links-left">
+                    <li><a href="dashboard.html">
+                            <i class="bi bi-house"></i>
+                            <span>Dashboard</span></a></li>
+                    <li><a href="employees.html">
+                            <i class="bi bi-people"></i><span>Employees</span></a></li>
+                    <li><a href="payroll.html">
+                            <i class="bi bi-cash"></i><span>Payroll</span></a></li>
+                </ul>
+
+                <div class="logo">
+                    <div class="logo-icon">💼</div>
+                    <div class="logo-text">
+                        <h2>ModernTech</h2>
+                        <p>HR System</p>
+                    </div>
+                </div>
+
+                <ul class="nav-links nav-links-right">
+                    <li><a href="time-off.html">
+                            <i class="bi bi-calendar-event"></i><span>Time Off</span></a></li>
+                    <li class="active"><a href="attendance.html">
+                            <i class="bi bi-clock"></i><span>Attendance</span></a></li>
+                    <li><a href="reviews.html">
+                            <i class="bi bi-star"></i><span>Reviews</span></a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-bottom">
+                <button class="signout-btn" id="signOutBtn" type="button">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Sign Out</span>
+                </button>
+                <div class="profile">
+                    <div class="avatar">HR</div>
+                    <div class="profile-info">
+                        <h3>HR Department</h3>
+                        <p>Manage records</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="dashboard-container">
+
+            <div class="dashboard-header">
+                <h1>Welcome Back !</h1>
+                <p>Here's what's happening with your workforce today.</p>
+            </div>
+
+            <section class="summary-cards">
+                <div class="card">
+                    <div class="icon-wrapper icon-emp"><i class="bi bi-people-fill"></i></div>
+                    <div class="card-content">
+                        <span class="card-value" id="employeeCount">0</span>
+                        <span class="card-title">Total Employees</span>
+                        <span class="card-subtext">From employee records</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="icon-wrapper icon-leave"><i class="bi bi-calendar-check-fill"></i></div>
+                    <div class="card-content">
+                        <span class="card-value" id="leaveCount">0</span>
+                        <span class="card-title">Approved Leave</span>
+                        <span class="card-subtext">Current leave requests</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="icon-wrapper icon-payroll"><i class="bi bi-wallet2"></i></div>
+                    <div class="card-content">
+                        <span class="card-value" id="payrollValue">R0</span>
+                        <span class="card-title">Payroll Cycle</span>
+                        <span class="card-subtext">Updated from payroll data</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="icon-wrapper icon-req"><i class="bi bi-file-earmark-text-fill"></i></div>
+                    <div class="card-content">
+                        <span class="card-value" id="openRequestCount">0</span>
+                        <span class="card-title">Open Requests</span>
+                        <span class="card-subtext">Requires review</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="analytics-section">
+
+                <div class="analytics-card">
+                    <div class="chart-header">Attendance &amp; Performance</div>
+                    <div class="stat-overview">
+
+                        <div class="stat-block">
+                            <div class="stat-block-label">Attendance Rate</div>
+                            <div class="stat-block-value" id="attendancePercentValue">--%</div>
+                            <div class="attendance-bar">
+                                <div class="attendance-bar-fill" id="attendanceBarFill" style="width: 0%;"></div>
+                            </div>
+                            <div class="attendance-bar-legend">
+                                <span><i class="bi bi-circle-fill legend-present"></i> Present
+                                    <strong id="presentPercentText">--%</strong></span>
+                                <span><i class="bi bi-circle-fill legend-absent"></i> Absent
+                                    <strong id="absentPercentText">--%</strong></span>
+                            </div>
+                        </div>
+
+                        <div class="stat-divider"></div>
+
+                        <div class="stat-block">
+                            <div class="stat-block-label">Average Review Rating</div>
+                            <div class="stat-block-value" id="avgRatingValue">--</div>
+                            <div class="rating-stars" id="avgRatingStars"></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="analytics-card">
+                    <div class="chart-header">Department Allocation</div>
+                    <div class="donut-wrapper">
+                        <div class="donut-visual">
+                            <svg class="donut-svg" width="160" height="160" viewBox="0 0 42 42">
+                                <circle class="donut-ring" cx="21" cy="21" r="15.915" fill="transparent"
+                                    stroke-width="4"></circle>
+                                <circle class="donut-segment" data-dept="Engineering" data-percent="40%"
+                                    data-role="Core product and platform teams" cx="21" cy="21" r="15.915"
+                                    fill="transparent" stroke="#6366f1" stroke-width="4" stroke-dasharray="40 60"
+                                    stroke-dashoffset="0"></circle>
+                                <circle class="donut-segment" data-dept="Marketing" data-percent="25%"
+                                    data-role="Growth and brand campaigns" cx="21" cy="21" r="15.915" fill="transparent"
+                                    stroke="#10b981" stroke-width="4" stroke-dasharray="25 75" stroke-dashoffset="-40">
+                                </circle>
+                                <circle class="donut-segment" data-dept="Sales" data-percent="20%"
+                                    data-role="Revenue and client engagement" cx="21" cy="21" r="15.915"
+                                    fill="transparent" stroke="#f59e0b" stroke-width="4" stroke-dasharray="20 80"
+                                    stroke-dashoffset="-65"></circle>
+                                <circle class="donut-segment" data-dept="HR / Ops" data-percent="15%"
+                                    data-role="People operations and support" cx="21" cy="21" r="15.915"
+                                    fill="transparent" stroke="#f43f5e" stroke-width="4" stroke-dasharray="15 85"
+                                    stroke-dashoffset="-85"></circle>
+                            </svg>
+                            <div class="donut-info-card" id="donutInfoCard">
+                                <strong id="donutDeptName">Engineering</strong>
+                                <span id="donutDeptPercent">40%</span>
+                                <p id="donutDeptRole">Core product and platform teams</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dept-list">
+                        <div class="dept-item dept-engineering" data-dept="Engineering" data-percent="40%"
+                            data-role="Core product and platform teams">
+                            <div class="dept-name-wrapper"><span class="dept-color-dot"></span>Engineering</div>
+                            <span class="dept-count">40%</span>
+                        </div>
+                        <div class="dept-item dept-marketing" data-dept="Marketing" data-percent="25%"
+                            data-role="Growth and brand campaigns">
+                            <div class="dept-name-wrapper"><span class="dept-color-dot"></span>Marketing</div>
+                            <span class="dept-count">25%</span>
+                        </div>
+                        <div class="dept-item dept-sales" data-dept="Sales" data-percent="20%"
+                            data-role="Revenue and client engagement">
+                            <div class="dept-name-wrapper"><span class="dept-color-dot"></span>Sales</div>
+                            <span class="dept-count">20%</span>
+                        </div>
+                        <div class="dept-item dept-hr-ops" data-dept="HR / Ops" data-percent="15%"
+                            data-role="People operations and support">
+                            <div class="dept-name-wrapper"><span class="dept-color-dot"></span>HR / Ops</div>
+                            <span class="dept-count">15%</span>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <section class="requests-card">
+                <div class="requests-header">Recent Action History</div>
+                <div class="requests-list" id="recentActivityList"></div>
+            </section>
+
+        </main>
+
+    </div>
+<script type="module" src="js/nav.js"></script>
+<script type="module" src="js/main.js"></script>
+<script type="module" src="js/dashboard.js"></script>
+<script type="module" src="js/auth.js"></script>
+</body>
+
+</html>
