@@ -168,13 +168,13 @@ if (window.location.pathname.toLowerCase().includes('attendance')) {
             row.style.cssText = `background: ${bgColor}; border-bottom: 1px solid #1e293b;`;
 
             row.innerHTML = `
-                <td style="padding: 14px 16px; font-weight: 600; color: #f1f5f9; vertical-align: middle;">
+                <td data-label="Employee" style="padding: 14px 16px; font-weight: 600; color: #f1f5f9; vertical-align: middle;">
                     ${fullName}
                 </td>
-                <td style="padding: 14px 16px; vertical-align: middle;">
+                <td data-label="Attendance History" style="padding: 14px 16px; vertical-align: middle;">
                     ${historyHtml}
                 </td>
-                <td style="padding: 14px 16px; color: #94a3b8; vertical-align: middle; font-size: 0.9rem;">
+                <td data-label="Department" style="padding: 14px 16px; color: #94a3b8; vertical-align: middle; font-size: 0.9rem;">
                     ${employee.department}
                 </td>
             `;

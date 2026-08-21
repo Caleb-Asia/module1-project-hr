@@ -3439,3 +3439,70 @@ section[id$='-welcome'] p {
         justify-content: center !important;
     }
 }
+
+/* ============================================
+   MOBILE RESPONSIVE FIXES — attendance table
+   ============================================ */
+@media (max-width: 768px) {
+    .attendance-table thead {
+        display: none;
+    }
+
+    .attendance-table,
+    .attendance-table tbody,
+    .attendance-table tr,
+    .attendance-table td {
+        display: block !important;
+        width: 100% !important;
+    }
+
+    .attendance-table tr {
+        margin-bottom: 1rem;
+        border-radius: 1rem !important;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .attendance-table td {
+        text-align: left !important;
+        padding: 0.75rem 1rem !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    }
+
+    .attendance-table td:last-child {
+        border-bottom: none !important;
+    }
+
+    .attendance-table td::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #64748b;
+        margin-bottom: 6px;
+    }
+}
+
+@media (max-width: 768px) {
+    .filter-tabs {
+        width: 100% !important;
+        flex-wrap: wrap !important;
+    }
+
+    .tab-btn {
+        flex: 1 1 calc(50% - 6px);
+        text-align: center;
+    }
+
+    .card-main-layout {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 10px !important;
+    }
+
+    .card-main-layout .badge {
+        align-self: flex-start;
+    }
+}
