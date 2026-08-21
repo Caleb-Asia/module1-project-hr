@@ -3427,3 +3427,15 @@ section[id$='-welcome'] p {
 .dept-hr-ops .dept-color-dot {
   background-color: #f43f5e;
 }
+
+@media (max-width: 880px) {
+    .sidebar,
+    .navbar-rail {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+    .nav-links {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+    }
+}

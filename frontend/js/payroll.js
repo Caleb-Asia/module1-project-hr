@@ -47,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const records = await recordResponse.json();
 
-            // 🚨 FINAL FIX: Force the exact URL and add a cache-buster
             const summaryResponse = await fetch(`${API_BASE}/api/payroll/summary?_t=${Date.now()}`, {
                 headers: getAuthHeaders()
             });
@@ -254,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         title.textContent = `${data.employee_name || 'Employee'} - Payslip`;
-        
+
         content.innerHTML = `
             <div class="atm-slip-preview">
                 <pre style="font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.3; margin: 0; white-space: pre;">
@@ -291,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         }
         if (downloadBtn) {
-            downloadBtn.onclick = () => showNotification("Payslip downloaded (simulated)", "success");
+            downloadBtn.onclick = () => generatePayslipPDF(activePayslipData);
         }
         if (emailBtn) {
             emailBtn.onclick = () => showNotification("Payslip emailed to employee (simulated)", "success");
@@ -306,6 +305,64 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = '';
         }
         activePayslipData = null;
+    }
+
+    // --- 5B. GENERATE REAL PDF (jsPDF, loaded in payroll.html) ---
+    function generatePayslipPDF(data) {
+        if (!data) {
+            showNotification("No payslip data to download", "error");
+            return;
+        }
+
+        if (typeof window.jspdf === 'undefined') {
+            console.error("[Payslip] jsPDF not loaded");
+            showNotification("PDF library not loaded. Check your internet connection.", "error");
+            return;
+        }
+
+        try {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const period = new Date().toLocaleDateString('en-ZA', { month: 'long', year: 'numeric' });
+            const name = data.employee_name || 'Unknown';
+            const dept = data.department || 'General';
+            const gross = toRand(data.gross || 0);
+            const tax = toRand(data.tax || 0);
+            const uif = toRand(data.uif || 0);
+            const net = toRand(data.calculatedNetPay || 0);
+
+            doc.setFont('courier', 'normal');
+
+            doc.setFontSize(14);
+            doc.text('MODERNTECH HR', 20, 20);
+
+            doc.setFontSize(11);
+            doc.text(`PAYSLIP - ${period}`, 20, 28);
+            doc.text('----------------------------------------', 20, 34);
+
+            doc.text(`Employee:   ${name}`, 20, 42);
+            doc.text(`Dept:       ${dept}`, 20, 50);
+            doc.text('----------------------------------------', 20, 56);
+
+            doc.text(`Gross Pay:  ${gross}`, 20, 64);
+            doc.text(`PAYE Tax:   ${tax}`, 20, 72);
+            doc.text(`UIF:        ${uif}`, 20, 80);
+            doc.text('----------------------------------------', 20, 86);
+
+            doc.setFontSize(12);
+            doc.text(`NET PAY:    ${net}`, 20, 94);
+            doc.setFontSize(11);
+            doc.text('----------------------------------------', 20, 100);
+
+            const safeName = name.replace(/\s+/g, '_');
+            doc.save(`Payslip_${safeName}_${period.replace(' ', '_')}.pdf`);
+
+            showNotification('Payslip downloaded', 'success');
+        } catch (err) {
+            console.error('[Payslip] PDF generation failed:', err);
+            showNotification('Failed to generate PDF', 'error');
+        }
     }
 
     // --- 6. EVENT LISTENERS ---
