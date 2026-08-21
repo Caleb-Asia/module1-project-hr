@@ -2,7 +2,7 @@
 // main.js - SHARED UTILITIES
 // ============================================
 
-export const API_BASE = 'http://127.0.0.1:3000'; 
+export const API_BASE = 'https://module2-project-hr-1.onrender.com/'; 
 
 // Shared Color Palette
 export const COLORS = {
