@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const records = await recordResponse.json();
 
             // 🚨 FINAL FIX: Force the exact URL and add a cache-buster
-            const summaryResponse = await fetch(`http://127.0.0.1:3000/api/payroll/summary?_t=${Date.now()}`, {
+            const summaryResponse = await fetch(`${API_BASE}/api/payroll/summary?_t=${Date.now()}`, {
                 headers: getAuthHeaders()
             });
 
