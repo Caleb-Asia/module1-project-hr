@@ -2,7 +2,7 @@
 // main.js - SHARED UTILITIES
 // ============================================
 
-export const API_BASE = 'https://module2-project-hr-1.onrender.com/'; 
+export const API_BASE = 'https://module2project-hr-production.up.railway.app'; 
 
 // Shared Color Palette
 export const COLORS = {
